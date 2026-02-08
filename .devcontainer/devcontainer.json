@@ -1,0 +1,34 @@
+{
+	"name": "Angular 21 Enterprise Lab",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "explicit"
+				},
+				"angular.enable-strict-mode-prompt": false
+			},
+			"extensions": [
+				"Angular.ng-template", // Angular Language Service (Vital)
+				"dbaeumer.vscode-eslint", // Linting
+				"esbenp.prettier-vscode", // Formatting
+				"ms-playwright.playwright", // E2E Testing moderno
+				"editorconfig.editorconfig", // Consistencia entre archivos
+				"GitHub.copilot", // GitHub Copilot (editor)
+				"GitHub.copilot-labs" // Copilot Labs (opcional)
+			]
+		}
+	},
+	"remoteUser": "node",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {} // Instala GH CLI oficialmente
+	},
+	"forwardPorts": [4200, 9876], // 4200 (App), 9876 (Karma/Test)
+	"postCreateCommand": "pnpm install && ng version || true && (gh extension install github/copilot-cli || true) && echo 'Comprueba: copilot --version, opencode --version, codex-cli --version'"
+}
