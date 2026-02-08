@@ -18,17 +18,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # 3. STARSHIP PROMPT
-# Se inyecta en bash y zsh para asegurar visibilidad inmediata
 RUN curl -sS https://starship.rs/install.sh | sh -s -- -y \
     && echo 'eval "$(starship init bash)"' >> /home/node/.bashrc \
     && echo 'eval "$(starship init zsh)"' >> /home/node/.zshrc
 
 # 4. HERRAMIENTAS NPM GLOBALES (Angular 21 & AI Stack)
-# Forzamos la instalación. Si opencode-ai requiere permisos especiales, asegúrate de tener .npmrc configurado después.
-RUN npm install -g @angular/cli@21 @lhci/cli artillery vercel opencode-ai
+RUN npm install -g @angular/cli@21 @lhci/cli artillery vercel opencode-ai @openai/codex @google/gemini-cli @github/copilot
 
-# 5. K6 (FIX: Método robusto para Debian moderno)
-# El error anterior "Failed to parse keyring" se soluciona descargando y des-armando la llave manualmente.
+# 5. K6
 RUN curl -fsSL https://dl.k6.io/key.gpg | gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | tee /etc/apt/sources.list.d/k6.list \
     && apt-get update && apt-get install -y k6
