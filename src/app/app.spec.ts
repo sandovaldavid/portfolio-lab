@@ -1,20 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { render } from '@testing-library/angular';
 import { provideRouter } from '@angular/router';
 import { provideLocationMocks } from '@angular/common/testing';
 
 import { App } from './app';
 
 describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [provideRouter([]), provideLocationMocks()],
-    }).compileComponents();
-  });
+	it('should render the app', async () => {
+		const { container } = await render(App, {
+			providers: [provideRouter([]), provideLocationMocks()],
+		});
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+		expect(container.querySelector('router-outlet')).toBeTruthy();
+	});
 });
