@@ -1,0 +1,19 @@
+# [gitmoji] [type]([scope]): [imperative description]
+#
+# Remember the DevSandoval V4.0 commit protocol:
+# - Gitmoji: Visual representation (e.g., ✨ :sparkles:)
+# - Type: feat, fix, docs, style, refactor, perf, test, ci, config, arch, lint, chore
+# - Scope: Module affected (lowercase, e.g., api, auth, signals, lstm)
+# - Description: Imperative mood, lowercase start, max 50 chars, no period
+#
+# Examples:
+# ✨ feat(api): add LSTM prediction endpoint
+# 🐛 fix(signals): prevent memory leak on destroy
+# 📝 docs(readme): update installation instructions
+# ♻️ refactor(auth): simplify JWT validation logic
+#
+# Body (optional): Explain WHY, not WHAT
+# Use this section for complex changes to provide context.
+#
+# Physical intuition or reasoning behind the change can go here.
+# References to papers, discussions, or architectural decisions.
