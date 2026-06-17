@@ -24,6 +24,9 @@ export default defineConfig(({ mode }) => ({
     analog({
       content: {
         highlighter: 'prism',
+        prismOptions: {
+          additionalLangs: ['csharp'],
+        },
       },
       prerender: {
         routes: [
