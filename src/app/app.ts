@@ -50,7 +50,7 @@ export class App {
 
 	/** Height in px to offset from top when scrolling to anchors — keeps
 	 *  section titles fully visible below the fixed navbar. */
-	private static readonly SCROLL_OFFSET = 96; // ~6rem, matches navbar height
+	private static readonly SCROLL_OFFSET = 120; // 120px offset below fixed navbar
 
 	constructor() {
 		if (isPlatformBrowser(this.platformId)) {

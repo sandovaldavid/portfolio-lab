@@ -119,7 +119,7 @@ html.mode-research {
 	/* Base rem size — JS overrides inline for font-scale persistence */
 	html {
 		font-size: 15px;
-		scroll-padding-top: 9rem;
+		scroll-padding-top: 7.5rem; /* 120px — matches JS SCROLL_OFFSET in app.ts */
 	}
 
 	@media (prefers-reduced-motion: no-preference) {
@@ -129,7 +129,7 @@ html.mode-research {
 	}
 
 	section[id] {
-		scroll-margin-top: 9rem;
+		scroll-margin-top: 7.5rem; /* 120px — matches JS SCROLL_OFFSET in app.ts */
 	}
 
 	body {
