@@ -104,7 +104,16 @@ html.mode-research {
   }
 
   section[id] {
-    scroll-margin-top: 6rem;
+    position: relative;
+  }
+
+  section[id]::before {
+    content: "";
+    display: block;
+    height: 7rem;
+    margin-top: -7rem;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   body {
