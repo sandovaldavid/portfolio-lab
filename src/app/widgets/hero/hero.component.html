@@ -17,7 +17,7 @@
   <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 py-16 flex flex-col items-center text-center">
 
     <!-- Available badge -->
-    <div class="inline-flex items-center gap-2 mb-10 px-4 py-2 surface-card cursor-default hero-item stagger-0">
+    <div class="inline-flex items-center gap-2 mb-10 px-4 py-2 surface-card cursor-default hero-item stagger-0 hero-status-badge">
       <span
         class="w-2.5 h-2.5 inline-block rounded-full bg-[--color-success] animate-[cursor-blink_1.5s_step-end_infinite] shrink-0"
         aria-hidden="true"
@@ -39,7 +39,7 @@
         [attr.aria-label]="displayedText()"
       >
         {{ displayedText() }}<span
-          class="text-[--color-primary] animate-[cursor-blink_0.8s_step-end_infinite]"
+          class="typewriter-cursor text-[--color-primary] animate-[cursor-blink_0.8s_step-end_infinite]"
           aria-hidden="true"
         >▌</span>
       </h1>
@@ -81,15 +81,8 @@
       </a>
     </div>
 
-    <!-- Tech stack row -->
-    <div class="flex flex-wrap justify-center items-center gap-2.5 mb-16 hero-item stagger-4" aria-label="Tech stack">
-      @for (tech of techStack; track tech.name) {
-        <app-tech-pill [label]="tech.name" [iconPath]="tech.iconPath" />
-      }
-    </div>
-
     <!-- Scroll hint -->
-    <div class="flex flex-col items-center gap-2 hero-item stagger-5" aria-hidden="true">
+    <div class="flex flex-col items-center gap-2 hero-item stagger-4 mt-12" aria-hidden="true">
       <span class="font-pixel text-xs text-[--color-muted] opacity-60 tracking-widest">scroll</span>
       <svg
         width="22" height="22"
