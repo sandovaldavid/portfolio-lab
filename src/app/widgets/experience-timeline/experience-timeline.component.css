@@ -1,0 +1,13 @@
+/* Tab panel enter animation — fired every time @if recreates the node */
+.tab-panel {
+  animation: tab-panel-enter 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tab-panel-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel { animation: none; }
+}

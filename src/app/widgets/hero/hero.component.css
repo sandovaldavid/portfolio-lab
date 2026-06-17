@@ -1,0 +1,21 @@
+/* Hero stagger entrance — each .hero-item fades+slides up with an increasing delay */
+.hero-item {
+  opacity: 0;
+  animation: hero-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-0 { animation-delay: 0.05s; }
+.stagger-1 { animation-delay: 0.15s; }
+.stagger-2 { animation-delay: 0.25s; }
+.stagger-3 { animation-delay: 0.38s; }
+.stagger-4 { animation-delay: 0.5s; }
+.stagger-5 { animation-delay: 0.62s; }
+
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-item { opacity: 1; animation: none; }
+}

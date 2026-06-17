@@ -1,17 +1,45 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ModeStateService } from '@shared/lib/mode/mode-state.service';
+import { FontScaleService } from '@shared/lib/font-scale/font-scale';
+import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboard-shortcuts';
+import { NavbarComponent } from '@widgets/navbar/navbar.component';
+import { FooterComponent } from '@widgets/footer/footer.component';
+import { UtilityPanel } from '@features/utility-panel/utility-panel';
 
 @Component({
-	selector: 'app-root',
-	imports: [RouterOutlet],
-	template: `<router-outlet />`,
-	styles: `
-		:host {
-			max-width: 1280px;
-			margin: 0 auto;
-			padding: 2rem;
-			text-align: center;
-		}
-	`,
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanel],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <app-navbar />
+    <main class="pt-16">
+      <router-outlet />
+    </main>
+    <app-footer />
+    <app-utility-panel />
+  `,
+  styles: [
+    `
+      :host {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+      }
+    `,
+  ],
 })
-export class App {}
+export class App implements OnInit {
+  private readonly modeService = inject(ModeStateService);
+  private readonly fontScale = inject(FontScaleService);
+  private readonly kbd = inject(KeyboardShortcutsService);
+
+  ngOnInit(): void {
+    this.modeService.apply();
+    this.fontScale.apply();
+    this.kbd.register();
+  }
+}

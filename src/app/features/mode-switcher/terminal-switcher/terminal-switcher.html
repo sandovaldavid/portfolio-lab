@@ -1,0 +1,43 @@
+<div class="switcher-group" role="group" aria-label="Portfolio mode and language selector">
+  <!-- Mode switcher -->
+  <button
+    class="switcher-btn"
+    [class.active]="mode.isArchitect()"
+    (click)="switchMode('SYSTEM_ARCHITECT')"
+    [attr.aria-pressed]="mode.isArchitect()"
+    title="System Architect mode — Software engineering focus"
+  >
+    [SYS]
+  </button>
+  <button
+    class="switcher-btn"
+    [class.active]="mode.isAcademic()"
+    (click)="switchMode('RESEARCH_FELLOW')"
+    [attr.aria-pressed]="mode.isAcademic()"
+    title="Research Fellow mode — Academic / PhD focus"
+  >
+    [PHD]
+  </button>
+
+  <span class="divider" aria-hidden="true">|</span>
+
+  <!-- Language switcher -->
+  <button
+    class="switcher-btn"
+    [class.active]="i18n.lang() === 'en'"
+    (click)="i18n.setLang('en')"
+    [attr.aria-pressed]="i18n.lang() === 'en'"
+    aria-label="Switch to English"
+  >
+    EN
+  </button>
+  <button
+    class="switcher-btn"
+    [class.active]="i18n.lang() === 'es'"
+    (click)="i18n.setLang('es')"
+    [attr.aria-pressed]="i18n.lang() === 'es'"
+    aria-label="Cambiar a Español"
+  >
+    ES
+  </button>
+</div>

@@ -1,0 +1,182 @@
+header {
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+header.scrolled-header {
+  background: var(--nav-bg);
+  border-color: var(--color-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Brand ─────────────────────────────────────────── */
+
+.brand-logo {
+  font-family: var(--font-code);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.brand-logo:hover { opacity: 0.7; }
+
+.brand-prompt {
+  color: var(--color-muted);
+  font-size: 1em;
+  user-select: none;
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+  color: var(--color-primary);
+}
+
+/* ── Desktop nav links ──────────────────────────────── */
+
+.nav-link {
+  font-family: var(--font-code);
+  font-size: 1rem;
+  color: var(--color-muted);
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+/* Underline slide-in indicator */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover { color: var(--color-text); }
+
+.nav-link-active {
+  color: var(--color-primary) !important;
+}
+
+.nav-link-active::after {
+  transform: scaleX(1);
+}
+
+/* ── Resume button ──────────────────────────────────── */
+
+.resume-link {
+  font-family: var(--font-code);
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.resume-link:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Hamburger ──────────────────────────────────────── */
+
+.hamburger-btn {
+  color: var(--color-primary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  padding: 7px 9px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.hamburger-btn:hover { border-color: var(--color-primary); }
+
+/* ── Mobile menu ────────────────────────────────────── */
+
+.mobile-menu {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  animation: menu-slide-down 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes menu-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu { animation: none; }
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  font-family: var(--font-code);
+  font-size: 1.0625rem;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.15s, background 0.15s;
+}
+
+.mobile-nav-link:hover {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+}
+
+.nav-prompt {
+  color: var(--color-muted);
+  font-family: var(--font-code);
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+/* ── Mobile footer ──────────────────────────────────── */
+
+.mobile-menu-footer {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resume-link-mobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-code);
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  transition: color 0.15s;
+}
+
+.resume-link-mobile:hover { color: var(--color-primary); }
+
+.mobile-menu-hint {
+  font-family: var(--font-code);
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  opacity: 0.6;
+}
+
+.mobile-menu-hint kbd {
+  font-family: var(--font-code);
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}

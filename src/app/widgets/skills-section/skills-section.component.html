@@ -1,0 +1,37 @@
+@if (compact()) {
+  <!-- Compact carousel for home page -->
+  <div class="overflow-hidden py-4 relative">
+    <!-- Fade edges -->
+    <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[--color-bg] to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[--color-bg] to-transparent z-10 pointer-events-none"></div>
+    <div
+      class="flex gap-3 w-max animate-[scroll-infinite_35s_linear_infinite] hover:[animation-play-state:paused]"
+      aria-label="Technology skills carousel"
+      role="marquee"
+    >
+      @for (tech of carouselTechs(); track tech.name + $index) {
+        <app-tech-pill [label]="tech.name" [iconPath]="tech.iconPath" />
+      }
+    </div>
+  </div>
+} @else {
+  <!-- Full categorized view for /skills page -->
+  <div class="space-y-10">
+    @for (group of techCategories; track group.label; let i = $index) {
+      <div
+        appScrollObserver
+        [class.stagger-1]="i === 0"
+        [class.stagger-2]="i === 1"
+        [class.stagger-3]="i === 2"
+        [class.stagger-4]="i === 3"
+      >
+        <p class="font-pixel text-sm text-[--color-accent] mb-5">// {{ group.label }}</p>
+        <div class="flex flex-wrap gap-2">
+          @for (tech of group.techs; track tech.name) {
+            <app-tech-pill [label]="tech.name" [iconPath]="tech.iconPath" />
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

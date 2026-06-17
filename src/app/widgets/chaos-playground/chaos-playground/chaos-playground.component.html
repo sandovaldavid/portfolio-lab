@@ -1,0 +1,163 @@
+<section class="chaos-playground">
+  <!-- Header bar -->
+  <div class="playground-header">
+    <div class="header-left">
+      <span class="header-prompt">$</span>
+      <span class="header-path">atena://architecture/chaos-sim</span>
+    </div>
+    <div class="status-indicator" [class]="systemState()">
+      <span class="status-dot"></span>
+      <span class="status-text">{{ statusLabel() }}</span>
+    </div>
+  </div>
+
+  <!-- SVG architecture diagram -->
+  <div class="diagram-wrapper">
+    <svg
+      viewBox="0 0 800 460"
+      class="arch-svg"
+      aria-label="Atena system architecture diagram"
+      role="img"
+    >
+      <!-- Grid lines -->
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--color-border)" stroke-width="0.5" opacity="0.4"/>
+        </pattern>
+        <!-- Arrow markers -->
+        <marker id="arrow-normal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--color-border-light, #334155)"/>
+        </marker>
+        <marker id="arrow-primary" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--color-primary)"/>
+        </marker>
+        <marker id="arrow-danger" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--color-danger, #ef4444)"/>
+        </marker>
+        <marker id="arrow-secondary" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="var(--color-secondary)"/>
+        </marker>
+      </defs>
+
+      <rect width="800" height="460" fill="url(#grid)"/>
+
+      <!-- Edges -->
+      @for (edge of edges; track edge.id) {
+        @if (edgeClass(edge) !== 'edge-hidden') {
+          <line
+            [attr.x1]="getEdgeX1(edge)"
+            [attr.y1]="getEdgeY1(edge)"
+            [attr.x2]="getEdgeX2(edge)"
+            [attr.y2]="getEdgeY2(edge)"
+            [class]="'svg-edge ' + edgeClass(edge)"
+            [attr.marker-end]="getEdgeMarker(edge)"
+          />
+        }
+      }
+
+      <!-- Nodes -->
+      @for (node of nodes; track node.id) {
+        <g
+          [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+          class="node-group"
+          (mouseenter)="hoveredNode.set(node.id)"
+          (mouseleave)="hoveredNode.set(null)"
+          (focus)="hoveredNode.set(node.id)"
+          (blur)="hoveredNode.set(null)"
+          tabindex="0"
+          [attr.aria-label]="node.label + ': ' + node.desc"
+          role="button"
+        >
+          <!-- Node box -->
+          <rect
+            x="-50" y="-30" width="100" height="60"
+            rx="2"
+            [class]="'svg-node ' + nodeClass(node)"
+          />
+          <!-- Node label -->
+          @for (line of node.label.split('\n'); track line; let i = $index) {
+            <text
+              [attr.y]="node.label.includes('\n') ? (i === 0 ? -8 : 10) : 5"
+              text-anchor="middle"
+              class="node-text"
+            >{{ line }}</text>
+          }
+          <!-- Fault indicator for db in degraded state -->
+          @if (node.id === 'db' && !isHealthy()) {
+            <text x="40" y="-22" class="fault-icon">!</text>
+          }
+        </g>
+      }
+
+      <!-- Circuit breaker label -->
+      @if (isCircuitOpen()) {
+        <text x="480" y="238" text-anchor="middle" class="cb-label">
+          [CIRCUIT OPEN]
+        </text>
+      }
+    </svg>
+  </div>
+
+  <!-- Controls + tooltip row -->
+  <div class="controls-row">
+    <!-- Inject / Reset buttons -->
+    <div class="btn-group">
+      <button
+        class="inject-btn"
+        [class.injecting]="injecting()"
+        [disabled]="!isHealthy()"
+        (click)="injectFault()"
+        aria-label="Inject a database fault into the system"
+      >
+        @if (injecting()) {
+          <span class="btn-spinner"></span> INJECTING...
+        } @else {
+          [INJECT_FAULT]
+        }
+      </button>
+      @if (!isHealthy()) {
+        <button
+          class="reset-btn"
+          (click)="reset()"
+          aria-label="Reset system to healthy state"
+        >
+          [RESET]
+        </button>
+      }
+    </div>
+
+    <!-- Node tooltip -->
+    @if (activeNode(); as node) {
+      <div class="node-tooltip" role="status">
+        <div class="tooltip-title">{{ node.label.replace('\n', ' ') }}</div>
+        <div class="tooltip-desc">{{ node.desc }}</div>
+        <div class="tooltip-tech">{{ node.tech }}</div>
+      </div>
+    } @else {
+      <div class="tooltip-hint">
+        Hover a node for implementation details
+      </div>
+    }
+  </div>
+
+  <!-- State narrative -->
+  @if (!isHealthy()) {
+    <div class="state-narrative" [class]="systemState()">
+      @if (isDegraded()) {
+        <p>
+          <span class="narrative-label">[FAULT INJECTED]</span>
+          SQL Server node is unresponsive. .NET 8 Polly policy begins retry sequence
+          with exponential backoff (max 3 attempts, 500ms → 1s → 2s).
+        </p>
+      }
+      @if (isCircuitOpen()) {
+        <p>
+          <span class="narrative-label">[CIRCUIT BREAKER OPEN]</span>
+          After 3 failed retries, Polly's CircuitBreakerPolicy opens. All DB requests
+          fail-fast for 30s. Redis cache serves read requests. Failed writes routed to
+          Azure Service Bus Dead Letter Queue for later replay.
+        </p>
+      }
+    </div>
+  }
+</section>

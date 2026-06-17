@@ -1,0 +1,6 @@
+<div class="relative" [class]="cardClasses()">
+  @if (scanlines()) {
+    <div class="absolute inset-0 pointer-events-none scanlines rounded-none" aria-hidden="true"></div>
+  }
+  <ng-content />
+</div>
