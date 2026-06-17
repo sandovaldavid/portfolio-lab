@@ -1,4 +1,4 @@
-import { DOCUMENT, ViewportScroller, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -44,44 +44,39 @@ export class App {
 	private readonly fontScale = inject(FontScaleService);
 	private readonly kbd = inject(KeyboardShortcutsService);
 	private readonly router = inject(Router);
-	private readonly viewportScroller = inject(ViewportScroller);
 	private readonly platformId = inject(PLATFORM_ID);
 	private readonly document = inject(DOCUMENT);
 
-	/** Height in px to offset from top when scrolling to anchors — keeps
-	 *  section titles fully visible below the fixed navbar. */
-	private static readonly SCROLL_OFFSET = 120; // 120px offset below fixed navbar
+	/**
+	 * Pixels to leave between the top of the viewport and the section title
+	 * after scrolling — must be ≥ navbar height to keep titles visible.
+	 */
+	private static readonly SCROLL_OFFSET = 120;
 
 	constructor() {
 		if (isPlatformBrowser(this.platformId)) {
-			// Tell Angular's ViewportScroller to always leave room for the fixed header
-			this.viewportScroller.setOffset([0, App.SCROLL_OFFSET]);
-
-			// Handle fragment scrolling ourselves so we can apply the SCROLL_OFFSET.
-			// anchorScrolling: 'enabled' is intentionally disabled in app.config.ts
-			// to avoid a race condition that causes a jump on repeated clicks.
+			// Single owner of all fragment scrolling.
+			// Angular's anchorScrolling and scrollPositionRestoration are both disabled
+			// in app.config.ts to prevent race conditions with this handler.
 			this.router.events
 				.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
 				.subscribe((event) => {
 					const fragment = this.router.parseUrl(event.urlAfterRedirects).fragment;
+
 					if (fragment) {
-						// Defer to next tick so Angular has time to render the target section
+						// Defer one tick so Angular finishes rendering before we measure
 						setTimeout(() => {
 							const el = this.document.getElementById(fragment);
-							if (el) {
-								const distanceFromTarget =
-									el.getBoundingClientRect().top - App.SCROLL_OFFSET;
-								// Skip if the element is already within 20px of the desired position
-								// to prevent the upward jump when clicking the same nav link twice
-								if (Math.abs(distanceFromTarget) > 20) {
-									const top =
-										el.getBoundingClientRect().top +
-										window.scrollY -
-										App.SCROLL_OFFSET;
-									window.scrollTo({ top, behavior: 'smooth' });
-								}
-							}
+							if (!el) return;
+
+							const targetY =
+								el.getBoundingClientRect().top + window.scrollY - App.SCROLL_OFFSET;
+
+							window.scrollTo({ top: targetY, behavior: 'smooth' });
 						}, 50);
+					} else {
+						// No fragment → scroll to top (replaces scrollPositionRestoration)
+						window.scrollTo({ top: 0, behavior: 'auto' });
 					}
 				});
 
