@@ -10,6 +10,7 @@ import { resolve } from 'path';
 export default defineConfig(({ mode }) => ({
   build: {
     target: ['es2020'],
+    chunkSizeWarningLimit: 600,
   },
   resolve: {
     mainFields: ['module'],
