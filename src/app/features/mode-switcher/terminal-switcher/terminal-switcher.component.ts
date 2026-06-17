@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
-import { I18nService } from '@shared/lib/i18n/i18n.service';
 
 @Component({
   selector: 'app-terminal-switcher',
@@ -49,7 +48,6 @@ import { I18nService } from '@shared/lib/i18n/i18n.service';
 })
 export class TerminalSwitcherComponent {
   readonly mode = inject(ModeStateService);
-  readonly i18n = inject(I18nService);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   switchMode(target: 'SYSTEM_ARCHITECT' | 'RESEARCH_FELLOW'): void {

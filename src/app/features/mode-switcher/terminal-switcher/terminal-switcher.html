@@ -19,25 +19,4 @@
     [PHD]
   </button>
 
-  <span class="divider" aria-hidden="true">|</span>
-
-  <!-- Language switcher -->
-  <button
-    class="switcher-btn"
-    [class.active]="i18n.lang() === 'en'"
-    (click)="i18n.setLang('en')"
-    [attr.aria-pressed]="i18n.lang() === 'en'"
-    aria-label="Switch to English"
-  >
-    EN
-  </button>
-  <button
-    class="switcher-btn"
-    [class.active]="i18n.lang() === 'es'"
-    (click)="i18n.setLang('es')"
-    [attr.aria-pressed]="i18n.lang() === 'es'"
-    aria-label="Cambiar a Español"
-  >
-    ES
-  </button>
 </div>
