@@ -29,20 +29,22 @@
 
     <!-- Name + Typewriter block -->
     <div class="mb-4 hero-item stagger-1">
-      <p class="font-pixel text-base md:text-lg text-[--color-muted] mb-3 tracking-widest uppercase">
+      <p class="font-pixel text-sm md:text-base text-[--color-muted] mb-2 tracking-widest uppercase">
         {{ i18n.t()('hero.intro') }}
       </p>
 
-      <h1
-        class="font-pixel text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[--color-text] leading-[1.05] tracking-tight"
-        aria-live="polite"
-        [attr.aria-label]="displayedText()"
-      >
-        {{ displayedText() }}<span
+      <h1 class="font-pixel text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[--color-text] leading-[1.05] tracking-tight mb-4">
+        {{ i18n.t()('hero.name') }}
+      </h1>
+
+      <div class="font-pixel text-lg sm:text-xl md:text-2xl text-[--color-primary] leading-none mb-3 h-8 flex justify-center items-center">
+        <span class="text-[--color-muted] mr-2" aria-hidden="true">&gt;</span>
+        <span>{{ displayedText() }}</span>
+        <span
           class="typewriter-cursor text-[--color-primary] animate-[cursor-blink_0.8s_step-end_infinite]"
           aria-hidden="true"
         >▌</span>
-      </h1>
+      </div>
     </div>
 
     <!-- Role & company -->

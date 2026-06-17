@@ -12,6 +12,8 @@ import { ScrollObserverDirective } from '@shared/lib/animation/scroll-observer.d
 import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground/chaos-playground.component';
 import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger/star-ledger.component';
 import { LstmPlaygroundComponent } from '@widgets/lstm-playground/lstm-playground.component';
+import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
+import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
 import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis-pitch.component';
 
 @Component({
@@ -29,32 +31,49 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
     StarLedgerComponent,
     LstmPlaygroundComponent,
     MextThesisPitchComponent,
+    AboutSectionComponent,
+    ExperienceTimelineComponent,
   ],
   template: `
     <!-- Hero -->
     <app-hero />
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-24 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-28 py-20">
       
+      <!-- About Section -->
+      <section id="about" aria-labelledby="about-heading" appScrollObserver>
+        <app-section-title id="about-heading">
+          {{ i18n.t()('title.about-me') }}
+        </app-section-title>
+        <app-about-section [compact]="true" />
+        <div class="mt-8 text-center">
+          <a
+            routerLink="/about"
+            class="inline-flex items-center gap-2 font-pixel text-xs px-6 py-3.5 border border-[--color-primary] text-[--color-primary] hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:translate-y-[1px]"
+          >
+            {{ i18n.t()('home.about.view-full') }} &gt;
+          </a>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <section id="experience" aria-labelledby="experience-heading" appScrollObserver>
+        <app-section-title id="experience-heading">
+          {{ i18n.t()('title.experience') }}
+        </app-section-title>
+        <app-experience-timeline />
+        <div class="mt-8 text-center">
+          <a
+            routerLink="/experience"
+            class="inline-flex items-center gap-2 font-pixel text-xs px-6 py-3.5 border border-[--color-primary] text-[--color-primary] hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:translate-y-[1px]"
+          >
+            {{ i18n.t()('home.experience.view-full') }} &gt;
+          </a>
+        </div>
+      </section>
+
+      <!-- Mode-Specific Interactive Sections -->
       @if (state.isArchitect()) {
-        <!-- SYSTEM ARCHITECT MODE VIEW -->
-        
-        <!-- Featured Projects -->
-        <section id="projects" aria-labelledby="projects-heading" appScrollObserver>
-          <app-section-title id="projects-heading">
-            {{ i18n.t()('title.projects') }}
-          </app-section-title>
-          <app-projects-grid [maxItems]="3" [showViewAll]="true" />
-        </section>
-
-        <!-- Tech Stack -->
-        <section id="skills" aria-labelledby="skills-heading" appScrollObserver>
-          <app-section-title id="skills-heading">
-            {{ i18n.t()('title.technologies') }}
-          </app-section-title>
-          <app-skills-section [compact]="true" />
-        </section>
-
         <!-- Chaos Engineering Simulation -->
         <section id="chaos" aria-labelledby="chaos-heading" appScrollObserver>
           <app-section-title id="chaos-heading">
@@ -76,8 +95,54 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
           </p>
           <app-star-ledger />
         </section>
+      }
 
-        <!-- Current role CTA -->
+      @if (state.isAcademic()) {
+        <!-- LSTM Playground -->
+        <section id="lstm" aria-label="LSTM Recurrent Cell simulation" appScrollObserver>
+          <app-lstm-playground />
+        </section>
+
+        <!-- MEXT Thesis Abstract -->
+        <section id="mext" aria-label="MEXT Research Proposal Abstract" appScrollObserver>
+          <app-mext-thesis-pitch />
+        </section>
+      }
+
+      <!-- Featured Projects Section -->
+      <section id="projects" aria-labelledby="projects-heading" appScrollObserver>
+        <app-section-title id="projects-heading">
+          {{ i18n.t()('title.projects') }}
+        </app-section-title>
+        <app-projects-grid [maxItems]="3" [showViewAll]="false" />
+        <div class="mt-8 text-center">
+          <a
+            routerLink="/projects"
+            class="inline-flex items-center gap-2 font-pixel text-xs px-6 py-3.5 border border-[--color-primary] text-[--color-primary] hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:translate-y-[1px]"
+          >
+            {{ i18n.t()('home.projects.view-full') }} &gt;
+          </a>
+        </div>
+      </section>
+
+      <!-- Tech Stack Section -->
+      <section id="skills" aria-labelledby="skills-heading" appScrollObserver>
+        <app-section-title id="skills-heading">
+          {{ i18n.t()('title.technologies') }}
+        </app-section-title>
+        <app-skills-section [compact]="true" />
+        <div class="mt-8 text-center">
+          <a
+            routerLink="/skills"
+            class="inline-flex items-center gap-2 font-pixel text-xs px-6 py-3.5 border border-[--color-primary] text-[--color-primary] hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:translate-y-[1px]"
+          >
+            {{ i18n.t()('home.skills.view-full') }} &gt;
+          </a>
+        </div>
+      </section>
+
+      <!-- Current role CTA -->
+      @if (state.isArchitect()) {
         <section
           class="surface-card p-8 md:p-12 text-center space-y-5 relative overflow-hidden"
           aria-label="Current role at Atena"
@@ -106,20 +171,6 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
               {{ i18n.t()('footer.cta-button') }}
             </a>
           </div>
-        </section>
-      }
-
-      @if (state.isAcademic()) {
-        <!-- RESEARCH FELLOW MODE VIEW -->
-        
-        <!-- LSTM Playground -->
-        <section id="lstm" aria-label="LSTM Recurrent Cell simulation" appScrollObserver>
-          <app-lstm-playground />
-        </section>
-
-        <!-- MEXT Thesis Abstract -->
-        <section id="mext" aria-label="MEXT Research Proposal Abstract" appScrollObserver>
-          <app-mext-thesis-pitch />
         </section>
       }
 

@@ -1,7 +1,8 @@
 export const en = {
   // ── Hero ──────────────────────────────────────────────────────────
   'hero.available': 'Available for work',
-  'hero.intro': "Hello, I'm David Sandoval",
+  'hero.intro': "Hello, I'm",
+  'hero.name': 'David Sandoval',
   'hero.role': 'Software Engineer at Atena',
   'hero.company-desc':
     'Building Angular + .NET 8 · Salary advance fintech platform · Open to new opportunities',
@@ -28,6 +29,10 @@ export const en = {
   'title.about-me': 'About_Me',
   'title.skills': 'Tech_Skills',
   'title.current-role': 'Current_Role',
+  'home.about.view-full': 'Read Full Bio',
+  'home.experience.view-full': 'View Full Timeline & Achievements',
+  'home.projects.view-full': 'Browse All Projects',
+  'home.skills.view-full': 'Explore All Tech Skills',
 
   // ── Experience ────────────────────────────────────────────────────
   'experience.learn-more': 'Learn more',

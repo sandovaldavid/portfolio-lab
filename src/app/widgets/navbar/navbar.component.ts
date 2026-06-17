@@ -13,13 +13,14 @@ import { OWNER } from '@shared/config/contact.config';
 interface NavItem {
   labelKey: 'nav.projects' | 'nav.experience' | 'nav.skills' | 'nav.about';
   path: string;
+  fragment?: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { labelKey: 'nav.projects', path: '/projects' },
-  { labelKey: 'nav.experience', path: '/experience' },
-  { labelKey: 'nav.skills', path: '/skills' },
-  { labelKey: 'nav.about', path: '/about' },
+  { labelKey: 'nav.about', path: '/', fragment: 'about' },
+  { labelKey: 'nav.experience', path: '/', fragment: 'experience' },
+  { labelKey: 'nav.projects', path: '/', fragment: 'projects' },
+  { labelKey: 'nav.skills', path: '/', fragment: 'skills' },
 ];
 
 @Component({

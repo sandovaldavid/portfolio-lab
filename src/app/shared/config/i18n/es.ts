@@ -3,7 +3,8 @@ import type { TranslationKey } from './en';
 export const es: Record<TranslationKey, string> = {
   // ── Hero ──────────────────────────────────────────────────────────
   'hero.available': 'Disponible para trabajar',
-  'hero.intro': 'Hola, soy David Sandoval',
+  'hero.intro': 'Hola, soy',
+  'hero.name': 'David Sandoval',
   'hero.role': 'Ingeniero de Software en Atena',
   'hero.company-desc':
     'Construyendo Angular + .NET 8 · Plataforma fintech de adelantos de sueldo · Abierto a nuevas oportunidades',
@@ -30,6 +31,10 @@ export const es: Record<TranslationKey, string> = {
   'title.about-me': 'Sobre_Mí',
   'title.skills': 'Habilidades',
   'title.current-role': 'Rol_Actual',
+  'home.about.view-full': 'Ver Biografía Completa',
+  'home.experience.view-full': 'Ver Experiencia Completa',
+  'home.projects.view-full': 'Ver Todos los Proyectos',
+  'home.skills.view-full': 'Ver Habilidades Completas',
 
   // ── Experience ────────────────────────────────────────────────────
   'experience.learn-more': 'Saber más',
