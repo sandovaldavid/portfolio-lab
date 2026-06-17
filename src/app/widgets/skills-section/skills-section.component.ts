@@ -11,7 +11,7 @@ const TECH_CATEGORIES: { label: string; techs: Technology[] }[] = [
   },
   {
     label: 'Backend',
-    techs: [TAGS.DOTNET, TAGS.CSHARP, TAGS.PYTHON, TAGS.DJANGO, TAGS.EXPRESS, TAGS.JAVASCRIPT],
+    techs: [TAGS.DOTNET, TAGS.CSHARP, TAGS.PYTHON, TAGS.DJANGO, TAGS.EXPRESS, TAGS.JAVASCRIPT, TAGS.JAVA, TAGS.SPRING],
   },
   {
     label: 'Databases',
@@ -19,7 +19,7 @@ const TECH_CATEGORIES: { label: string; techs: Technology[] }[] = [
   },
   {
     label: 'Tools',
-    techs: [TAGS.CLOUDINARY, TAGS.ASTRO, TAGS.BOOTSTRAP, TAGS.CHARTJS, TAGS.SANITY],
+    techs: [TAGS.CLOUDINARY, TAGS.ASTRO, TAGS.BOOTSTRAP, TAGS.CHARTJS, TAGS.SANITY, TAGS.AZURE, TAGS.WORDPRESS],
   },
 ];
 

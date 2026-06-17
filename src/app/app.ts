@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
 import { FontScaleService } from '@shared/lib/font-scale/font-scale';
@@ -32,14 +32,18 @@ import { UtilityPanel } from '@features/utility-panel/utility-panel';
     `,
   ],
 })
-export class App implements OnInit {
+export class App {
   private readonly modeService = inject(ModeStateService);
   private readonly fontScale = inject(FontScaleService);
   private readonly kbd = inject(KeyboardShortcutsService);
 
-  ngOnInit(): void {
-    this.modeService.apply();
-    this.fontScale.apply();
-    this.kbd.register();
+  constructor() {
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        this.modeService.apply();
+        this.fontScale.apply();
+        this.kbd.register();
+      }, 0);
+    }
   }
 }

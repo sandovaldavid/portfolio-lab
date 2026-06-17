@@ -17,11 +17,18 @@ export class ModeStateService {
   private readonly doc = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-  readonly currentMode = signal<PortfolioMode>(this._getInitialMode());
+  readonly currentMode = signal<PortfolioMode>('SYSTEM_ARCHITECT');
   readonly isAcademic = computed(() => this.currentMode() === 'RESEARCH_FELLOW');
   readonly isArchitect = computed(() => this.currentMode() === 'SYSTEM_ARCHITECT');
 
   apply(): void {
+    if (this.isBrowser) {
+      const stored = localStorage.getItem(MODE_STORAGE_KEY);
+      if (stored === 'SYSTEM_ARCHITECT' || stored === 'RESEARCH_FELLOW') {
+        this.setMode(stored);
+        return;
+      }
+    }
     this._syncDom(this.currentMode());
   }
 
@@ -48,14 +55,5 @@ export class ModeStateService {
     root.classList.add(
       mode === 'SYSTEM_ARCHITECT' ? 'mode-architect' : 'mode-research'
     );
-  }
-
-  private _getInitialMode(): PortfolioMode {
-    if (this.isBrowser) {
-      const stored = localStorage.getItem(MODE_STORAGE_KEY);
-      if (stored === 'SYSTEM_ARCHITECT' || stored === 'RESEARCH_FELLOW')
-        return stored;
-    }
-    return DEFAULT_MODE;
   }
 }

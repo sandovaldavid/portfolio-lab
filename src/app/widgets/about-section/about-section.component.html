@@ -1,35 +1,115 @@
 <div class="space-y-8">
-  <!-- Bio + Photo -->
-  <div class="surface-card p-6 md:p-8" appScrollObserver>
-    <div class="flex flex-col md:flex-row gap-8 items-start">
-      <img
-        src="/profile/perfil.webp"
-        alt="David Sandoval profile photo"
-        class="w-36 h-36 md:w-44 md:h-44 object-cover card-border-primary shrink-0"
-        loading="lazy"
-      />
-      <div class="space-y-4 font-body text-base text-[--color-text] leading-relaxed">
-        <p [innerHTML]="'about-me.paragraph1' | translate"></p>
-        <p [innerHTML]="'about-me.paragraph2' | translate"></p>
-        @if (!compact()) {
-          <p [innerHTML]="'about-me.paragraph3' | translate"></p>
-        }
+  <!-- ── SYSTEM ARCHITECT MODE (Terminal IDE style) ──────────────── -->
+  <div class="terminal-view space-y-8">
+    <div class="terminal-window card-border" appScrollObserver>
+      <div class="terminal-header">
+        <div class="flex items-center gap-1.5" aria-hidden="true">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-amber"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="terminal-title">david_sandoval.sh</span>
+        <span class="terminal-size">4.2 KB</span>
+      </div>
+
+      <div class="terminal-body">
+        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+          <div class="relative group shrink-0">
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-[--color-primary] to-[--color-accent] rounded opacity-75 blur group-hover:opacity-100 transition duration-300"></div>
+            <img
+              src="/profile/perfil.webp"
+              alt="David Sandoval profile photo"
+              class="relative w-36 h-36 md:w-44 md:h-44 object-cover rounded border border-[--color-border-light]"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-transparent pointer-events-none scanlines rounded"></div>
+          </div>
+
+          <div class="space-y-4 font-mono text-xs md:text-sm text-[--color-text] leading-relaxed w-full">
+            <div class="cli-command">
+              <span class="cli-prompt">guest@devsandoval:~$</span> cat bio.txt
+            </div>
+            <p [innerHTML]="'about-me.paragraph1' | translate" class="cli-output"></p>
+            <p [innerHTML]="'about-me.paragraph2' | translate" class="cli-output"></p>
+            @if (!compact()) {
+              <p [innerHTML]="'about-me.paragraph3' | translate" class="cli-output"></p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Currently focused -->
+    <div class="terminal-window card-border" appScrollObserver>
+      <div class="terminal-header">
+        <div class="flex items-center gap-1.5" aria-hidden="true">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-amber"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="terminal-title">systemctl --status=active</span>
+      </div>
+      <div class="terminal-body space-y-4">
+        <p class="font-mono text-xs text-[--color-primary] uppercase tracking-wider">// {{ 'about-me.currently-focused' | translate }}</p>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          @for (key of focusKeys; track key; let idx = $index) {
+            <li class="flex items-center gap-3 font-mono text-xs text-[--color-text]">
+              <span class="text-[--color-success] shrink-0 font-bold">[RUNNING]</span>
+              <span>{{ key | translate }}</span>
+            </li>
+          }
+        </ul>
       </div>
     </div>
   </div>
 
-  <!-- Currently focused -->
-  <div class="surface-card p-6 md:p-8" appScrollObserver>
-    <p class="font-pixel text-sm text-[--color-primary] mb-6">
-      {{ 'about-me.currently-focused' | translate }}
-    </p>
-    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      @for (key of focusKeys; track key) {
-        <li class="flex items-start gap-3 text-base font-body text-[--color-text] leading-relaxed">
-          <span class="text-[--color-primary] shrink-0 font-pixel text-sm mt-0.5">&gt;</span>
-          {{ key | translate }}
-        </li>
-      }
-    </ul>
+  <!-- ── RESEARCH FELLOW MODE (Academic CV style) ────────────────── -->
+  <div class="academic-view space-y-8">
+    <div class="academic-paper card-border" appScrollObserver>
+      <div class="paper-header">
+        <div class="journal-name">CURRICULUM VITAE (BIOGRAPHICAL SKETCH)</div>
+        <div class="paper-meta">NATIONAL UNIVERSITY OF PIURA · FACULTY OF COMPUTER ENGINEERING</div>
+      </div>
+
+      <div class="paper-body">
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div class="relative shrink-0 mx-auto md:mx-0">
+            <div class="blueprint-ring"></div>
+            <img
+              src="/profile/perfil.webp"
+              alt="David Sandoval profile photo"
+              class="w-36 h-36 md:w-44 md:h-44 object-cover rounded-full border-2 border-[--color-primary] p-1.5"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="space-y-4 font-serif text-sm md:text-base text-[--color-text] leading-relaxed">
+            <p class="academic-p">
+              <span class="drop-cap">{{ ('about-me.paragraph1' | translate).substring(0,1) }}</span>
+              {{ ('about-me.paragraph1' | translate).substring(1) }}
+            </p>
+            <p [innerHTML]="'about-me.paragraph2' | translate" class="academic-p"></p>
+            @if (!compact()) {
+              <p [innerHTML]="'about-me.paragraph3' | translate" class="academic-p"></p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Currently focused -->
+    <div class="academic-paper card-border" appScrollObserver>
+      <div class="paper-body space-y-4">
+        <h3 class="section-title-academic mb-4">{{ 'about-me.currently-focused' | translate }}</h3>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          @for (key of focusKeys; track key; let idx = $index) {
+            <li class="flex items-start gap-3 text-sm md:text-base font-serif text-[--color-text] leading-relaxed">
+              <span class="text-[--color-primary] shrink-0 font-bold mt-0.5">[{{ idx + 1 | number:'2.0-0' }}]</span>
+              <span>{{ key | translate }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

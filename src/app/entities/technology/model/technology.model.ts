@@ -25,9 +25,13 @@ export const TAGS = {
   MATERIALUI: { name: 'Material-UI', iconPath: '/assets/icons/MaterialUI.svg' },
   CSS: { name: 'CSS', iconPath: '/assets/icons/CSS.svg' },
   HTML: { name: 'HTML', iconPath: '/assets/icons/HTML.svg' },
-  DOTNET: { name: '.NET 8', iconPath: undefined },
-  CSHARP: { name: 'C#', iconPath: undefined },
-  SQLSERVER: { name: 'SQL Server', iconPath: undefined },
+  DOTNET: { name: '.NET 8', iconPath: '/assets/icons/dotnet.svg' },
+  CSHARP: { name: 'C#', iconPath: '/assets/icons/csharp.svg' },
+  SQLSERVER: { name: 'SQL Server', iconPath: '/assets/icons/sql-server.svg' },
+  AZURE: { name: 'Azure DevOps', iconPath: '/assets/icons/azure.svg' },
+  JAVA: { name: 'Java', iconPath: '/assets/icons/java.svg' },
+  SPRING: { name: 'Spring Boot', iconPath: '/assets/icons/spring.svg' },
+  WORDPRESS: { name: 'WordPress', iconPath: '/assets/icons/wordpress.svg' },
 } as const satisfies Record<string, Technology>;
 
 export type TechKey = keyof typeof TAGS;

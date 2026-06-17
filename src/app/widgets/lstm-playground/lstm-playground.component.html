@@ -60,13 +60,13 @@
           </defs>
 
           <!-- Input labels -->
-          <text x="30" y="270" class="svg-text">x_t (Input)</text>
-          <text x="30" y="80" class="svg-text">C_t-1 (Prev Cell)</text>
-          <text x="30" y="180" class="svg-text">h_t-1 (Prev Hidden)</text>
+          <text x="130" y="270" class="svg-text" text-anchor="end">x_t (Input)</text>
+          <text x="130" y="80" class="svg-text" text-anchor="end">C_t-1 (Prev Cell)</text>
+          <text x="130" y="180" class="svg-text" text-anchor="end">h_t-1 (Prev Hidden)</text>
 
           <!-- Core flow lines -->
           <!-- Cell state top line -->
-          <line x1="80" y1="80" x2="440" y2="80" stroke="var(--color-border)" stroke-width="2.5" marker-end="url(#arrow)" />
+          <line x1="138" y1="80" x2="440" y2="80" stroke="var(--color-border)" stroke-width="2.5" marker-end="url(#arrow)" />
           
           <!-- Forget gate merge -->
           <circle cx="160" cy="80" r="16" class="cell-node" [style.fill]="'rgba(59, 158, 255, ' + forgetGate() + ')'" />
@@ -99,10 +99,10 @@
           <text x="400" y="178" class="gate-text">o_t = {{ outputGate() | number:'1.2-2' }}</text>
 
           <!-- Output states -->
-          <text x="490" y="84" class="svg-text">C_t = {{ cellState() | number:'1.2-2' }}</text>
+          <text x="450" y="84" class="svg-text">C_t = {{ cellState() | number:'1.2-2' }}</text>
           
           <line x1="400" y1="96" x2="450" y2="150" stroke="var(--color-border)" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="440" y="170" class="svg-text font-bold text-[--color-primary]">h_t = {{ hiddenState() | number:'1.2-2' }}</text>
+          <text x="460" y="165" class="svg-text font-bold text-[--color-primary]">h_t = {{ hiddenState() | number:'1.2-2' }}</text>
         </svg>
       </div>
 
