@@ -1,38 +1,38 @@
 <div class="space-y-5">
-  <!-- Header -->
-  <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:justify-between">
-    <div>
-      <h3 class="font-pixel text-lg md:text-xl text-[--color-primary] leading-snug">
-        {{ item().title }}
-      </h3>
-      <p class="font-body text-base text-[--color-muted] mt-1">{{ item().company }}</p>
-    </div>
-    <div class="flex items-center gap-2 shrink-0">
-      @if (item().current) {
-        <span
-          class="font-pixel text-xs text-[--color-success] px-2 py-1 card-border status-dot animate-[cursor-blink_2s_step-end_infinite]"
-        >
-          CURRENT
-        </span>
-      }
-      <span class="font-pixel text-sm text-[--color-accent]">{{ item().date }}</span>
-    </div>
-  </div>
+	<!-- Header -->
+	<div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:justify-between">
+		<div>
+			<h3 class="font-pixel text-lg md:text-xl text-[--color-primary] leading-snug">
+				{{ item().title }}
+			</h3>
+			<p class="font-body text-base text-[--color-muted] mt-1">{{ item().company }}</p>
+		</div>
+		<div class="flex items-center gap-2 shrink-0">
+			@if (item().current) {
+				<span
+					class="font-pixel text-xs text-[--color-success] px-2 py-1 card-border status-dot animate-[cursor-blink_2s_step-end_infinite]"
+				>
+					CURRENT
+				</span>
+			}
+			<span class="font-pixel text-sm text-[--color-accent]">{{ item().date }}</span>
+		</div>
+	</div>
 
-  <!-- Description bullets -->
-  <ul class="space-y-2.5">
-    @for (point of item().description; track $index) {
-      <li class="flex gap-3 text-base font-body text-[--color-text] leading-relaxed">
-        <span class="text-[--color-primary] shrink-0 mt-0.5 font-pixel text-sm">&gt;</span>
-        <span>{{ point }}</span>
-      </li>
-    }
-  </ul>
+	<!-- Description bullets -->
+	<ul class="space-y-2.5">
+		@for (point of item().description; track $index) {
+			<li class="flex gap-3 text-base font-body text-[--color-text] leading-relaxed">
+				<span class="text-[--color-primary] shrink-0 mt-0.5 font-pixel text-sm">&gt;</span>
+				<span>{{ point }}</span>
+			</li>
+		}
+	</ul>
 
-  <!-- Tech badges -->
-  <div class="flex flex-wrap gap-1.5 pt-2">
-    @for (tech of item().technologies; track tech) {
-      <app-badge [label]="tech" color="muted" />
-    }
-  </div>
+	<!-- Tech badges -->
+	<div class="flex flex-wrap gap-1.5 pt-2">
+		@for (tech of item().technologies; track tech) {
+			<app-badge [label]="tech" color="muted" />
+		}
+	</div>
 </div>

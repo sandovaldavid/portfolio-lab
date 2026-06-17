@@ -1,102 +1,137 @@
-<header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-  [class]="headerClass()"
->
-  <nav
-    class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between gap-4"
-    role="navigation"
-    aria-label="Main navigation"
-  >
-    <!-- Brand -->
-    <a
-      routerLink="/"
-      class="brand-logo"
-      aria-label="Home — David Sandoval"
-    >
-      <span class="brand-prompt" aria-hidden="true">&gt;</span>david_sandoval<span class="cursor-blink">_</span>
-    </a>
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" [class]="headerClass()">
+	<nav
+		class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between gap-4"
+		role="navigation"
+		aria-label="Main navigation"
+	>
+		<!-- Brand -->
+		<a routerLink="/" class="brand-logo" aria-label="Home — David Sandoval">
+			<span class="brand-prompt" aria-hidden="true">&gt;</span>david_sandoval<span
+				class="cursor-blink"
+				>_</span
+			>
+		</a>
 
-    <!-- Desktop nav links -->
-    <div class="hidden md:flex items-center gap-10" role="list">
-      @for (item of navItems; track item.labelKey) {
-        <a
-          [routerLink]="item.path"
-          [fragment]="item.fragment"
-          routerLinkActive="nav-link-active"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="nav-link"
-          role="listitem"
-        >{{ i18n.t()(item.labelKey) }}</a>
-      }
-    </div>
+		<!-- Desktop nav links -->
+		<div class="hidden md:flex items-center gap-10" role="list">
+			@for (item of navItems; track item.labelKey) {
+				<a
+					[routerLink]="item.path"
+					[fragment]="item.fragment"
+					routerLinkActive="nav-link-active"
+					[routerLinkActiveOptions]="{ exact: false }"
+					class="nav-link"
+					role="listitem"
+					>{{ i18n.t()(item.labelKey) }}</a
+				>
+			}
+		</div>
 
-    <!-- Actions -->
-    <div class="flex items-center gap-3">
-      <a
-        [href]="resumeFile"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden sm:inline-flex items-center gap-1.5 resume-link"
-        aria-label="Download Resume PDF"
-      >
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M7 1v7M4.5 6l2.5 2.5L9.5 6"/>
-          <path d="M1 10.5v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
-        </svg>
-        resume.pdf
-      </a>
+		<!-- Actions -->
+		<div class="flex items-center gap-3">
+			<a
+				[href]="resumeFile"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="hidden sm:inline-flex items-center gap-1.5 resume-link"
+				aria-label="Download Resume PDF"
+			>
+				<svg
+					width="13"
+					height="13"
+					viewBox="0 0 14 14"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M7 1v7M4.5 6l2.5 2.5L9.5 6" />
+					<path d="M1 10.5v1a1 1 0 001 1h10a1 1 0 001-1v-1" />
+				</svg>
+				resume.pdf
+			</a>
 
-      <!-- Mobile hamburger -->
-      <button
-        class="flex items-center justify-center md:hidden hamburger-btn"
-        (click)="mobileOpen.set(!mobileOpen())"
-        [attr.aria-expanded]="mobileOpen()"
-        aria-label="Toggle navigation menu"
-      >
-        @if (mobileOpen()) {
-          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M2 2l12 12M14 2L2 14"/>
-          </svg>
-        } @else {
-          <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M2 4h12M2 8h12M2 12h12"/>
-          </svg>
-        }
-      </button>
-    </div>
-  </nav>
+			<!-- Mobile hamburger -->
+			<button
+				class="flex items-center justify-center md:hidden hamburger-btn"
+				(click)="mobileOpen.set(!mobileOpen())"
+				[attr.aria-expanded]="mobileOpen()"
+				aria-label="Toggle navigation menu"
+			>
+				@if (mobileOpen()) {
+					<svg
+						width="17"
+						height="17"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						aria-hidden="true"
+					>
+						<path d="M2 2l12 12M14 2L2 14" />
+					</svg>
+				} @else {
+					<svg
+						width="17"
+						height="17"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						aria-hidden="true"
+					>
+						<path d="M2 4h12M2 8h12M2 12h12" />
+					</svg>
+				}
+			</button>
+		</div>
+	</nav>
 
-  <!-- Mobile menu -->
-  @if (mobileOpen()) {
-    <div class="md:hidden mobile-menu" role="menu">
-      @for (item of navItems; track item.labelKey) {
-        <a
-          [routerLink]="item.path"
-          [fragment]="item.fragment"
-          (click)="mobileOpen.set(false)"
-          class="mobile-nav-link"
-          role="menuitem"
-        >
-          <span class="nav-prompt" aria-hidden="true">~/</span>
-          {{ i18n.t()(item.labelKey) }}
-        </a>
-      }
-      <div class="mobile-menu-footer">
-        <a
-          [href]="resumeFile"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="resume-link-mobile"
-          (click)="mobileOpen.set(false)"
-        >
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 1v7M4.5 6l2.5 2.5L9.5 6"/>
-            <path d="M1 10.5v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
-          </svg>
-          download resume.pdf
-        </a>
-        <p class="mobile-menu-hint">Mode &amp; language: tap <kbd>⚙</kbd> bottom-right</p>
-      </div>
-    </div>
-  }
+	<!-- Mobile menu -->
+	@if (mobileOpen()) {
+		<div class="md:hidden mobile-menu" role="menu">
+			@for (item of navItems; track item.labelKey) {
+				<a
+					[routerLink]="item.path"
+					[fragment]="item.fragment"
+					(click)="mobileOpen.set(false)"
+					class="mobile-nav-link"
+					role="menuitem"
+				>
+					<span class="nav-prompt" aria-hidden="true">~/</span>
+					{{ i18n.t()(item.labelKey) }}
+				</a>
+			}
+			<div class="mobile-menu-footer">
+				<a
+					[href]="resumeFile"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="resume-link-mobile"
+					(click)="mobileOpen.set(false)"
+				>
+					<svg
+						width="13"
+						height="13"
+						viewBox="0 0 14 14"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.75"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M7 1v7M4.5 6l2.5 2.5L9.5 6" />
+						<path d="M1 10.5v1a1 1 0 001 1h10a1 1 0 001-1v-1" />
+					</svg>
+					download resume.pdf
+				</a>
+				<p class="mobile-menu-hint">Mode &amp; language: tap <kbd>⚙</kbd> bottom-right</p>
+			</div>
+		</div>
+	}
 </header>

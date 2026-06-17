@@ -5,26 +5,26 @@ import { SectionTitleComponent } from '@shared/ui/section-title/section-title.co
 import { SkillsSectionComponent } from '@widgets/skills-section/skills-section.component';
 
 @Component({
-  selector: 'app-skills-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionTitleComponent, SkillsSectionComponent],
-  template: `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-      <app-section-title>{{ i18n.t()('title.skills') }}</app-section-title>
-      <app-skills-section [compact]="false" />
-    </div>
-  `,
+	selector: 'app-skills-page',
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [SectionTitleComponent, SkillsSectionComponent],
+	template: `
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+			<app-section-title>{{ i18n.t()('title.skills') }}</app-section-title>
+			<app-skills-section [compact]="false" />
+		</div>
+	`,
 })
 export default class SkillsPage implements OnInit {
-  readonly i18n = inject(I18nService);
-  private readonly seo = inject(SeoService);
+	readonly i18n = inject(I18nService);
+	private readonly seo = inject(SeoService);
 
-  ngOnInit(): void {
-    this.seo.updatePage({
-      title: this.i18n.t()('seo.skills.title'),
-      description: this.i18n.t()('seo.skills.description'),
-      canonical: 'https://devsandoval.me/skills',
-    });
-  }
+	ngOnInit(): void {
+		this.seo.updatePage({
+			title: this.i18n.t()('seo.skills.title'),
+			description: this.i18n.t()('seo.skills.description'),
+			canonical: 'https://devsandoval.me/skills',
+		});
+	}
 }

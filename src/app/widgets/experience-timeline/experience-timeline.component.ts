@@ -4,23 +4,23 @@ import { ExperienceItemComponent } from '@entities/experience/ui/experience-item
 import { getExperienceData } from '@entities/experience/model/experience.data';
 
 @Component({
-  selector: 'app-experience-timeline',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExperienceItemComponent],
-  templateUrl: './experience-timeline.component.html',
-  styleUrl: './experience-timeline.component.css',
+	selector: 'app-experience-timeline',
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [ExperienceItemComponent],
+	templateUrl: './experience-timeline.component.html',
+	styleUrl: './experience-timeline.component.css',
 })
 export class ExperienceTimelineComponent {
-  private readonly i18n = inject(I18nService);
+	private readonly i18n = inject(I18nService);
 
-  readonly activeTab = signal(0);
-  readonly experiences = computed(() => getExperienceData(this.i18n.t()));
-  readonly activeExperience = computed(() => this.experiences()[this.activeTab()]);
+	readonly activeTab = signal(0);
+	readonly experiences = computed(() => getExperienceData(this.i18n.t()));
+	readonly activeExperience = computed(() => this.experiences()[this.activeTab()]);
 
-  tabClass(i: number): string {
-    return i === this.activeTab()
-      ? 'border-l-[--color-primary] border-l-2 text-[--color-primary] bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]'
-      : 'border-l-[--color-border] border-l-2 text-[--color-muted] hover:text-[--color-text] hover:border-l-[--color-border-light]';
-  }
+	tabClass(i: number): string {
+		return i === this.activeTab()
+			? 'border-l-[--color-primary] border-l-2 text-[--color-primary] bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]'
+			: 'border-l-[--color-border] border-l-2 text-[--color-muted] hover:text-[--color-text] hover:border-l-[--color-border-light]';
+	}
 }

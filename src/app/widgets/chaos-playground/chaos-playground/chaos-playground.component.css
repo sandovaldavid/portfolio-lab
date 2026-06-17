@@ -1,333 +1,424 @@
 .chaos-playground {
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  overflow: hidden;
+	border: 1px solid var(--color-border);
+	background: var(--color-surface);
+	overflow: hidden;
 }
 
 /* ── Header ─────────────────────────────────────────────────── */
 .playground-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-bg) 60%, var(--color-surface));
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.75rem 1.25rem;
+	border-bottom: 1px solid var(--color-border);
+	background: color-mix(in srgb, var(--color-bg) 60%, var(--color-surface));
 }
 
 .header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-code);
-  font-size: 0.8125rem;
-  color: var(--color-text);
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--font-code);
+	font-size: 0.8125rem;
+	color: var(--color-text);
 }
 
 .header-prompt {
-  color: var(--color-secondary);
-  font-weight: 700;
+	color: var(--color-secondary);
+	font-weight: 700;
 }
 
 .status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-code);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  padding: 0.25rem 0.625rem;
-  border: 1px solid var(--color-border);
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--font-code);
+	font-size: 0.6875rem;
+	letter-spacing: 0.04em;
+	padding: 0.25rem 0.625rem;
+	border: 1px solid var(--color-border);
 }
 
-.status-indicator.healthy  { border-color: var(--color-success); color: var(--color-success); }
-.status-indicator.degraded { border-color: var(--color-secondary); color: var(--color-secondary); }
-.status-indicator.circuit-open { border-color: var(--color-danger, #ef4444); color: var(--color-danger, #ef4444); }
+.status-indicator.healthy {
+	border-color: var(--color-success);
+	color: var(--color-success);
+}
+.status-indicator.degraded {
+	border-color: var(--color-secondary);
+	color: var(--color-secondary);
+}
+.status-indicator.circuit-open {
+	border-color: var(--color-danger, #ef4444);
+	color: var(--color-danger, #ef4444);
+}
 
 .status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
 }
 
-.healthy .status-dot  { animation: pulse-green 2s ease-in-out infinite; }
-.degraded .status-dot { animation: pulse-amber 1s ease-in-out infinite; }
+.healthy .status-dot {
+	animation: pulse-green 2s ease-in-out infinite;
+}
+.degraded .status-dot {
+	animation: pulse-amber 1s ease-in-out infinite;
+}
 
 @keyframes pulse-green {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
 }
 
 @keyframes pulse-amber {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
 }
 
 /* ── SVG Diagram ─────────────────────────────────────────────── */
 .diagram-wrapper {
-  padding: 0.5rem;
-  background: var(--color-bg);
+	padding: 0.5rem;
+	background: var(--color-bg);
 }
 
 .arch-svg {
-  width: 100%;
-  height: auto;
-  display: block;
+	width: 100%;
+	height: auto;
+	display: block;
 }
 
 /* SVG Node styles */
 .svg-node {
-  stroke-width: 1;
-  transition: fill 0.3s, stroke 0.3s;
+	stroke-width: 1;
+	transition:
+		fill 0.3s,
+		stroke 0.3s;
 }
 
 .node-healthy {
-  fill: var(--color-surface);
-  stroke: var(--color-primary);
+	fill: var(--color-surface);
+	stroke: var(--color-primary);
 }
 
 .node-degraded {
-  fill: color-mix(in srgb, var(--color-secondary) 15%, var(--color-surface));
-  stroke: var(--color-secondary);
-  animation: node-shake 0.4s ease-in-out;
+	fill: color-mix(in srgb, var(--color-secondary) 15%, var(--color-surface));
+	stroke: var(--color-secondary);
+	animation: node-shake 0.4s ease-in-out;
 }
 
 .node-dead {
-  fill: color-mix(in srgb, var(--color-danger, #ef4444) 12%, var(--color-surface));
-  stroke: var(--color-danger, #ef4444);
-  stroke-dasharray: 4 2;
+	fill: color-mix(in srgb, var(--color-danger, #ef4444) 12%, var(--color-surface));
+	stroke: var(--color-danger, #ef4444);
+	stroke-dasharray: 4 2;
 }
 
 .node-active-dlq {
-  fill: color-mix(in srgb, var(--color-secondary) 15%, var(--color-surface));
-  stroke: var(--color-secondary);
-  animation: dlq-pulse 1.5s ease-in-out infinite;
+	fill: color-mix(in srgb, var(--color-secondary) 15%, var(--color-surface));
+	stroke: var(--color-secondary);
+	animation: dlq-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes node-shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-3px); }
-  40% { transform: translateX(3px); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-3px);
+	}
+	40% {
+		transform: translateX(3px);
+	}
+	60% {
+		transform: translateX(-2px);
+	}
+	80% {
+		transform: translateX(2px);
+	}
 }
 
 @keyframes dlq-pulse {
-  0%, 100% { stroke-opacity: 1; }
-  50% { stroke-opacity: 0.4; }
+	0%,
+	100% {
+		stroke-opacity: 1;
+	}
+	50% {
+		stroke-opacity: 0.4;
+	}
 }
 
 .node-text {
-  font-family: var(--font-code);
-  font-size: 9px;
-  fill: var(--color-text);
-  pointer-events: none;
-  user-select: none;
+	font-family: var(--font-code);
+	font-size: 9px;
+	fill: var(--color-text);
+	pointer-events: none;
+	user-select: none;
 }
 
 .fault-icon {
-  font-family: var(--font-code);
-  font-size: 14px;
-  font-weight: 700;
-  fill: var(--color-danger, #ef4444);
+	font-family: var(--font-code);
+	font-size: 14px;
+	font-weight: 700;
+	fill: var(--color-danger, #ef4444);
 }
 
 .cb-label {
-  font-family: var(--font-code);
-  font-size: 9px;
-  fill: var(--color-danger, #ef4444);
-  animation: blink-slow 1.5s ease-in-out infinite;
+	font-family: var(--font-code);
+	font-size: 9px;
+	fill: var(--color-danger, #ef4444);
+	animation: blink-slow 1.5s ease-in-out infinite;
 }
 
 @keyframes blink-slow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.2;
+	}
 }
 
 /* SVG Edge styles */
 .svg-edge {
-  stroke-width: 1.5;
-  transition: stroke 0.3s, stroke-dasharray 0.3s;
+	stroke-width: 1.5;
+	transition:
+		stroke 0.3s,
+		stroke-dasharray 0.3s;
 }
 
-.edge-normal  { stroke: var(--color-primary); opacity: 0.7; }
-.edge-degraded { stroke: var(--color-secondary); stroke-dasharray: 6 3; animation: dash-flow 1s linear infinite; }
-.edge-dead    { stroke: var(--color-danger, #ef4444); stroke-dasharray: 4 4; opacity: 0.5; }
-.edge-dlq-active { stroke: var(--color-secondary); stroke-width: 2; animation: dash-flow 0.8s linear infinite; }
-.edge-hidden  { display: none; }
+.edge-normal {
+	stroke: var(--color-primary);
+	opacity: 0.7;
+}
+.edge-degraded {
+	stroke: var(--color-secondary);
+	stroke-dasharray: 6 3;
+	animation: dash-flow 1s linear infinite;
+}
+.edge-dead {
+	stroke: var(--color-danger, #ef4444);
+	stroke-dasharray: 4 4;
+	opacity: 0.5;
+}
+.edge-dlq-active {
+	stroke: var(--color-secondary);
+	stroke-width: 2;
+	animation: dash-flow 0.8s linear infinite;
+}
+.edge-hidden {
+	display: none;
+}
 
 @keyframes dash-flow {
-  to { stroke-dashoffset: -12; }
+	to {
+		stroke-dashoffset: -12;
+	}
 }
 
 .node-group {
-  cursor: pointer;
-  outline: none;
+	cursor: pointer;
+	outline: none;
 }
 
 .node-group:focus .svg-node {
-  stroke-width: 2;
+	stroke-width: 2;
 }
 
 /* ── Controls row ────────────────────────────────────────────── */
 .controls-row {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-top: 1px solid var(--color-border);
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 1rem;
+	padding: 1rem 1.25rem;
+	border-top: 1px solid var(--color-border);
 }
 
 .btn-group {
-  display: flex;
-  gap: 0.625rem;
-  flex-shrink: 0;
+	display: flex;
+	gap: 0.625rem;
+	flex-shrink: 0;
 }
 
 .inject-btn {
-  font-family: var(--font-code);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  padding: 0.5rem 1.125rem;
-  background: color-mix(in srgb, var(--color-danger, #ef4444) 15%, transparent);
-  border: 1px solid var(--color-danger, #ef4444);
-  color: var(--color-danger, #ef4444);
-  cursor: pointer;
-  transition: background 0.15s, opacity 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
+	font-family: var(--font-code);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	padding: 0.5rem 1.125rem;
+	background: color-mix(in srgb, var(--color-danger, #ef4444) 15%, transparent);
+	border: 1px solid var(--color-danger, #ef4444);
+	color: var(--color-danger, #ef4444);
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		opacity 0.15s;
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
 }
 
 .inject-btn:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-danger, #ef4444) 25%, transparent);
+	background: color-mix(in srgb, var(--color-danger, #ef4444) 25%, transparent);
 }
 
 .inject-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+	opacity: 0.4;
+	cursor: not-allowed;
 }
 
 .inject-btn:active:not(:disabled) {
-  transform: scale(0.96);
-  transition: transform 0.08s ease-in;
+	transform: scale(0.96);
+	transition: transform 0.08s ease-in;
 }
 
 .inject-btn.injecting {
-  animation: inject-pulse 0.4s ease-in-out infinite alternate;
+	animation: inject-pulse 0.4s ease-in-out infinite alternate;
 }
 
 @keyframes inject-pulse {
-  from { opacity: 0.7; }
-  to   { opacity: 1; }
+	from {
+		opacity: 0.7;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .btn-spinner {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border: 2px solid transparent;
-  border-top-color: var(--color-danger, #ef4444);
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border: 2px solid transparent;
+	border-top-color: var(--color-danger, #ef4444);
+	border-radius: 50%;
+	animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .reset-btn {
-  font-family: var(--font-code);
-  font-size: 0.8125rem;
-  padding: 0.5rem 0.875rem;
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-muted);
-  cursor: pointer;
-  transition: border-color 0.12s, color 0.12s;
+	font-family: var(--font-code);
+	font-size: 0.8125rem;
+	padding: 0.5rem 0.875rem;
+	background: transparent;
+	border: 1px solid var(--color-border);
+	color: var(--color-muted);
+	cursor: pointer;
+	transition:
+		border-color 0.12s,
+		color 0.12s;
 }
 
 .reset-btn:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
+	border-color: var(--color-text);
+	color: var(--color-text);
 }
 
 /* ── Tooltip ─────────────────────────────────────────────────── */
 .node-tooltip {
-  flex: 1;
-  min-width: 200px;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
-  animation: tooltip-in 0.1s ease-out;
+	flex: 1;
+	min-width: 200px;
+	padding: 0.625rem 0.875rem;
+	border: 1px solid var(--color-primary);
+	background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+	animation: tooltip-in 0.1s ease-out;
 }
 
 @keyframes tooltip-in {
-  from { opacity: 0; transform: translateY(2px); }
-  to   { opacity: 1; transform: translateY(0); }
+	from {
+		opacity: 0;
+		transform: translateY(2px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .tooltip-title {
-  font-family: var(--font-code);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 0.25rem;
+	font-family: var(--font-code);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	color: var(--color-primary);
+	margin-bottom: 0.25rem;
 }
 
 .tooltip-desc {
-  font-size: 0.8125rem;
-  color: var(--color-text);
-  margin-bottom: 0.375rem;
-  line-height: 1.5;
+	font-size: 0.8125rem;
+	color: var(--color-text);
+	margin-bottom: 0.375rem;
+	line-height: 1.5;
 }
 
 .tooltip-tech {
-  font-family: var(--font-code);
-  font-size: 0.6875rem;
-  color: var(--color-muted);
+	font-family: var(--font-code);
+	font-size: 0.6875rem;
+	color: var(--color-muted);
 }
 
 .tooltip-hint {
-  flex: 1;
-  font-family: var(--font-code);
-  font-size: 0.75rem;
-  color: var(--color-muted);
-  padding: 0.5rem 0;
+	flex: 1;
+	font-family: var(--font-code);
+	font-size: 0.75rem;
+	color: var(--color-muted);
+	padding: 0.5rem 0;
 }
 
 /* ── State narrative ─────────────────────────────────────────── */
 .state-narrative {
-  padding: 0.75rem 1.25rem;
-  border-top: 1px solid var(--color-border);
-  font-family: var(--font-code);
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  animation: narrative-in 0.2s ease-out;
+	padding: 0.75rem 1.25rem;
+	border-top: 1px solid var(--color-border);
+	font-family: var(--font-code);
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	animation: narrative-in 0.2s ease-out;
 }
 
 @keyframes narrative-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .state-narrative.degraded {
-  background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
-  border-top-color: var(--color-secondary);
-  color: var(--color-text);
+	background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
+	border-top-color: var(--color-secondary);
+	color: var(--color-text);
 }
 
 .state-narrative.circuit-open {
-  background: color-mix(in srgb, var(--color-danger, #ef4444) 6%, transparent);
-  border-top-color: var(--color-danger, #ef4444);
-  color: var(--color-text);
+	background: color-mix(in srgb, var(--color-danger, #ef4444) 6%, transparent);
+	border-top-color: var(--color-danger, #ef4444);
+	color: var(--color-text);
 }
 
 .narrative-label {
-  font-weight: 700;
-  margin-right: 0.5rem;
+	font-weight: 700;
+	margin-right: 0.5rem;
 }
 
-.degraded .narrative-label { color: var(--color-secondary); }
-.circuit-open .narrative-label { color: var(--color-danger, #ef4444); }
+.degraded .narrative-label {
+	color: var(--color-secondary);
+}
+.circuit-open .narrative-label {
+	color: var(--color-danger, #ef4444);
+}

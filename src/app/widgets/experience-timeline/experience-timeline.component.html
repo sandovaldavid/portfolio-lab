@@ -1,41 +1,44 @@
 <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
-  <!-- Tab list -->
-  <div class="md:col-span-2 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0" role="tablist">
-    @for (exp of experiences(); track exp.company; let i = $index) {
-      <button
-        role="tab"
-        [attr.aria-selected]="i === activeTab()"
-        [attr.tabindex]="i === activeTab() ? 0 : -1"
-        [attr.aria-controls]="'exp-panel-' + i"
-        (click)="activeTab.set(i)"
-        (keydown.ArrowRight)="activeTab.set((i + 1) % experiences().length)"
-        (keydown.ArrowDown)="activeTab.set((i + 1) % experiences().length)"
-        (keydown.ArrowLeft)="activeTab.set((i - 1 + experiences().length) % experiences().length)"
-        (keydown.ArrowUp)="activeTab.set((i - 1 + experiences().length) % experiences().length)"
-        class="shrink-0 md:w-full text-left px-3 md:px-4 py-3 md:py-4 transition-all duration-200 cursor-pointer"
-        [class]="tabClass(i)"
-      >
-        <div class="flex items-center gap-2">
-          @if (exp.current) {
-            <span class="w-2 h-2 rounded-full bg-[--color-success] shrink-0"></span>
-          }
-          <span class="font-pixel text-sm font-bold leading-snug whitespace-nowrap">
-            {{ exp.company }}
-          </span>
-        </div>
-        <p class="font-body text-sm text-[--color-muted] mt-1 hidden md:block">
-          {{ exp.title }}
-        </p>
-      </button>
-    }
-  </div>
+	<!-- Tab list -->
+	<div
+		class="md:col-span-2 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0"
+		role="tablist"
+	>
+		@for (exp of experiences(); track exp.company; let i = $index) {
+			<button
+				role="tab"
+				[attr.aria-selected]="i === activeTab()"
+				[attr.tabindex]="i === activeTab() ? 0 : -1"
+				[attr.aria-controls]="'exp-panel-' + i"
+				(click)="activeTab.set(i)"
+				(keydown.ArrowRight)="activeTab.set((i + 1) % experiences().length)"
+				(keydown.ArrowDown)="activeTab.set((i + 1) % experiences().length)"
+				(keydown.ArrowLeft)="activeTab.set((i - 1 + experiences().length) % experiences().length)"
+				(keydown.ArrowUp)="activeTab.set((i - 1 + experiences().length) % experiences().length)"
+				class="shrink-0 md:w-full text-left px-3 md:px-4 py-3 md:py-4 transition-all duration-200 cursor-pointer"
+				[class]="tabClass(i)"
+			>
+				<div class="flex items-center gap-2">
+					@if (exp.current) {
+						<span class="w-2 h-2 rounded-full bg-[--color-success] shrink-0"></span>
+					}
+					<span class="font-pixel text-sm font-bold leading-snug whitespace-nowrap">
+						{{ exp.company }}
+					</span>
+				</div>
+				<p class="font-body text-sm text-[--color-muted] mt-1 hidden md:block">
+					{{ exp.title }}
+				</p>
+			</button>
+		}
+	</div>
 
-  <!-- Content panel: min-height prevents layout jump when switching tabs -->
-  <div class="md:col-span-3 min-h-[22rem]">
-    @if (activeExperience(); as exp) {
-      <div [id]="'exp-panel-' + activeTab()" role="tabpanel" class="tab-panel">
-        <app-experience-item [item]="exp" />
-      </div>
-    }
-  </div>
+	<!-- Content panel: min-height prevents layout jump when switching tabs -->
+	<div class="md:col-span-3 min-h-[22rem]">
+		@if (activeExperience(); as exp) {
+			<div [id]="'exp-panel-' + activeTab()" role="tabpanel" class="tab-panel">
+				<app-experience-item [item]="exp" />
+			</div>
+		}
+	</div>
 </div>

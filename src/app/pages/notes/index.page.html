@@ -1,83 +1,94 @@
 <div class="max-w-4xl mx-auto px-4 py-20 space-y-10">
-  <!-- Header -->
-  <div class="space-y-4">
-    <h1 class="font-pixel text-3xl text-[--color-primary] pixel-glow">// TIL_OBSIDIAN_VAULT</h1>
-    <p class="font-body text-base text-[--color-muted] leading-relaxed">
-      A synced feed of permanent and fleeting notes documenting my ongoing learning process in computer science, distributed architectures, and algorithms.
-    </p>
-  </div>
+	<!-- Header -->
+	<div class="space-y-4">
+		<h1 class="font-pixel text-3xl text-[--color-primary] pixel-glow">// TIL_OBSIDIAN_VAULT</h1>
+		<p class="font-body text-base text-[--color-muted] leading-relaxed">
+			A synced feed of permanent and fleeting notes documenting my ongoing learning process in
+			computer science, distributed architectures, and algorithms.
+		</p>
+	</div>
 
-  <!-- Filters & Search -->
-  <div class="search-filter-bar flex flex-col md:flex-row md:items-center justify-between gap-4 py-4 border-y border-[--color-border]">
-    <!-- Search input -->
-    <div class="relative flex-1">
-      <input
-        #searchInput
-        type="text"
-        placeholder="Search notes... (press '/' to focus)"
-        class="search-input font-body"
-        [value]="searchTerms()"
-        (input)="updateSearch(searchInput.value)"
-      />
-    </div>
+	<!-- Filters & Search -->
+	<div
+		class="search-filter-bar flex flex-col md:flex-row md:items-center justify-between gap-4 py-4 border-y border-[--color-border]"
+	>
+		<!-- Search input -->
+		<div class="relative flex-1">
+			<input
+				#searchInput
+				type="text"
+				placeholder="Search notes... (press '/' to focus)"
+				class="search-input font-body"
+				[value]="searchTerms()"
+				(input)="updateSearch(searchInput.value)"
+			/>
+		</div>
 
-    <!-- Category selector -->
-    <div class="flex items-center gap-2">
-      <button
-        class="filter-tag"
-        [class.active]="activeCategory() === 'all'"
-        (click)="setCategory('all')"
-      >
-        ALL
-      </button>
-      <button
-        class="filter-tag"
-        [class.active]="activeCategory() === 'algorithms'"
-        (click)="setCategory('algorithms')"
-      >
-        ALGORITHMS
-      </button>
-      <button
-        class="filter-tag"
-        [class.active]="activeCategory() === 'systems'"
-        (click)="setCategory('systems')"
-      >
-        SYSTEMS
-      </button>
-    </div>
-  </div>
+		<!-- Category selector -->
+		<div class="flex items-center gap-2">
+			<button
+				class="filter-tag"
+				[class.active]="activeCategory() === 'all'"
+				(click)="setCategory('all')"
+			>
+				ALL
+			</button>
+			<button
+				class="filter-tag"
+				[class.active]="activeCategory() === 'algorithms'"
+				(click)="setCategory('algorithms')"
+			>
+				ALGORITHMS
+			</button>
+			<button
+				class="filter-tag"
+				[class.active]="activeCategory() === 'systems'"
+				(click)="setCategory('systems')"
+			>
+				SYSTEMS
+			</button>
+		</div>
+	</div>
 
-  <!-- Notes Grid -->
-  <div class="space-y-6">
-    @for (note of notes(); track note.slug) {
-      <article class="note-card card-border hover:border-[--color-primary] transition-all duration-200">
-        <a [routerLink]="['/notes', note.slug]" class="block p-6 space-y-3">
-          <div class="flex items-center justify-between gap-4">
-            <span class="category-badge uppercase font-pixel text-xs text-[--color-accent] card-border px-2 py-0.5">
-              {{ note.attributes.category }}
-            </span>
-            <time class="font-pixel text-xs text-[--color-muted]">{{ note.attributes.date | date:'yyyy-MM-dd' }}</time>
-          </div>
-          
-          <h2 class="font-pixel text-xl text-[--color-heading] leading-snug group-hover:text-[--color-primary]">
-            {{ note.attributes.title }}
-          </h2>
-          
-          <p class="font-body text-sm text-[--color-muted] leading-relaxed">
-            {{ note.attributes.description }}
-          </p>
+	<!-- Notes Grid -->
+	<div class="space-y-6">
+		@for (note of notes(); track note.slug) {
+		<article
+			class="note-card card-border hover:border-[--color-primary] transition-all duration-200"
+		>
+			<a [routerLink]="['/notes', note.slug]" class="block p-6 space-y-3">
+				<div class="flex items-center justify-between gap-4">
+					<span
+						class="category-badge uppercase font-pixel text-xs text-[--color-accent] card-border px-2 py-0.5"
+					>
+						{{ note.attributes.category }}
+					</span>
+					<time class="font-pixel text-xs text-[--color-muted]"
+						>{{ note.attributes.date | date:'yyyy-MM-dd' }}</time
+					>
+				</div>
 
-          <div class="flex flex-wrap gap-2 pt-2">
-            @for (tag of note.attributes.tags; track tag) {
-              <span class="note-tag font-pixel text-xs text-[--color-muted]">#{{ tag }}</span>
-            }
-          </div>
-        </a>
-      </article>
-    } @empty {
-      <div class="text-center py-12">
-        <p class="font-body text-base text-[--color-muted]">No notes match your search parameters.</p>
-      </div>
-    }
-  </div>
+				<h2
+					class="font-pixel text-xl text-[--color-heading] leading-snug group-hover:text-[--color-primary]"
+				>
+					{{ note.attributes.title }}
+				</h2>
+
+				<p class="font-body text-sm text-[--color-muted] leading-relaxed">
+					{{ note.attributes.description }}
+				</p>
+
+				<div class="flex flex-wrap gap-2 pt-2">
+					@for (tag of note.attributes.tags; track tag) {
+					<span class="note-tag font-pixel text-xs text-[--color-muted]">#{{ tag }}</span>
+					}
+				</div>
+			</a>
+		</article>
+		} @empty {
+		<div class="text-center py-12">
+			<p class="font-body text-base text-[--color-muted]">No notes match your search parameters.</p>
+		</div>
+		}
+	</div>
 </div>

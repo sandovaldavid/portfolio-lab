@@ -1,43 +1,50 @@
 <div class="max-w-3xl mx-auto px-4 py-20 space-y-8">
-  <!-- Back Link -->
-  <a routerLink="/notes" class="back-link font-pixel text-sm text-[--color-primary] hover:underline flex items-center gap-2">
-    &lt; back_to_vault()
-  </a>
+	<!-- Back Link -->
+	<a
+		routerLink="/notes"
+		class="back-link font-pixel text-sm text-[--color-primary] hover:underline flex items-center gap-2"
+	>
+		&lt; back_to_vault()
+	</a>
 
-  @if (note$ | async; as note) {
-    <article class="space-y-6">
-      <!-- Header -->
-      <div class="space-y-4 border-b border-[--color-border] pb-6">
-        <div class="flex items-center gap-3">
-          <span class="category-badge uppercase font-pixel text-xs text-[--color-accent] card-border px-2 py-0.5">
-            {{ note.attributes.category }}
-          </span>
-          <time class="font-pixel text-xs text-[--color-muted]">{{ note.attributes.date | date:'yyyy-MM-dd' }}</time>
-        </div>
+	@if (note$ | async; as note) {
+	<article class="space-y-6">
+		<!-- Header -->
+		<div class="space-y-4 border-b border-[--color-border] pb-6">
+			<div class="flex items-center gap-3">
+				<span
+					class="category-badge uppercase font-pixel text-xs text-[--color-accent] card-border px-2 py-0.5"
+				>
+					{{ note.attributes.category }}
+				</span>
+				<time class="font-pixel text-xs text-[--color-muted]"
+					>{{ note.attributes.date | date:'yyyy-MM-dd' }}</time
+				>
+			</div>
 
-        <h1 class="font-pixel text-3xl md:text-4xl text-[--color-heading] leading-tight">
-          {{ note.attributes.title }}
-        </h1>
+			<h1 class="font-pixel text-3xl md:text-4xl text-[--color-heading] leading-tight">
+				{{ note.attributes.title }}
+			</h1>
 
-        <p class="font-body text-base text-[--color-muted] italic">
-          {{ note.attributes.description }}
-        </p>
+			<p class="font-body text-base text-[--color-muted] italic">
+				{{ note.attributes.description }}
+			</p>
 
-        <div class="flex flex-wrap gap-2 pt-1">
-          @for (tag of note.attributes.tags; track tag) {
-            <span class="note-tag font-pixel text-xs text-[--color-muted]">#{{ tag }}</span>
-          }
-        </div>
-      </div>
+			<div class="flex flex-wrap gap-2 pt-1">
+				@for (tag of note.attributes.tags; track tag) {
+				<span class="note-tag font-pixel text-xs text-[--color-muted]">#{{ tag }}</span>
+				}
+			</div>
+		</div>
 
-      <!-- Markdown Content -->
-      <div class="markdown-content font-body">
-        <analog-markdown [content]="note.content" />
-      </div>
-    </article>
-  } @else {
-    <div class="text-center py-12">
-      <p class="font-body text-base text-[--color-muted]">Loading note from vault...</p>
-    </div>
-  }
+		<!-- Markdown Content -->
+		<div class="markdown-content font-body">
+			<analog-markdown [content]="note.content" />
+		</div>
+	</article>
+	} @else {
+	<div class="text-center py-12">
+		<p class="font-body text-base text-[--color-muted]">Loading note from vault...</p>
+	</div>
+	}
 </div>

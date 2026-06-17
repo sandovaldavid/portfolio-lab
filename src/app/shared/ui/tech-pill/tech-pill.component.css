@@ -1,12 +1,12 @@
 /* Component styles for tech-pill */
 
 /* Scoped styles for tech-pill SVG logos in light theme (PhD mode) */
-:host-context(html.mode-research) .tech-pill-icon[src$="Django.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="Bootstrap.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="Express.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="Markdown.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="AstroIcon.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="sql-server.svg" i],
-:host-context(html.mode-research) .tech-pill-icon[src$="ChartJs.svg" i] {
-  filter: invert(1) brightness(0.2) !important;
+:host-context(html.mode-research) .tech-pill-icon[src$='Django.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='Bootstrap.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='Express.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='Markdown.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='AstroIcon.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='sql-server.svg' i],
+:host-context(html.mode-research) .tech-pill-icon[src$='ChartJs.svg' i] {
+	filter: invert(1) brightness(0.2) !important;
 }

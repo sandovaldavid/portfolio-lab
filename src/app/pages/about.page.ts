@@ -5,26 +5,26 @@ import { SectionTitleComponent } from '@shared/ui/section-title/section-title.co
 import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
 
 @Component({
-  selector: 'app-about-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionTitleComponent, AboutSectionComponent],
-  template: `
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-20">
-      <app-section-title>{{ i18n.t()('title.about-me') }}</app-section-title>
-      <app-about-section [compact]="false" />
-    </div>
-  `,
+	selector: 'app-about-page',
+	standalone: true,
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [SectionTitleComponent, AboutSectionComponent],
+	template: `
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 py-20">
+			<app-section-title>{{ i18n.t()('title.about-me') }}</app-section-title>
+			<app-about-section [compact]="false" />
+		</div>
+	`,
 })
 export default class AboutPage implements OnInit {
-  readonly i18n = inject(I18nService);
-  private readonly seo = inject(SeoService);
+	readonly i18n = inject(I18nService);
+	private readonly seo = inject(SeoService);
 
-  ngOnInit(): void {
-    this.seo.updatePage({
-      title: this.i18n.t()('seo.about.title'),
-      description: this.i18n.t()('seo.about.description'),
-      canonical: 'https://devsandoval.me/about',
-    });
-  }
+	ngOnInit(): void {
+		this.seo.updatePage({
+			title: this.i18n.t()('seo.about.title'),
+			description: this.i18n.t()('seo.about.description'),
+			canonical: 'https://devsandoval.me/about',
+		});
+	}
 }

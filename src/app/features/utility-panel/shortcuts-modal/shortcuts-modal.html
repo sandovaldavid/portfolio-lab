@@ -1,68 +1,80 @@
 @if (shortcuts.shortcutsVisible()) {
-  <!-- Backdrop -->
-  <div
-    class="modal-backdrop"
-    (click)="closeOnBackdrop($event)"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="shortcuts-title"
-  >
-    <!-- Panel -->
-    <div class="modal-panel">
+<!-- Backdrop -->
+<div
+	class="modal-backdrop"
+	(click)="closeOnBackdrop($event)"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="shortcuts-title"
+>
+	<!-- Panel -->
+	<div class="modal-panel">
+		<!-- Header -->
+		<div class="modal-header">
+			<div class="modal-title-row">
+				<!-- Keyboard SVG icon -->
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 18 18"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+					class="modal-icon"
+				>
+					<rect x="1.5" y="4.5" width="15" height="9" rx="1.5" />
+					<path d="M4.5 8h1M7.5 8h1M10.5 8h1M4.5 10.5h9" />
+				</svg>
+				<h2 id="shortcuts-title" class="modal-title">Keyboard Shortcuts</h2>
+			</div>
+			<button (click)="shortcuts.close()" class="modal-close" aria-label="Close shortcuts panel">
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 14 14"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M1 1l12 12M13 1L1 13" />
+				</svg>
+				<span>Esc</span>
+			</button>
+		</div>
 
-      <!-- Header -->
-      <div class="modal-header">
-        <div class="modal-title-row">
-          <!-- Keyboard SVG icon -->
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="modal-icon">
-            <rect x="1.5" y="4.5" width="15" height="9" rx="1.5"/>
-            <path d="M4.5 8h1M7.5 8h1M10.5 8h1M4.5 10.5h9"/>
-          </svg>
-          <h2 id="shortcuts-title" class="modal-title">Keyboard Shortcuts</h2>
-        </div>
-        <button
-          (click)="shortcuts.close()"
-          class="modal-close"
-          aria-label="Close shortcuts panel"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M1 1l12 12M13 1L1 13"/>
-          </svg>
-          <span>Esc</span>
-        </button>
-      </div>
+		<!-- Groups grid -->
+		<div class="modal-body">
+			@for (group of groups; track group.prefix) {
+			<div class="shortcut-group">
+				<p class="group-label">
+					<span class="group-prefix">{{ group.prefix }}</span>
+					{{ group.title }}
+				</p>
+				<ul class="shortcut-list">
+					@for (item of group.items; track item.desc) {
+					<li class="shortcut-item">
+						<span class="shortcut-desc">{{ item.desc }}</span>
+						<span class="shortcut-keys">
+							@for (key of item.keys; track key) {
+							<kbd class="shortcut-key">{{ key }}</kbd>
+							}
+						</span>
+					</li>
+					}
+				</ul>
+			</div>
+			}
+		</div>
 
-      <!-- Groups grid -->
-      <div class="modal-body">
-        @for (group of groups; track group.prefix) {
-          <div class="shortcut-group">
-            <p class="group-label">
-              <span class="group-prefix">{{ group.prefix }}</span>
-              {{ group.title }}
-            </p>
-            <ul class="shortcut-list">
-              @for (item of group.items; track item.desc) {
-                <li class="shortcut-item">
-                  <span class="shortcut-desc">{{ item.desc }}</span>
-                  <span class="shortcut-keys">
-                    @for (key of item.keys; track key) {
-                      <kbd class="shortcut-key">{{ key }}</kbd>
-                    }
-                  </span>
-                </li>
-              }
-            </ul>
-          </div>
-        }
-      </div>
-
-      <!-- Footer -->
-      <div class="modal-footer">
-        <p class="footer-hint">
-          Press <kbd class="shortcut-key">?</kbd> to toggle this panel
-        </p>
-      </div>
-
-    </div>
-  </div>
+		<!-- Footer -->
+		<div class="modal-footer">
+			<p class="footer-hint">Press <kbd class="shortcut-key">?</kbd> to toggle this panel</p>
+		</div>
+	</div>
+</div>
 }

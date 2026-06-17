@@ -1,14 +1,9 @@
 <span
-  class="inline-flex items-center gap-1.5 text-xs font-pixel leading-none px-2.5 py-1.5 rounded-sm"
-  [class]="colorClass()"
+	class="inline-flex items-center gap-1.5 text-xs font-pixel leading-none px-2.5 py-1.5 rounded-sm"
+	[class]="colorClass()"
 >
-  @if (icon()) {
-    <img
-      [src]="icon()!"
-      [alt]=""
-      class="w-3.5 h-3.5 object-contain"
-      aria-hidden="true"
-    />
-  }
-  {{ label() }}
+	@if (icon()) {
+		<img [src]="icon()!" [alt]="" class="w-3.5 h-3.5 object-contain" aria-hidden="true" />
+	}
+	{{ label() }}
 </span>

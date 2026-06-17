@@ -10,32 +10,32 @@ const DEFAULT_LANG: Language = 'es';
 
 @Injectable({ providedIn: 'root' })
 export class I18nService {
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+	private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-  readonly lang = signal<Language>(this._getInitialLang());
+	readonly lang = signal<Language>(this._getInitialLang());
 
-  readonly t = computed(() => {
-    const dict = this.lang() === 'en' ? en : es;
-    return (key: TranslationKey): string => dict[key] ?? key;
-  });
+	readonly t = computed(() => {
+		const dict = this.lang() === 'en' ? en : es;
+		return (key: TranslationKey): string => dict[key] ?? key;
+	});
 
-  setLang(lang: Language): void {
-    this.lang.set(lang);
-    if (this.isBrowser) {
-      localStorage.setItem(STORAGE_KEY, lang);
-      document.documentElement.lang = lang;
-    }
-  }
+	setLang(lang: Language): void {
+		this.lang.set(lang);
+		if (this.isBrowser) {
+			localStorage.setItem(STORAGE_KEY, lang);
+			document.documentElement.lang = lang;
+		}
+	}
 
-  toggleLang(): void {
-    this.setLang(this.lang() === 'en' ? 'es' : 'en');
-  }
+	toggleLang(): void {
+		this.setLang(this.lang() === 'en' ? 'es' : 'en');
+	}
 
-  private _getInitialLang(): Language {
-    if (this.isBrowser) {
-      const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
-      if (stored === 'en' || stored === 'es') return stored;
-    }
-    return DEFAULT_LANG;
-  }
+	private _getInitialLang(): Language {
+		if (this.isBrowser) {
+			const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
+			if (stored === 'en' || stored === 'es') return stored;
+		}
+		return DEFAULT_LANG;
+	}
 }

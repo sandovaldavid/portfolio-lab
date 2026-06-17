@@ -1,66 +1,70 @@
 <div class="academic-paper card-border">
-  <!-- Journal/Conference Header -->
-  <div class="paper-header">
-    <div class="journal-name">IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS (PROPOSAL)</div>
-    <div class="paper-meta">UNIVERSITY OF TOKYO · GRADUATE SCHOOL OF INFORMATION SCIENCE AND TECHNOLOGY</div>
-  </div>
+	<!-- Journal/Conference Header -->
+	<div class="paper-header">
+		<div class="journal-name">
+			IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS (PROPOSAL)
+		</div>
+		<div class="paper-meta">
+			UNIVERSITY OF TOKYO · GRADUATE SCHOOL OF INFORMATION SCIENCE AND TECHNOLOGY
+		</div>
+	</div>
 
-  <!-- Title & Author -->
-  <h2 class="paper-title">
-    {{ i18n.t()('mext.headline') }}
-  </h2>
-  
-  <div class="author-block">
-    <div class="author-name">Juan David Sandoval Salvador</div>
-    <div class="author-affiliation">Department of Computer Engineering, National University of Piura, Peru</div>
-    <div class="author-email">contact&#64;devsandoval.me</div>
-  </div>
+	<!-- Title & Author -->
+	<h2 class="paper-title">
+		{{ i18n.t()('mext.headline') }}
+	</h2>
 
-  <!-- Abstract & Proposal Content (Two Column Layout) -->
-  <div class="paper-body">
-    <div class="paper-column">
-      <h3 class="section-title-academic">{{ i18n.t()('mext.abstract.title') }}</h3>
-      <p class="abstract-text">
-        <strong><em>Abstract</em>—{{ i18n.t()('mext.abstract.body') }}</strong>
-      </p>
-      
-      <h3 class="section-title-academic">I. Introduction &amp; Motivation</h3>
-      <p class="paragraph-text">
-        Traditional time-series predictors assume linear dependencies or fail to map long-range temporal dependencies due to numerical instability. 
-        Recurrent Neural Networks (RNNs) theoretically address this, yet the exponential product of Jacobians during backpropagation through time 
-        yields vanishing or exploding gradients. Long Short-Term Memory (LSTM) cells mitigate this by introducing linear cell state updates, 
-        governed by specialized multiplicative gates. This research proposal aims to build on top of these foundations by optimizing memory retention 
-        on high-frequency systems.
-      </p>
-    </div>
+	<div class="author-block">
+		<div class="author-name">Juan David Sandoval Salvador</div>
+		<div class="author-affiliation">
+			Department of Computer Engineering, National University of Piura, Peru
+		</div>
+		<div class="author-email">contact&#64;devsandoval.me</div>
+	</div>
 
-    <div class="paper-column">
-      <h3 class="section-title-academic">II. Research Objectives</h3>
-      <p class="paragraph-text">
-        The primary goal of this research project is to model sequence predictability under highly volatile regimes. Specifically:
-      </p>
-      
-      <ul class="academic-list">
-        <li>
-          <strong>Obj-1:</strong> {{ i18n.t()('mext.proposal.bullet1') }}
-        </li>
-        <li>
-          <strong>Obj-2:</strong> {{ i18n.t()('mext.proposal.bullet2') }}
-        </li>
-        <li>
-          <strong>Obj-3:</strong> {{ i18n.t()('mext.proposal.bullet3') }}
-        </li>
-      </ul>
+	<!-- Abstract & Proposal Content (Two Column Layout) -->
+	<div class="paper-body">
+		<div class="paper-column">
+			<h3 class="section-title-academic">{{ i18n.t()('mext.abstract.title') }}</h3>
+			<p class="abstract-text">
+				<strong><em>Abstract</em>—{{ i18n.t()('mext.abstract.body') }}</strong>
+			</p>
 
-      <h3 class="section-title-academic">III. Expected Contributions</h3>
-      <p class="paragraph-text">
-        By developing adaptive gating mechanisms, we expect to prove that computational risk budgets can be minimized by 18% in predicting transaction sequences.
-        This provides a mathematically sound bridge between enterprise fintech architectures and academic deep sequence predictors.
-      </p>
-      
-      <div class="academic-footer-note">
-        * Corresponding Proposal submitted for the MEXT Research Scholarship Program 2026/2027.
-      </div>
-    </div>
-  </div>
+			<h3 class="section-title-academic">I. Introduction &amp; Motivation</h3>
+			<p class="paragraph-text">
+				Traditional time-series predictors assume linear dependencies or fail to map long-range
+				temporal dependencies due to numerical instability. Recurrent Neural Networks (RNNs)
+				theoretically address this, yet the exponential product of Jacobians during backpropagation
+				through time yields vanishing or exploding gradients. Long Short-Term Memory (LSTM) cells
+				mitigate this by introducing linear cell state updates, governed by specialized
+				multiplicative gates. This research proposal aims to build on top of these foundations by
+				optimizing memory retention on high-frequency systems.
+			</p>
+		</div>
+
+		<div class="paper-column">
+			<h3 class="section-title-academic">II. Research Objectives</h3>
+			<p class="paragraph-text">
+				The primary goal of this research project is to model sequence predictability under highly
+				volatile regimes. Specifically:
+			</p>
+
+			<ul class="academic-list">
+				<li><strong>Obj-1:</strong> {{ i18n.t()('mext.proposal.bullet1') }}</li>
+				<li><strong>Obj-2:</strong> {{ i18n.t()('mext.proposal.bullet2') }}</li>
+				<li><strong>Obj-3:</strong> {{ i18n.t()('mext.proposal.bullet3') }}</li>
+			</ul>
+
+			<h3 class="section-title-academic">III. Expected Contributions</h3>
+			<p class="paragraph-text">
+				By developing adaptive gating mechanisms, we expect to prove that computational risk budgets
+				can be minimized by 18% in predicting transaction sequences. This provides a mathematically
+				sound bridge between enterprise fintech architectures and academic deep sequence predictors.
+			</p>
+
+			<div class="academic-footer-note">
+				* Corresponding Proposal submitted for the MEXT Research Scholarship Program 2026/2027.
+			</div>
+		</div>
+	</div>
 </div>

@@ -7,32 +7,32 @@ import { provideRouter } from '@angular/router';
 import { provideContent, withMarkdownRenderer } from '@analogjs/content';
 
 describe('NotesListPage', () => {
-  it('should render search fields and category filters', async () => {
-    const mockLangSignal = signal<'en' | 'es'>('en');
+	it('should render search fields and category filters', async () => {
+		const mockLangSignal = signal<'en' | 'es'>('en');
 
-    await render(NotesListPage, {
-      providers: [
-        provideRouter([]),
-        provideContent(withMarkdownRenderer()),
-        {
-          provide: I18nService,
-          useValue: {
-            lang: mockLangSignal,
-            t: () => (key: string) => key,
-          },
-        },
-        {
-          provide: SeoService,
-          useValue: {
-            updatePage: vi.fn(),
-          },
-        },
-      ],
-    });
+		await render(NotesListPage, {
+			providers: [
+				provideRouter([]),
+				provideContent(withMarkdownRenderer()),
+				{
+					provide: I18nService,
+					useValue: {
+						lang: mockLangSignal,
+						t: () => (key: string) => key,
+					},
+				},
+				{
+					provide: SeoService,
+					useValue: {
+						updatePage: vi.fn(),
+					},
+				},
+			],
+		});
 
-    expect(screen.getByText('// TIL_OBSIDIAN_VAULT')).toBeTruthy();
-    expect(screen.getByPlaceholderText(/Search notes/i)).toBeTruthy();
-    expect(screen.getByText('ALGORITHMS')).toBeTruthy();
-    expect(screen.getByText('SYSTEMS')).toBeTruthy();
-  });
+		expect(screen.getByText('// TIL_OBSIDIAN_VAULT')).toBeTruthy();
+		expect(screen.getByPlaceholderText(/Search notes/i)).toBeTruthy();
+		expect(screen.getByText('ALGORITHMS')).toBeTruthy();
+		expect(screen.getByText('SYSTEMS')).toBeTruthy();
+	});
 });
