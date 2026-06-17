@@ -8,17 +8,16 @@ import { provideContent, withMarkdownRenderer } from '@analogjs/content';
 import { withPrismHighlighter } from '@analogjs/content/prism-highlighter';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideFileRouter(
-      withInMemoryScrolling({
-        anchorScrolling: 'enabled',
-        scrollPositionRestoration: 'enabled',
-      })
-    ),
-    provideHttpClient(withFetch(), withInterceptors([requestContextInterceptor])),
-    provideClientHydration(withEventReplay()),
-    provideAnimations(),
-    provideContent(withMarkdownRenderer(), withPrismHighlighter()),
-  ],
+	providers: [
+		provideBrowserGlobalErrorListeners(),
+		provideFileRouter(
+			withInMemoryScrolling({
+				scrollPositionRestoration: 'enabled',
+			})
+		),
+		provideHttpClient(withFetch(), withInterceptors([requestContextInterceptor])),
+		provideClientHydration(withEventReplay()),
+		provideAnimations(),
+		provideContent(withMarkdownRenderer(), withPrismHighlighter()),
+	],
 };

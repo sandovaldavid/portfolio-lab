@@ -57,8 +57,9 @@ export class App {
 			// Tell Angular's ViewportScroller to always leave room for the fixed header
 			this.viewportScroller.setOffset([0, App.SCROLL_OFFSET]);
 
-			// Angular's built-in anchorScrolling calls scrollIntoView with no offset;
-			// we override it here by scrolling manually after NavigationEnd.
+			// Handle fragment scrolling ourselves so we can apply the SCROLL_OFFSET.
+			// anchorScrolling: 'enabled' is intentionally disabled in app.config.ts
+			// to avoid a race condition that causes a jump on repeated clicks.
 			this.router.events
 				.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
 				.subscribe((event) => {
@@ -68,11 +69,17 @@ export class App {
 						setTimeout(() => {
 							const el = this.document.getElementById(fragment);
 							if (el) {
-								const top =
-									el.getBoundingClientRect().top +
-									window.scrollY -
-									App.SCROLL_OFFSET;
-								window.scrollTo({ top, behavior: 'smooth' });
+								const distanceFromTarget =
+									el.getBoundingClientRect().top - App.SCROLL_OFFSET;
+								// Skip if the element is already within 20px of the desired position
+								// to prevent the upward jump when clicking the same nav link twice
+								if (Math.abs(distanceFromTarget) > 20) {
+									const top =
+										el.getBoundingClientRect().top +
+										window.scrollY -
+										App.SCROLL_OFFSET;
+									window.scrollTo({ top, behavior: 'smooth' });
+								}
 							}
 						}, 50);
 					}
