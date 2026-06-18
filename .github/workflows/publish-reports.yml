@@ -1,9 +1,4 @@
-name: Build Reports
-
-# Note: GitHub Pages is disabled (private repo on free plan).
-# Reports are stored as downloadable artifacts in GitHub Actions.
-# To access: Actions tab → select a run → Artifacts section.
-# Enable GitHub Pages when the repo becomes public or on upgrade to Pro.
+name: Publish Reports
 
 on:
   push:
@@ -13,6 +8,12 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   build-reports:
@@ -48,9 +49,44 @@ jobs:
           cp -r coverage/. reports/coverage/ 2>/dev/null \
             || echo "[warning] No coverage report found — skipping"
 
-      - name: Upload reports artifact
-        uses: actions/upload-artifact@v4
+      - name: Generate index page
+        run: |
+          cat > reports/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>Portfolio Reports</title>
+            <style>
+              body { font-family: monospace; max-width: 600px; margin: 4rem auto; padding: 0 1rem; }
+              h1 { font-size: 1.25rem; }
+              ul { line-height: 2; }
+              a { color: #0070f3; }
+              p { color: #666; font-size: .875rem; }
+            </style>
+          </head>
+          <body>
+            <h1>Portfolio Reports</h1>
+            <ul>
+              <li><a href="bundle-analysis/">Bundle Analysis</a></li>
+              <li><a href="coverage/">Test Coverage</a></li>
+            </ul>
+          </body>
+          </html>
+          HTMLEOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: reports-${{ github.ref_name }}-${{ github.run_number }}
           path: reports/
-          retention-days: 30
+
+  deploy-pages:
+    needs: build-reports
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
