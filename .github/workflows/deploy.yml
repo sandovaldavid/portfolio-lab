@@ -93,7 +93,7 @@ jobs:
           BUILD_PRESET: vercel
       - run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+            vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
           else
-            vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+            vercel deploy --prebuilt --yes --token=${{ secrets.VERCEL_TOKEN }}
           fi
