@@ -1,7 +1,8 @@
+import type { TranslationKey } from '@shared/config/i18n/en';
 import { TAGS } from '@entities/technology/model/technology.model';
 import type { ProjectItem } from './project.model';
 
-export function getProjectsData(t: (key: string) => string): ProjectItem[] {
+export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem[] {
 	return [
 		{
 			title: t('projects.campus-map.title'),

@@ -1,6 +1,7 @@
+import type { TranslationKey } from '@shared/config/i18n/en';
 import type { ExperienceItem } from './experience.model';
 
-export function getExperienceData(t: (key: string) => string): ExperienceItem[] {
+export function getExperienceData(t: (key: TranslationKey) => string): ExperienceItem[] {
 	return [
 		{
 			date: t('experience.atena.date'),
