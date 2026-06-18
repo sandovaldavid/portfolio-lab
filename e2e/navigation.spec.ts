@@ -1,47 +1,77 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+const routes = [
+	{ path: '/', name: 'Home' },
+	{ path: '/about', name: 'About' },
+	{ path: '/projects', name: 'Projects' },
+	{ path: '/experience', name: 'Experience' },
+	{ path: '/skills', name: 'Skills' },
+	{ path: '/notes', name: 'Notes' },
+];
 
 test.describe('Navigation', () => {
-	test.beforeEach(async ({ page }) => {
+	test('should load all prerendered routes without errors', async ({ page }) => {
+		for (const route of routes) {
+			const response = await page.goto(route.path);
+			expect(response?.status(), `${route.name} returned non-2xx`).toBeLessThan(400);
+			await expect(page.locator('main, [role="main"]')).toBeVisible();
+		}
+	});
+
+	test('should not have broken internal links', async ({ page }) => {
 		await page.goto('/');
-	});
+		const links = await page.locator('a[href^="/"]').all();
+		const hrefs = [...new Set(await Promise.all(links.map(l => l.getAttribute('href'))))];
 
-	test('[info] should navigate to about page', async ({ page }) => {
-		const aboutLink = page.locator('a[href*="about"], a:has-text("About")').first();
-		if (await aboutLink.isVisible()) {
-			await aboutLink.click();
-			await expect(page).toHaveURL(/\/about/);
+		for (const href of hrefs) {
+			if (!href || href === '#') continue;
+			const response = await page.goto(href!);
+			expect(response?.status(), `Broken link: ${href}`).toBeLessThan(400);
 		}
 	});
 
-	test('[info] should navigate to projects page', async ({ page }) => {
-		const projectsLink = page.locator('a[href*="projects"], a:has-text("Projects")').first();
-		if (await projectsLink.isVisible()) {
-			await projectsLink.click();
-			await expect(page).toHaveURL(/\/projects/);
-		}
+	test('keyboard: can tab through main navigation', async ({ page }) => {
+		await page.goto('/');
+		await page.keyboard.press('Tab');
+		const focused = page.locator(':focus');
+		await expect(focused).toBeVisible();
 	});
+});
 
-	test('[info] should navigate to experience page', async ({ page }) => {
-		const experienceLink = page.locator('a[href*="experience"], a:has-text("Experience")').first();
-		if (await experienceLink.isVisible()) {
-			await experienceLink.click();
-			await expect(page).toHaveURL(/\/experience/);
-		}
-	});
+test.describe('Accessibility per page', () => {
+	for (const route of routes) {
+		test(`${route.name}: no critical a11y violations`, async ({ page }) => {
+			await page.goto(route.path);
+			const results = await new AxeBuilder({ page })
+				.withTags(['wcag2a', 'wcag2aa'])
+				.analyze();
 
-	test('[info] should navigate to skills page', async ({ page }) => {
-		const skillsLink = page.locator('a[href*="skills"], a:has-text("Skills")').first();
-		if (await skillsLink.isVisible()) {
-			await skillsLink.click();
-			await expect(page).toHaveURL(/\/skills/);
-		}
-	});
+			const critical = results.violations.filter(
+				v => v.impact === 'critical' || v.impact === 'serious',
+			);
+			if (critical.length > 0) {
+				const details = critical.map(v => `${v.id}: ${v.description}`).join('\n  ');
+				console.error(`[fail] ${route.name} violations:\n  ${details}`);
+			}
+			expect(critical).toHaveLength(0);
+		});
+	}
+});
 
-	test('[info] should navigate to notes page', async ({ page }) => {
-		const notesLink = page.locator('a[href*="notes"], a:has-text("Notes")').first();
-		if (await notesLink.isVisible()) {
-			await notesLink.click();
-			await expect(page).toHaveURL(/\/notes/);
-		}
-	});
+test.describe('Responsiveness per page', () => {
+	const viewports = [
+		{ name: 'mobile', width: 375, height: 812 },
+		{ name: 'tablet', width: 768, height: 1024 },
+		{ name: 'desktop', width: 1280, height: 800 },
+	];
+
+	for (const vp of viewports) {
+		test(`should not overflow horizontally on ${vp.name} (${vp.width}px)`, async ({ page }) => {
+			await page.setViewportSize({ width: vp.width, height: vp.height });
+			await page.goto('/');
+			const overflow = await page.evaluate(() => document.body.scrollWidth > window.innerWidth);
+			expect(overflow, `Horizontal overflow on ${vp.name}`).toBe(false);
+		});
+	}
 });
