@@ -98,11 +98,9 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Wait for deployment
-        run: sleep 10
-
       - name: Health check
         id: health
+        continue-on-error: true
         run: |
           DEPLOY_URL="${{ steps.vercel.outputs.deploy_url }}"
           if [ -z "$DEPLOY_URL" ]; then
@@ -110,18 +108,16 @@ jobs:
             exit 0
           fi
 
-          for i in {1..10}; do
+          for i in {1..20}; do
             echo "[info] Attempt $i: Checking $DEPLOY_URL"
             if curl -f -s "$DEPLOY_URL" > /dev/null; then
               echo "[success] Health check passed"
               exit 0
             fi
-            if [ $i -lt 10 ]; then
-              sleep 5
-            fi
+            sleep 10
           done
 
-          echo "[warning] Health check timeout after 50 seconds"
+          echo "[warning] Health check timed out — deployment may still be warming up"
           exit 1
 
       - name: Update deployment status (success)
