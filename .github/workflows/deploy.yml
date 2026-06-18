@@ -6,30 +6,31 @@ on:
       - main
       - develop
 
+permissions:
+  contents: read
+  deployments: write
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: "10"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.19.1"
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
-      - run: pnpm lint
+  quality-checks:
+    uses: ./.github/workflows/quality-checks.yml
+    with:
+      run-audit: true
+    secrets: inherit
 
-  format:
+  build:
     runs-on: ubuntu-latest
+    needs: quality-checks
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: "10"
+          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
           node-version: "20.19.1"
@@ -37,63 +38,116 @@ jobs:
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm format:check
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: "10"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.19.1"
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
         env:
-          HUSKY: 0
-      - run: npx tsc --noEmit -p tsconfig.app.json
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+          BUILD_PRESET: vercel
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          version: "10"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.19.1"
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
-      - run: pnpm test -- --run
+          name: build-output
+          path: .vercel/output
+          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [lint, format, typecheck, test]
+    needs: build
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: "10"
+          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
           node-version: "20.19.1"
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .vercel/output
+
+      - name: Create deployment
+        uses: actions/github-script@v7
+        id: deployment
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.ref,
+              environment: '${{ github.ref == ''refs/heads/main'' && ''production'' || ''preview'' }}',
+              auto_merge: false,
+              required_contexts: [],
+              production_environment: ${{ github.ref == 'refs/heads/main' }}
+            });
+            core.setOutput('deployment_id', deployment.data.id);
+
+      - name: Deploy to Vercel
+        id: vercel
+        run: |
+          npx vercel deploy --prebuilt ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} > deploy_output.txt 2>&1
+          DEPLOY_URL=$(grep -oP 'https://[^ ]+' deploy_output.txt | head -1)
+          echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "[success] Deployed to: $DEPLOY_URL"
         env:
-          HUSKY: 0
-      - run: |
-          pnpm add -g vercel@54
-          pnpm build
-        env:
-          BUILD_PRESET: vercel
-      - run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
-          else
-            vercel deploy --prebuilt --yes --token=${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Wait for deployment
+        run: sleep 10
+
+      - name: Health check
+        id: health
+        run: |
+          DEPLOY_URL="${{ steps.vercel.outputs.deploy_url }}"
+          if [ -z "$DEPLOY_URL" ]; then
+            echo "[warning] Could not extract deployment URL"
+            exit 0
           fi
+
+          for i in {1..10}; do
+            echo "[info] Attempt $i: Checking $DEPLOY_URL"
+            if curl -f -s "$DEPLOY_URL" > /dev/null; then
+              echo "[success] Health check passed"
+              exit 0
+            fi
+            if [ $i -lt 10 ]; then
+              sleep 5
+            fi
+          done
+
+          echo "[warning] Health check timeout after 50 seconds"
+          exit 1
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
+              state: 'success',
+              description: 'Deployment successful',
+              environment_url: '${{ steps.vercel.outputs.deploy_url }}'
+            });
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
+              state: 'failure',
+              description: 'Deployment failed'
+            });

@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import analog from '@analogjs/platform';
 import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
 
 // https://vitejs.dev/config/
@@ -47,12 +48,34 @@ export default defineConfig(({ mode }) => ({
     }),
     tailwindcss(),
     tsconfigPaths(),
+    visualizer({
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      filename: 'dist/stats.html',
+    }),
   ],
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['src/test-setup.ts'],
     include: ['**/*.spec.ts'],
-    reporters: ['default'],
+    reporters: ['default', 'verbose'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      exclude: [
+        'node_modules/',
+        'dist/',
+        '**/*.spec.ts',
+        '**/test-setup.ts',
+        'src/main.ts',
+        'src/main.server.ts',
+      ],
+      lines: 50,
+      functions: 50,
+      branches: 50,
+      statements: 50,
+    },
   },
 }));

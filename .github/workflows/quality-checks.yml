@@ -1,0 +1,124 @@
+name: Quality Checks
+
+on:
+  workflow_call:
+    inputs:
+      run-audit:
+        type: boolean
+        default: false
+        description: Run pnpm audit
+    secrets:
+      GITHUB_TOKEN:
+        required: false
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - run: pnpm lint
+      - name: Comment PR on lint failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '[error] ESLint check failed. Run `pnpm lint:fix` to fix issues.'
+            })
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - run: pnpm format:check
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - run: npx tsc --noEmit -p tsconfig.app.json
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - run: pnpm test -- --run --reporter=verbose
+      - name: Upload coverage
+        if: always()
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          fail_ci_if_error: false
+
+  security:
+    runs-on: ubuntu-latest
+    if: inputs.run-audit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - run: pnpm audit --audit-level=moderate
+      - name: Comment PR on audit failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '[warning] Security audit found vulnerabilities. Run `pnpm audit` locally to review.'
+            })
