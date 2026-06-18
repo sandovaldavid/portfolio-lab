@@ -1,5 +1,5 @@
 {
-  "buildCommand": "if [ -z \"$GITHUB_ACTIONS\" ]; then echo 'Automatic deployments disabled. Use GitHub Actions only.' && exit 1; else pnpm build; fi",
-  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "exit 1",
+  "installCommand": "exit 1",
   "outputDirectory": ".vercel/output"
 }
