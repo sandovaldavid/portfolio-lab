@@ -1,10 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	PLATFORM_ID,
-	inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
@@ -69,8 +64,7 @@ export class App {
 							const el = this.document.getElementById(fragment);
 							if (!el) return;
 
-							const targetY =
-								el.getBoundingClientRect().top + window.scrollY - App.SCROLL_OFFSET;
+							const targetY = el.getBoundingClientRect().top + window.scrollY - App.SCROLL_OFFSET;
 
 							window.scrollTo({ top: targetY, behavior: 'smooth' });
 						}, 50);

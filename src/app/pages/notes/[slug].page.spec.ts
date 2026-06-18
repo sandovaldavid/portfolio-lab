@@ -4,11 +4,7 @@ import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import {
-	injectContent,
-	provideContent,
-	withMarkdownRenderer,
-} from '@analogjs/content';
+import { injectContent, provideContent, withMarkdownRenderer } from '@analogjs/content';
 import { of } from 'rxjs';
 
 // Mock injectContent

@@ -56,7 +56,12 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 			</section>
 
 			<!-- Experience Section -->
-			<section id="experience" class="scroll-mt-36" aria-labelledby="experience-heading" appScrollObserver>
+			<section
+				id="experience"
+				class="scroll-mt-36"
+				aria-labelledby="experience-heading"
+				appScrollObserver
+			>
 				<app-section-title id="experience-heading">
 					{{ i18n.t()('title.experience') }}
 				</app-section-title>
@@ -98,18 +103,33 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 
 			@if (state.isAcademic()) {
 				<!-- LSTM Playground -->
-				<section id="lstm" class="scroll-mt-36" aria-label="LSTM Recurrent Cell simulation" appScrollObserver>
+				<section
+					id="lstm"
+					class="scroll-mt-36"
+					aria-label="LSTM Recurrent Cell simulation"
+					appScrollObserver
+				>
 					<app-lstm-playground />
 				</section>
 
 				<!-- MEXT Thesis Abstract -->
-				<section id="mext" class="scroll-mt-36" aria-label="MEXT Research Proposal Abstract" appScrollObserver>
+				<section
+					id="mext"
+					class="scroll-mt-36"
+					aria-label="MEXT Research Proposal Abstract"
+					appScrollObserver
+				>
 					<app-mext-thesis-pitch />
 				</section>
 			}
 
 			<!-- Featured Projects Section -->
-			<section id="projects" class="scroll-mt-36" aria-labelledby="projects-heading" appScrollObserver>
+			<section
+				id="projects"
+				class="scroll-mt-36"
+				aria-labelledby="projects-heading"
+				appScrollObserver
+			>
 				<app-section-title id="projects-heading">
 					{{ i18n.t()('title.projects') }}
 				</app-section-title>
