@@ -50,30 +50,7 @@ jobs:
             || echo "[warning] No coverage report found — skipping"
 
       - name: Generate index page
-        run: |
-          cat > reports/index.html << 'HTMLEOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <title>Portfolio Reports</title>
-            <style>
-              body { font-family: monospace; max-width: 600px; margin: 4rem auto; padding: 0 1rem; }
-              h1 { font-size: 1.25rem; }
-              ul { line-height: 2; }
-              a { color: #0070f3; }
-              p { color: #666; font-size: .875rem; }
-            </style>
-          </head>
-          <body>
-            <h1>Portfolio Reports</h1>
-            <ul>
-              <li><a href="bundle-analysis/">Bundle Analysis</a></li>
-              <li><a href="coverage/">Test Coverage</a></li>
-            </ul>
-          </body>
-          </html>
-          HTMLEOF
+        run: cp .github/reports-template.html reports/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
