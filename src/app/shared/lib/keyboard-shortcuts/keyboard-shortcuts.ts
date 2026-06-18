@@ -30,7 +30,7 @@ export class KeyboardShortcutsService {
 
 	private _registerDiagnostics(): void {
 		if (!this.isBrowser) return;
-		(window as any).runDiagnostics = () => {
+		(window as unknown as Window & { runDiagnostics: () => void }).runDiagnostics = () => {
 			const perf = window.performance;
 			const timing = perf ? perf.timing : null;
 			const loadTime = timing ? timing.loadEventEnd - timing.navigationStart + 'ms' : 'unknown';

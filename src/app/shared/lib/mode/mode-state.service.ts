@@ -4,7 +4,6 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 export type PortfolioMode = 'SYSTEM_ARCHITECT' | 'RESEARCH_FELLOW';
 
 const MODE_STORAGE_KEY = 'portfolio_mode';
-const DEFAULT_MODE: PortfolioMode = 'SYSTEM_ARCHITECT';
 
 @Injectable({ providedIn: 'root' })
 export class ModeStateService {

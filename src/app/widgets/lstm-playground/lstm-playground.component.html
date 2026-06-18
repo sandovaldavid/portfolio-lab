@@ -12,80 +12,90 @@
 			<h3 class="panel-title">1. Inputs &amp; Biases Configuration</h3>
 
 			<div class="control-group">
-				<label>Input Vector component (x<sub>t, 1</sub>) = {{ xt1() | number: '1.2-2' }}</label>
-				<input
-					type="range"
-					min="-2.0"
-					max="2.0"
-					step="0.1"
-					[value]="xt1()"
-					(input)="updateXt1(+$any($event.target).value)"
-				/>
-			</div>
-
-			<div class="control-group">
-				<label>Input Vector component (x<sub>t, 2</sub>) = {{ xt2() | number: '1.2-2' }}</label>
-				<input
-					type="range"
-					min="-2.0"
-					max="2.0"
-					step="0.1"
-					[value]="xt2()"
-					(input)="updateXt2(+$any($event.target).value)"
-				/>
+				<label
+					>Input Vector component (x<sub>t, 1</sub>) = {{ xt1() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="-2.0"
+						max="2.0"
+						step="0.1"
+						[value]="xt1()"
+						(input)="updateXt1(+$any($event.target).value)"
+					/>
+				</label>
 			</div>
 
 			<div class="control-group">
 				<label
-					>Previous Hidden State (h<sub>t-1</sub>) = {{ prevHidden() | number: '1.2-2' }}</label
-				>
-				<input
-					type="range"
-					min="0.0"
-					max="1.0"
-					step="0.05"
-					[value]="prevHidden()"
-					(input)="updatePrevHidden(+$any($event.target).value)"
-				/>
+					>Input Vector component (x<sub>t, 2</sub>) = {{ xt2() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="-2.0"
+						max="2.0"
+						step="0.1"
+						[value]="xt2()"
+						(input)="updateXt2(+$any($event.target).value)"
+					/>
+				</label>
 			</div>
 
 			<div class="control-group">
-				<label>Previous Cell State (C<sub>t-1</sub>) = {{ prevCell() | number: '1.2-2' }}</label>
-				<input
-					type="range"
-					min="0.0"
-					max="1.0"
-					step="0.05"
-					[value]="prevCell()"
-					(input)="updatePrevCell(+$any($event.target).value)"
-				/>
+				<label
+					>Previous Hidden State (h<sub>t-1</sub>) = {{ prevHidden() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="0.0"
+						max="1.0"
+						step="0.05"
+						[value]="prevHidden()"
+						(input)="updatePrevHidden(+$any($event.target).value)"
+					/>
+				</label>
+			</div>
+
+			<div class="control-group">
+				<label
+					>Previous Cell State (C<sub>t-1</sub>) = {{ prevCell() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="0.0"
+						max="1.0"
+						step="0.05"
+						[value]="prevCell()"
+						(input)="updatePrevCell(+$any($event.target).value)"
+					/>
+				</label>
 			</div>
 
 			<div class="divider"></div>
 
 			<div class="control-group">
-				<label>Forget Gate Bias (b<sub>f</sub>) = {{ biasForget() | number: '1.2-2' }}</label>
-				<input
-					type="range"
-					min="-3.0"
-					max="3.0"
-					step="0.1"
-					[value]="biasForget()"
-					(input)="updateForget(+$any($event.target).value)"
-				/>
+				<label
+					>Forget Gate Bias (b<sub>f</sub>) = {{ biasForget() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="-3.0"
+						max="3.0"
+						step="0.1"
+						[value]="biasForget()"
+						(input)="updateForget(+$any($event.target).value)"
+					/>
+				</label>
 				<span class="gate-hint">Lower values force the cell to reset its long-term state.</span>
 			</div>
 
 			<div class="control-group">
-				<label>Input Gate Bias (b<sub>i</sub>) = {{ biasInput() | number: '1.2-2' }}</label>
-				<input
-					type="range"
-					min="-3.0"
-					max="3.0"
-					step="0.1"
-					[value]="biasInput()"
-					(input)="updateInput(+$any($event.target).value)"
-				/>
+				<label
+					>Input Gate Bias (b<sub>i</sub>) = {{ biasInput() | number: '1.2-2' }}
+					<input
+						type="range"
+						min="-3.0"
+						max="3.0"
+						step="0.1"
+						[value]="biasInput()"
+						(input)="updateInput(+$any($event.target).value)"
+					/>
+				</label>
 			</div>
 		</div>
 
