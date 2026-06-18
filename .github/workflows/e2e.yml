@@ -68,10 +68,8 @@ jobs:
             if (fs.existsSync(reportPath)) {
               const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
               const stats = report.stats || {};
-              const body = `[info] E2E Test Results
-- Tests: ${stats.expected || 0}
-- Passed: ${stats.unexpected ? stats.expected - stats.unexpected : 0}
-- Failed: ${stats.unexpected || 0}`;
+              const passed = stats.unexpected ? stats.expected - stats.unexpected : 0;
+              const body = '[info] E2E Test Results\n- Tests: ' + (stats.expected || 0) + '\n- Passed: ' + passed + '\n- Failed: ' + (stats.unexpected || 0);
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
