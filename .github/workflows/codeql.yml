@@ -1,5 +1,10 @@
 name: CodeQL Security Scan
 
+# Note: GitHub Code Scanning (security-events upload) requires GitHub Advanced Security,
+# which is not available for private repos on the free plan.
+# This workflow runs CodeQL analysis and stores results as SARIF artifacts instead.
+# To enable the Security tab integration, either make the repo public or upgrade to GHAS.
+
 on:
   push:
     branches:
@@ -19,7 +24,7 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -49,3 +54,15 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
+          # upload: never — private repo on free plan, Code Scanning API is not available.
+          # Results are stored as SARIF artifacts below for manual review.
+          upload: never
+          output: sarif-results
+
+      - name: Upload SARIF artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: codeql-sarif-${{ matrix.language }}
+          path: sarif-results/
+          retention-days: 30
