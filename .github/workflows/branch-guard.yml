@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  Source Branch Check:
+  SourceBranchCheck:
     name: Source Branch Check
     runs-on: ubuntu-latest
     steps:
