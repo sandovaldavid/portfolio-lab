@@ -12,10 +12,8 @@ import {
 import { of } from 'rxjs';
 
 // Mock injectContent
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 vi.mock('@analogjs/content', async () => {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const actual = await vi.importActual<any>('@analogjs/content');
+	const actual = await vi.importActual<unknown>('@analogjs/content');
 	return {
 		...actual,
 		injectContent: vi.fn(),
@@ -37,8 +35,7 @@ describe('NoteDetailPage', () => {
 			},
 			content: '# Mock Content Body',
 		};
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(injectContent as any).mockReturnValue(of(mockNote));
+		(injectContent as unknown as ReturnType<typeof vi.fn>).mockReturnValue(of(mockNote));
 
 		await render(NoteDetailPage, {
 			providers: [
