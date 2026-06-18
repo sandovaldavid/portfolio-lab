@@ -7,9 +7,6 @@ on:
         type: boolean
         default: false
         description: Run pnpm audit
-    secrets:
-      GITHUB_TOKEN:
-        required: false
 
 jobs:
   lint:
