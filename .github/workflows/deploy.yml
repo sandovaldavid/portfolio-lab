@@ -90,7 +90,7 @@ jobs:
         run: |
           set -o pipefail
           npx vercel deploy --prebuilt --yes ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee deploy_output.txt
-          DEPLOY_URL=$(grep -oP 'https://[^ ]+' deploy_output.txt | head -1)
+          DEPLOY_URL=$(grep -oP 'https://[a-z0-9-]+\.vercel\.app' deploy_output.txt | head -1)
           echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
           echo "[success] Deployed to: $DEPLOY_URL"
         env:
