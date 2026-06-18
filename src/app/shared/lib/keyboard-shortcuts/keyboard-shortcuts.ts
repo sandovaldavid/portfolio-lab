@@ -127,35 +127,47 @@ export class KeyboardShortcutsService {
 
 		if (e.ctrlKey && key === 'd') {
 			e.preventDefault();
-			window.scrollBy({ top: window.innerHeight / 2, behavior: 'smooth' });
+			if (typeof window.scrollBy === 'function') {
+				window.scrollBy({ top: window.innerHeight / 2, behavior: 'smooth' });
+			}
 			return;
 		}
 		if (e.ctrlKey && key === 'u') {
 			e.preventDefault();
-			window.scrollBy({ top: -window.innerHeight / 2, behavior: 'smooth' });
+			if (typeof window.scrollBy === 'function') {
+				window.scrollBy({ top: -window.innerHeight / 2, behavior: 'smooth' });
+			}
 			return;
 		}
 
 		if (key === 'G') {
 			e.preventDefault();
-			window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+			if (typeof window.scrollTo === 'function') {
+				window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+			}
 			return;
 		}
 		if (key === 'j' || key === 's') {
 			e.preventDefault();
-			window.scrollBy({ top: 80, behavior: 'smooth' });
+			if (typeof window.scrollBy === 'function') {
+				window.scrollBy({ top: 80, behavior: 'smooth' });
+			}
 			return;
 		}
 		if (key === 'k' || key === 'w') {
 			e.preventDefault();
-			window.scrollBy({ top: -80, behavior: 'smooth' });
+			if (typeof window.scrollBy === 'function') {
+				window.scrollBy({ top: -80, behavior: 'smooth' });
+			}
 			return;
 		}
 
 		if (key === 'g') {
 			if (this._lastKey === 'g' && now - this._lastKeyTime < 500) {
 				e.preventDefault();
-				window.scrollTo({ top: 0, behavior: 'smooth' });
+				if (typeof window.scrollTo === 'function') {
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+				}
 				this._lastKey = '';
 				return;
 			}

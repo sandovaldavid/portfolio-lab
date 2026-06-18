@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 
 // Mock injectContent
 vi.mock('@analogjs/content', async () => {
-	const actual = await vi.importActual<unknown>('@analogjs/content');
+	const actual = await vi.importActual<Record<string, unknown>>('@analogjs/content');
 	return {
 		...actual,
 		injectContent: vi.fn(),

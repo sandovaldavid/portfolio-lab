@@ -66,11 +66,15 @@ export class App {
 
 							const targetY = el.getBoundingClientRect().top + window.scrollY - App.SCROLL_OFFSET;
 
-							window.scrollTo({ top: targetY, behavior: 'smooth' });
+							if (typeof window.scrollTo === 'function') {
+								window.scrollTo({ top: targetY, behavior: 'smooth' });
+							}
 						}, 50);
 					} else {
 						// No fragment → scroll to top (replaces scrollPositionRestoration)
-						window.scrollTo({ top: 0, behavior: 'auto' });
+						if (typeof window.scrollTo === 'function') {
+							window.scrollTo({ top: 0, behavior: 'auto' });
+						}
 					}
 				});
 
