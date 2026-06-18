@@ -1,5 +1,4 @@
 {
-  "projectType": "static",
   "git": {
     "deploymentEnabled": {
       "main": false,
