@@ -29,8 +29,6 @@ jobs:
 
       - name: Build project
         run: pnpm build
-        env:
-          BUILD_PRESET: vercel
 
       - name: Run Lighthouse CI
         run: pnpm lighthouse

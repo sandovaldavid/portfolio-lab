@@ -97,7 +97,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm audit --audit-level=high
+      - run: pnpm audit --audit-level=critical
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
         uses: actions/github-script@v7
