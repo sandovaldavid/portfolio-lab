@@ -245,7 +245,7 @@ Tests use "Slow 4G" network simulation. To test fast:
 [info] All reports are published to GitHub Pages at:
 
 ```
-https://<username>.github.io/<repo>/
+https://sandovaldavid.github.io/portfolio/
 ```
 
 Includes:

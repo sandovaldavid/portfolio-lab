@@ -222,8 +222,10 @@ test('should work on mobile', async ({ page }) => {
 ### Viewing Results
 
 1. **Locally**: Reports open automatically after test run
-2. **GitHub**: Artifacts are uploaded to workflow runs
-3. **GitHub Pages**: Results published to GitHub Pages dashboard
+2. **GitHub**: Artifacts uploaded to workflow runs
+   - https://github.com/sandovaldavid/portfolio/actions
+3. **GitHub Pages**: Results published to dashboard
+   - https://sandovaldavid.github.io/portfolio/
 
 ## Debugging
 
