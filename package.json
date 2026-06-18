@@ -12,11 +12,15 @@
     "build": "vite build",
     "watch": "vite build --watch",
     "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage --run",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --write \"src/**/*.{ts,html,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,css}\"",
     "preview": "node dist/analog/server/index.mjs",
+    "audit": "pnpm audit --audit-level=moderate",
+    "audit:fix": "pnpm audit --fix",
     "prepare": "husky"
   },
   "private": true,
@@ -60,6 +64,8 @@
     "@testing-library/angular": "^19.0.0",
     "@testing-library/dom": "^10.4.1",
     "@types/node": "^25.2.2",
+    "@vitest/coverage-v8": "^4.0.0",
+    "@vitest/ui": "^4.0.0",
     "angular-eslint": "^21.2.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
@@ -67,10 +73,12 @@
     "jsdom": "^22.0.0",
     "ng-mocks": "^14.15.1",
     "prettier": "^3.8.1",
+    "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.54.0",
     "vite": "^7.3.5",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^4.0.0"
-  }
+  },
+  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }
