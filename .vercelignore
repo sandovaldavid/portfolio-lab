@@ -3,7 +3,6 @@ dist
 src
 .husky
 *.md
-pnpm-lock.yaml
 tsconfig*.json
 eslint.config.js
 .prettierrc
