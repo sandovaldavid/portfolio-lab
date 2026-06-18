@@ -54,6 +54,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -149,3 +150,48 @@ jobs:
               state: 'failure',
               description: 'Deployment failed'
             });
+
+      - name: Comment preview URL on open PR
+        if: success() && github.ref == 'refs/heads/develop'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployUrl = '${{ steps.vercel.outputs.deploy_url }}';
+            if (!deployUrl) return;
+
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:develop`,
+              base: 'main',
+              state: 'open',
+            });
+            if (prs.length === 0) return;
+
+            const pr = prs[0];
+            const marker = '<!-- vercel-preview -->';
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            const body = `${marker}\n[info] **Preview deployment ready**\n\n| | |\n|---|---|\n| **URL** | ${deployUrl} |\n| **Commit** | ${context.sha.slice(0, 7)} |\n\nFull report: [Actions run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body,
+              });
+            }
