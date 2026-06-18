@@ -13,6 +13,13 @@ If not specified, ask for:
 
 ## Steps to follow
 
+0. Create and switch to a new branch from develop:
+   ```bash
+   git checkout develop && git pull origin develop
+   git checkout -b feat/<name>
+   ```
+   Use `fix/` instead of `feat/` if the user says it's a bug fix.
+
 1. Determine the target path: `src/app/<layer>/<name>/`
 
 2. Create `<name>.component.ts` following this pattern:
