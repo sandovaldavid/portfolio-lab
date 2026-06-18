@@ -242,8 +242,9 @@ Lighthouse CI thresholds: Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥
 
 ## Reports Dashboard
 
-Auto-published to GitHub Pages on every push to main/develop:
-- https://sandovaldavid.github.io/portfolio/
+Reports are stored as GitHub Actions artifacts (private repo — Pages not available on free plan).
+Access: Actions tab → select any run → Artifacts → download `reports-<branch>-<run>`.
+If the repo is made public in the future, re-enable GitHub Pages in `publish-reports.yml`.
 
 ## Secrets Required (GitHub)
 

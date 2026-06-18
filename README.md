@@ -161,11 +161,11 @@ See [LIGHTHOUSE_CI.md](./LIGHTHOUSE_CI.md) for details.
 
 ### Reports Dashboard
 
-All reports published to GitHub Pages:
+Reports are generated on every push and available as artifacts in GitHub Actions:
 
-- [Bundle Analysis](https://sandovaldavid.github.io/portfolio/bundle-analysis/)
-- [Lighthouse Reports](https://sandovaldavid.github.io/portfolio/lighthouse/)
-- [Coverage Reports](https://sandovaldavid.github.io/portfolio/coverage/)
+- **Actions tab** → select any run → **Artifacts** section → download `reports-*`
+- Includes: bundle analysis, test coverage
+- Lighthouse reports are artifacts in the Lighthouse CI workflow runs
 
 ## Security
 

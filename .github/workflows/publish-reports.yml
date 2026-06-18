@@ -1,25 +1,18 @@
-name: Publish Reports to GitHub Pages
+name: Build Reports
+
+# Note: GitHub Pages is disabled (private repo on free plan).
+# Reports are stored as downloadable artifacts in GitHub Actions.
+# To access: Actions tab → select a run → Artifacts section.
+# Enable GitHub Pages when the repo becomes public or on upgrade to Pro.
 
 on:
   push:
     branches:
       - main
       - develop
-  workflow_run:
-    workflows: ["Lighthouse CI"]
-    types: [completed]
-    branches:
-      - main
-      - develop
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build-reports:
@@ -43,165 +36,23 @@ jobs:
       - name: Build project
         run: pnpm build
 
-      - name: Generate bundle analysis report
+      - name: Generate bundle analysis
         run: |
           mkdir -p reports/bundle-analysis
-          cp dist/stats.html reports/bundle-analysis/index.html 2>/dev/null || echo "[warning] Bundle stats not found"
+          cp dist/stats.html reports/bundle-analysis/index.html 2>/dev/null \
+            || echo "[warning] No bundle stats found — skipping"
 
-      - name: Run Lighthouse CI
-        continue-on-error: true
-        run: |
-          mkdir -p reports/lighthouse
-          pnpm lighthouse || true
-          cp -r lighthouse-results/* reports/lighthouse/ 2>/dev/null || echo "[warning] Lighthouse results not found"
-
-      - name: Generate coverage report
+      - name: Generate test coverage
         continue-on-error: true
         run: |
           mkdir -p reports/coverage
           pnpm test:coverage || true
-          cp -r coverage/* reports/coverage/ 2>/dev/null || echo "[warning] Coverage report not found"
+          cp -r coverage/. reports/coverage/ 2>/dev/null \
+            || echo "[warning] No coverage report found — skipping"
 
-      - name: Create index page
-        run: |
-          cat > reports/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Project Reports</title>
-            <style>
-              * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-              }
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-              }
-              .container {
-                max-width: 1000px;
-                width: 100%;
-              }
-              h1 {
-                text-align: center;
-                color: white;
-                margin-bottom: 40px;
-                font-size: 2.5em;
-              }
-              .reports-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
-              }
-              .report-card {
-                background: white;
-                border-radius: 12px;
-                padding: 30px;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-              }
-              .report-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-              }
-              .report-card h2 {
-                color: #333;
-                margin-bottom: 10px;
-                font-size: 1.5em;
-              }
-              .report-card p {
-                color: #666;
-                line-height: 1.6;
-                margin-bottom: 20px;
-              }
-              .report-card-link {
-                display: inline-block;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 10px 20px;
-                border-radius: 6px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: opacity 0.3s;
-              }
-              .report-card-link:hover {
-                opacity: 0.8;
-              }
-              .unavailable {
-                opacity: 0.5;
-                pointer-events: none;
-              }
-              .unavailable .report-card-link {
-                background: #ccc;
-                cursor: not-allowed;
-              }
-              footer {
-                text-align: center;
-                color: white;
-                margin-top: 40px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>[info] Project Reports Dashboard</h1>
-
-              <div class="reports-grid">
-                <a href="./bundle-analysis/index.html" class="report-card">
-                  <h2>Bundle Analysis</h2>
-                  <p>Interactive visualization of your bundle size and composition. Identify large dependencies.</p>
-                  <span class="report-card-link">View Report</span>
-                </a>
-
-                <a href="./lighthouse/index.html" class="report-card">
-                  <h2>Lighthouse Audit</h2>
-                  <p>Performance, accessibility, SEO, and best practices scores. Track metrics over time.</p>
-                  <span class="report-card-link">View Report</span>
-                </a>
-
-                <a href="./coverage/index.html" class="report-card">
-                  <h2>Test Coverage</h2>
-                  <p>Unit test code coverage metrics. Identify untested code paths.</p>
-                  <span class="report-card-link">View Report</span>
-                </a>
-              </div>
-
-              <footer>
-                <p>[info] Last updated: <time id="timestamp"></time></p>
-                <p>Reports are auto-generated and updated on each push to main/develop</p>
-              </footer>
-            </div>
-
-            <script>
-              document.getElementById('timestamp').textContent = new Date().toLocaleString();
-            </script>
-          </body>
-          </html>
-          EOF
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload reports artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: reports-${{ github.ref_name }}-${{ github.run_number }}
           path: reports/
-
-  deploy:
-    needs: build-reports
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          retention-days: 30
