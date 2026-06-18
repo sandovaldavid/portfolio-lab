@@ -88,13 +88,12 @@ jobs:
           HUSKY: 0
       - run: |
           pnpm add -g vercel@54
-          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
           pnpm build
         env:
           BUILD_PRESET: vercel
       - run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+            vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
           else
-            vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+            vercel deploy --prebuilt --yes --token=${{ secrets.VERCEL_TOKEN }}
           fi

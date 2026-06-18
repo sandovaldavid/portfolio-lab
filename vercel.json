@@ -1,5 +1,10 @@
 {
-  "framework": null,
+  "git": {
+    "deploymentEnabled": {
+      "main": false,
+      "develop": false
+    }
+  },
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": ".vercel/output"
