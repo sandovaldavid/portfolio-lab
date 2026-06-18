@@ -4,13 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - develop
-  push:
-    branches:
-      - main
-      - develop
-  schedule:
-    - cron: '0 2 * * 0'
 
 permissions:
   contents: read
@@ -19,7 +12,7 @@ permissions:
 
 jobs:
   lighthouse:
-    timeout-minutes: 30
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,11 +31,11 @@ jobs:
 
       - name: Build project
         run: pnpm build
+        env:
+          BUILD_PRESET: vercel
 
       - name: Run Lighthouse CI
         run: pnpm lighthouse
-        env:
-          BASE_URL: http://localhost:5173
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
@@ -60,26 +53,30 @@ jobs:
             const fs = require('fs');
             const path = require('path');
             const resultsDir = 'lighthouse-results';
+            if (!fs.existsSync(resultsDir)) return;
 
-            if (fs.existsSync(resultsDir)) {
-              const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json'));
-              if (files.length > 0) {
-                const report = JSON.parse(fs.readFileSync(path.join(resultsDir, files[0]), 'utf8'));
-                const scores = report.categories || {};
-                const body = `[info] Lighthouse Audit Results
+            const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json') && !f.includes('manifest'));
+            if (files.length === 0) return;
 
-| Category | Score |
-|----------|-------|
-| Performance | ${(scores.performance?.score * 100 || 0).toFixed(0)}% |
-| Accessibility | ${(scores.accessibility?.score * 100 || 0).toFixed(0)}% |
-| Best Practices | ${(scores['best-practices']?.score * 100 || 0).toFixed(0)}% |
-| SEO | ${(scores.seo?.score * 100 || 0).toFixed(0)}% |`;
+            const report = JSON.parse(fs.readFileSync(path.join(resultsDir, files[0]), 'utf8'));
+            const cats = report.categories || {};
+            const score = s => s ? `${(s.score * 100).toFixed(0)}%` : 'N/A';
+            const mark = s => s && s.score >= 0.9 ? '[pass]' : s && s.score >= 0.8 ? '[warn]' : '[fail]';
 
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: body
-                });
-              }
-            }
+            const body = `[info] Lighthouse Audit Results
+
+| Category | Score | Status |
+|----------|-------|--------|
+| Performance | ${score(cats.performance)} | ${mark(cats.performance)} |
+| Accessibility | ${score(cats.accessibility)} | ${mark(cats.accessibility)} |
+| Best Practices | ${score(cats['best-practices'])} | ${mark(cats['best-practices'])} |
+| SEO | ${score(cats.seo)} | ${mark(cats.seo)} |
+
+Full report available in [workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
