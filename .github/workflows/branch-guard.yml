@@ -11,7 +11,7 @@ jobs:
       - name: Verify source is develop
         if: github.head_ref != 'develop'
         run: |
-          echo "❌ Only PRs from 'develop' can merge to 'main'"
+          echo "[error] Only PRs from 'develop' can merge to 'main'"
           exit 1
       - name: OK
-        run: echo "✅ PR source is develop"
+        run: echo "[success] PR source is develop"

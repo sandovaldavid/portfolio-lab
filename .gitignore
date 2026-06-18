@@ -48,3 +48,18 @@ Thumbs.db
 
 .pnpm-store/*
 .vercel
+
+# Test results and reports
+test-results/
+lighthouse-results/
+coverage/
+reports/
+.auth/
+
+# Playwright
+/tests-results/
+/test-results/
+/playwright-report/
+
+# Local dev tools
+/actionlint

@@ -61,7 +61,7 @@ export class ShortcutsModal {
 	readonly shortcuts = inject(KeyboardShortcutsService);
 	readonly groups = SHORTCUT_GROUPS;
 
-	closeOnBackdrop(e: MouseEvent): void {
+	closeOnBackdrop(e: Event): void {
 		if ((e.target as HTMLElement).classList.contains('modal-backdrop')) {
 			this.shortcuts.close();
 		}
