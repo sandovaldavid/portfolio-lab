@@ -1,6 +1,6 @@
 import type { ExperienceItem } from './experience.model';
 
-export function getExperienceData(t: (key: any) => string): ExperienceItem[] {
+export function getExperienceData(t: (key: string) => string): ExperienceItem[] {
 	return [
 		{
 			date: t('experience.atena.date'),

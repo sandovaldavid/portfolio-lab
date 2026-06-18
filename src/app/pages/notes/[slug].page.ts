@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, MarkdownComponent } from '@analogjs/content';
@@ -15,7 +15,7 @@ import { NoteAttributes } from './index.page';
 	styleUrl: './[slug].page.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class NoteDetailPage implements OnInit {
+export default class NoteDetailPage {
 	readonly i18n = inject(I18nService);
 	private readonly seo = inject(SeoService);
 
@@ -29,6 +29,4 @@ export default class NoteDetailPage implements OnInit {
 			}
 		})
 	);
-
-	ngOnInit(): void {}
 }

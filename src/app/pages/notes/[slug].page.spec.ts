@@ -2,18 +2,19 @@ import { render, screen } from '@testing-library/angular';
 import NoteDetailPage from './[slug].page';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
-import { signal, Component } from '@angular/core';
+import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import {
 	injectContent,
-	MarkdownComponent,
 	provideContent,
 	withMarkdownRenderer,
 } from '@analogjs/content';
 import { of } from 'rxjs';
 
 // Mock injectContent
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 vi.mock('@analogjs/content', async () => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const actual = await vi.importActual<any>('@analogjs/content');
 	return {
 		...actual,
@@ -36,6 +37,7 @@ describe('NoteDetailPage', () => {
 			},
 			content: '# Mock Content Body',
 		};
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(injectContent as any).mockReturnValue(of(mockNote));
 
 		await render(NoteDetailPage, {

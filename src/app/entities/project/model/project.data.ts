@@ -1,7 +1,7 @@
 import { TAGS } from '@entities/technology/model/technology.model';
 import type { ProjectItem } from './project.model';
 
-export function getProjectsData(t: (key: any) => string): ProjectItem[] {
+export function getProjectsData(t: (key: string) => string): ProjectItem[] {
 	return [
 		{
 			title: t('projects.campus-map.title'),
