@@ -144,6 +144,54 @@ describe('PageName', () => {
 New routes must be added to `e2e/navigation.spec.ts`.
 New interactive features (forms, modals, etc.) need their own `e2e/*.spec.ts`.
 
+## Branch Strategy
+
+**Always branch from `develop`. Never from `main`.**
+
+### Branch naming
+
+```
+feat/<short-description>     New feature
+fix/<short-description>      Bug fix
+refactor/<description>       Refactoring without behavior change
+docs/<description>           Documentation only
+ci/<description>             CI/CD or tooling changes
+chore/<description>          Dependencies, config, housekeeping
+```
+
+Examples:
+```
+feat/dark-mode-toggle
+fix/navbar-overflow-mobile
+refactor/hero-component-signals
+docs/update-readme-scripts
+ci/add-codeql-workflow
+```
+
+### Flow
+
+```
+develop  →  feat/your-feature  →  PR to develop  →  merge  →  PR to main  →  production
+```
+
+Rules enforced by CI and branch-guard:
+- All PRs (features, fixes, etc.) target `develop`
+- Only `develop` → `main` PRs are allowed (branch-guard blocks anything else)
+- `develop` push → Vercel preview URL
+- `main` push → Vercel production (devsandoval.me)
+- Never commit directly to `main` or `develop`
+
+### Starting a new task
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feat/your-feature-name
+# ... work ...
+git push origin feat/your-feature-name
+# Open PR → develop on GitHub
+```
+
 ## Workflows
 
 ### Development
@@ -151,7 +199,7 @@ New interactive features (forms, modals, etc.) need their own `e2e/*.spec.ts`.
 ```bash
 pnpm dev          # start dev server on :5173
 pnpm test         # unit tests (watch)
-pnpm test:e2e     # E2E tests
+pnpm test:e2e     # E2E tests (needs server running separately)
 pnpm lint         # ESLint
 pnpm format       # Prettier
 ```
@@ -161,19 +209,25 @@ pnpm format       # Prettier
 1. `pnpm lint` — must pass
 2. `pnpm test -- --run` — all unit tests must pass
 
-### CI pipeline on PR
+### CI pipeline on PR to develop
 
-1. quality-checks (lint, format, typecheck, test, security audit)
+1. quality-checks (lint, format, typecheck, unit tests, security audit)
 2. build check + bundle size report
-3. E2E tests (Playwright, 5 platforms)
-4. Lighthouse audit (Performance ≥ 80%, A11y ≥ 90%)
+3. E2E tests — Playwright chromium only, runs against production build on :3000
+   - Navigation: all routes load without errors
+   - Accessibility: axe-core WCAG 2AA on every page
+   - Responsiveness: no horizontal overflow at 375/768/1280px
+
+### CI pipeline on PR to main (additional)
+
+4. Lighthouse audit (Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥ 85%)
 5. CodeQL security scan
 
 ### Deploying
 
-- Push to `develop` → Vercel preview URL (automated)
-- PR from `develop` → `main` only (branch-guard enforced)
-- Push to `main` → Vercel production (automated)
+- Push to `develop` → Vercel preview URL (automated via deploy.yml)
+- PR from `develop` → `main` only (branch-guard.yml blocks other sources)
+- Push to `main` → Vercel production (automated via deploy.yml)
 
 ## Content & i18n
 
