@@ -11,7 +11,20 @@ import { resolve } from 'path';
 export default defineConfig(({ mode }) => ({
   build: {
     target: ['es2020'],
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['@angular/core', '@angular/common', '@angular/router'],
+          fonts: [
+            '@fontsource/press-start-2p',
+            '@fontsource/fira-code',
+            '@fontsource/jetbrains-mono',
+            '@fontsource/lora',
+          ],
+        },
+      },
+    },
   },
   resolve: {
     mainFields: ['module'],

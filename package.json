@@ -25,6 +25,8 @@
     "audit:fix": "pnpm audit --fix",
     "lighthouse": "lhci autorun",
     "lighthouse:upload": "lhci upload",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
     "prepare": "husky"
   },
   "private": true,
@@ -68,6 +70,7 @@
     "@testing-library/angular": "^19.0.0",
     "@testing-library/dom": "^10.4.1",
     "@types/node": "^25.2.2",
+    "@release-it/conventional-changelog": "^9.0.0",
     "@playwright/test": "^1.48.0",
     "@vitest/coverage-v8": "^4.0.0",
     "@vitest/ui": "^4.0.0",
@@ -84,7 +87,8 @@
     "typescript-eslint": "^8.54.0",
     "vite": "^7.3.5",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.0",
+    "release-it": "^18.0.0"
   },
   "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }
