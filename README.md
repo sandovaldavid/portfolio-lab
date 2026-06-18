@@ -1,5 +1,12 @@
 # devsandoval-portfolio
 
+[![CI](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml)
+[![Deploy](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml)
+[![CodeQL](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml)
+[![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular)](https://angular.io)
+[![Built with Analog](https://img.shields.io/badge/Built%20with-Analog-blue)](https://analogjs.org)
+[![License](https://img.shields.io/github/license/sandovaldavid/portfolio)](LICENSE)
+
 Portfolio website built with [Analog](https://analogjs.org), the fullstack meta-framework for Angular 21+. Features include bilingual content (ES/EN), feature-sliced design architecture, and pixel NES aesthetics.
 
 ## Prerequisites

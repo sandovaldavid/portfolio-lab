@@ -8,9 +8,9 @@ updates:
       time: "04:00"
     open-pull-requests-limit: 5
     reviewers:
-      - "devsandoval"
+      - "sandovaldavid"
     assignees:
-      - "devsandoval"
+      - "sandovaldavid"
     commit-message:
       prefix: "chore(deps):"
       include: "scope"
@@ -24,6 +24,6 @@ updates:
       day: "monday"
       time: "04:00"
     reviewers:
-      - "devsandoval"
+      - "sandovaldavid"
     commit-message:
       prefix: "ci(github-actions):"
