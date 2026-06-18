@@ -88,7 +88,6 @@ jobs:
           HUSKY: 0
       - run: |
           pnpm add -g vercel@54
-          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
           pnpm build
         env:
           BUILD_PRESET: vercel
