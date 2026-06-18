@@ -1,0 +1,183 @@
+/* Scoped styles for about-section component */
+
+/* ============================================================
+   TERMINAL WINDOW (System Architect View)
+   ============================================================ */
+.terminal-window {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+	margin-bottom: 2rem;
+}
+
+.terminal-header {
+	background: var(--color-surface-2);
+	border-bottom: 1px solid var(--color-border);
+	padding: 8px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.terminal-title {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--color-muted);
+	font-weight: bold;
+}
+
+.terminal-size {
+	font-family: var(--font-mono);
+	font-size: 10px;
+	color: var(--color-muted-light);
+	opacity: 0.7;
+}
+
+.terminal-body {
+	padding: 24px;
+}
+
+.dot {
+	display: inline-block;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+}
+
+.dot-red {
+	background-color: var(--color-danger, #f87171);
+}
+.dot-amber {
+	background-color: var(--color-warning, #fbbf24);
+}
+.dot-green {
+	background-color: var(--color-success, #34d399);
+}
+
+.cli-command {
+	font-weight: bold;
+	color: var(--color-heading);
+}
+
+.cli-prompt {
+	color: var(--color-muted);
+}
+
+.cli-output {
+	border-left: 2px solid var(--color-border);
+	padding-left: 12px;
+	color: var(--color-text);
+}
+
+/* Glitch scanlines effect */
+.scanlines {
+	background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+	background-size: 100% 4px;
+	z-index: 10;
+}
+
+/* ============================================================
+   ACADEMIC PAPER (Research Fellow View)
+   ============================================================ */
+.academic-paper {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+	padding: 24px;
+	margin-bottom: 2rem;
+}
+
+.paper-header {
+	border-bottom: 1.5px solid var(--color-text);
+	padding-bottom: 12px;
+	margin-bottom: 24px;
+	text-align: center;
+}
+
+.journal-name {
+	font-family: var(--font-mono);
+	font-size: 9px;
+	color: var(--color-muted);
+	letter-spacing: 0.1em;
+	font-weight: 700;
+}
+
+.paper-meta {
+	font-family: var(--font-serif);
+	font-size: 10px;
+	color: var(--color-text);
+	margin-top: 4px;
+	font-weight: bold;
+	letter-spacing: 0.02em;
+}
+
+.paper-body {
+	font-family: var(--font-serif);
+}
+
+.academic-p {
+	font-size: 0.9375rem;
+	line-height: 1.8;
+	color: var(--color-text);
+	text-align: justify;
+	margin-bottom: 1rem;
+}
+
+/* Drop Cap typography */
+.drop-cap {
+	font-family: var(--font-serif);
+	font-size: 3.5rem;
+	float: left;
+	line-height: 0.8;
+	padding-top: 4px;
+	padding-right: 8px;
+	color: var(--color-primary);
+	font-weight: 700;
+}
+
+/* Circular blueprint ring decoration */
+.blueprint-ring {
+	position: absolute;
+	top: -8px;
+	left: -8px;
+	right: -8px;
+	bottom: -8px;
+	border: 1px dashed var(--color-border-light);
+	border-radius: 50%;
+	animation: rotate-ring 40s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes rotate-ring {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.section-title-academic {
+	font-family: var(--font-serif);
+	font-size: 1rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: var(--color-heading);
+	border-bottom: 1px solid var(--color-border);
+	padding-bottom: 6px;
+	letter-spacing: 0.05em;
+}
+
+/* Show/hide views based on theme class on document element */
+:host-context(html.mode-research) .terminal-view {
+	display: none !important;
+}
+:host-context(html.mode-architect) .academic-view {
+	display: none !important;
+}
+/* If no class is set yet, default to terminal-view */
+:host-context(html:not(.mode-research):not(.mode-architect)) .academic-view {
+	display: none !important;
+}

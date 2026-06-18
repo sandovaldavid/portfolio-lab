@@ -1,0 +1,21 @@
+<div class="switcher-group" role="group" aria-label="Portfolio mode and language selector">
+	<!-- Mode switcher -->
+	<button
+		class="switcher-btn"
+		[class.active]="mode.isArchitect()"
+		(click)="switchMode('SYSTEM_ARCHITECT')"
+		[attr.aria-pressed]="mode.isArchitect()"
+		title="System Architect mode — Software engineering focus"
+	>
+		[SYS]
+	</button>
+	<button
+		class="switcher-btn"
+		[class.active]="mode.isAcademic()"
+		(click)="switchMode('RESEARCH_FELLOW')"
+		[attr.aria-pressed]="mode.isAcademic()"
+		title="Research Fellow mode — Academic / PhD focus"
+	>
+		[PHD]
+	</button>
+</div>

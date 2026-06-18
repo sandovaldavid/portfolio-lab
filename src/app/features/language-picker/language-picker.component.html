@@ -1,0 +1,8 @@
+<button
+	(click)="i18n.toggleLang()"
+	class="text-xs font-mono px-2.5 py-1.5 border border-[--color-border] cursor-pointer transition-colors duration-200 hover:border-[--color-primary] hover:text-[--color-primary]"
+	[class]="i18n.lang() === 'en' ? 'text-[--color-text]' : 'text-[--color-muted]'"
+	[attr.aria-label]="i18n.lang() === 'en' ? 'Cambiar a Español' : 'Switch to English'"
+>
+	{{ i18n.lang() === 'en' ? 'EN' : 'ES' }}
+</button>

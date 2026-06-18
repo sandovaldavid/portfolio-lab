@@ -1,0 +1,265 @@
+<!-- Shortcuts modal rendered at root level -->
+<app-shortcuts-modal />
+
+<!-- FAB container -->
+<div class="fab-root">
+	<!-- Expanded panel -->
+	@if (open()) {
+	<div class="fab-panel" role="menu" aria-label="Control panel">
+		<!-- ── Mode ─────────────────────────────────────────── -->
+		<div class="panel-section">
+			<p class="section-label">// mode</p>
+			<div class="toggle-row" role="group" aria-label="Portfolio mode">
+				<button
+					class="toggle-btn"
+					[class.active]="mode.isArchitect()"
+					(click)="switchMode('SYSTEM_ARCHITECT')"
+					[attr.aria-pressed]="mode.isArchitect()"
+					title="System Architect — dark terminal"
+				>
+					<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+						<rect x="1" y="1" width="10" height="1.5" rx="0.5" />
+						<rect x="1" y="5" width="7" height="1.5" rx="0.5" />
+						<rect x="1" y="9" width="5" height="1.5" rx="0.5" />
+					</svg>
+					SYS
+				</button>
+				<button
+					class="toggle-btn"
+					[class.active]="mode.isAcademic()"
+					(click)="switchMode('RESEARCH_FELLOW')"
+					[attr.aria-pressed]="mode.isAcademic()"
+					title="Research Fellow — academic light"
+				>
+					<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+						<path
+							d="M6 1L1 4l5 3 5-3-5-3zM1 8l5 3 5-3M1 6l5 3 5-3"
+							stroke="currentColor"
+							stroke-width="1"
+							fill="none"
+							stroke-linecap="round"
+						/>
+					</svg>
+					PHD
+				</button>
+			</div>
+		</div>
+
+		<div class="panel-divider"></div>
+
+		<!-- ── Language ──────────────────────────────────────── -->
+		<div class="panel-section">
+			<p class="section-label">// language</p>
+			<div class="toggle-row" role="group" aria-label="Interface language">
+				<button
+					class="toggle-btn"
+					[class.active]="i18n.lang() === 'en'"
+					(click)="i18n.setLang('en')"
+					[attr.aria-pressed]="i18n.lang() === 'en'"
+				>
+					EN
+				</button>
+				<button
+					class="toggle-btn"
+					[class.active]="i18n.lang() === 'es'"
+					(click)="i18n.setLang('es')"
+					[attr.aria-pressed]="i18n.lang() === 'es'"
+				>
+					ES
+				</button>
+			</div>
+		</div>
+
+		<div class="panel-divider"></div>
+
+		<!-- ── Text Size ──────────────────────────────────────── -->
+		<div class="panel-section">
+			<p class="section-label">// text_size</p>
+			<div class="font-row">
+				<button
+					class="font-btn"
+					(click)="fontScale.decrease()"
+					[disabled]="!fontScale.canDecrease()"
+					title="Decrease font (−)"
+					aria-label="Decrease font size"
+				>
+					A−
+				</button>
+				<button
+					class="font-btn"
+					(click)="fontScale.reset()"
+					title="Reset font (0)"
+					aria-label="Reset font size"
+				>
+					A
+				</button>
+				<button
+					class="font-btn font-btn-lg"
+					(click)="fontScale.increase()"
+					[disabled]="!fontScale.canIncrease()"
+					title="Increase font (+)"
+					aria-label="Increase font size"
+				>
+					A+
+				</button>
+			</div>
+		</div>
+
+		<div class="panel-divider"></div>
+
+		<!-- ── Actions ───────────────────────────────────────── -->
+		<div class="panel-section panel-section--actions">
+			<button class="action-btn" (click)="scrollToTop()" aria-label="Scroll to top">
+				<!-- Arrow up icon -->
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M8 12V4M4 7l4-4 4 4" />
+				</svg>
+				<span>Scroll to top</span>
+				<kbd class="action-hint">gg</kbd>
+			</button>
+
+			<button
+				class="action-btn"
+				[class.action-btn--success]="emailCopied()"
+				(click)="copyEmail()"
+				aria-label="Copy email address"
+			>
+				@if (emailCopied()) {
+				<!-- Check icon -->
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M3 8.5l3.5 3.5 6-7" />
+				</svg>
+				<span>Copied!</span>
+				} @else {
+				<!-- Mail icon -->
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<rect x="1.5" y="3.5" width="13" height="9" rx="1.5" />
+					<path d="M1.5 5.5l6.5 4 6.5-4" />
+				</svg>
+				<span>Copy email</span>
+				}
+			</button>
+
+			<a
+				[href]="resumeFile"
+				target="_blank"
+				rel="noopener"
+				class="action-btn action-btn--cv"
+				aria-label="Download resume PDF"
+				(click)="open.set(false)"
+			>
+				<!-- Download icon -->
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M8 2v8M5 7l3 3 3-3" />
+					<path d="M2 12h12" />
+				</svg>
+				<span>Download CV</span>
+			</a>
+		</div>
+
+		<div class="panel-divider"></div>
+
+		<!-- ── Shortcuts ─────────────────────────────────────── -->
+		<button class="shortcuts-btn" (click)="openShortcuts()" aria-label="Show keyboard shortcuts">
+			<!-- Keyboard icon -->
+			<svg
+				width="15"
+				height="15"
+				viewBox="0 0 16 16"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<rect x="1" y="4" width="14" height="8" rx="1.5" />
+				<path d="M4 7.5h1M7 7.5h1M10 7.5h1M4 9.5h8" />
+			</svg>
+			<span>Keyboard shortcuts</span>
+			<kbd class="action-hint">?</kbd>
+		</button>
+	</div>
+	}
+
+	<!-- FAB toggle button -->
+	<button
+		class="fab-btn"
+		[class.fab-btn--open]="open()"
+		(click)="toggleOpen()"
+		[attr.aria-expanded]="open()"
+		aria-label="Toggle control panel"
+	>
+		@if (open()) {
+		<!-- Close X -->
+		<svg
+			width="18"
+			height="18"
+			viewBox="0 0 18 18"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2.25"
+			stroke-linecap="round"
+			aria-hidden="true"
+		>
+			<path d="M3 3l12 12M15 3L3 15" />
+		</svg>
+		} @else {
+		<!-- Terminal prompt  >_  -->
+		<svg
+			width="22"
+			height="22"
+			viewBox="0 0 22 22"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"
+		>
+			<path d="M3 7l5 4-5 4" />
+			<path d="M12 15h7" />
+		</svg>
+		}
+	</button>
+</div>

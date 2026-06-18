@@ -1,0 +1,53 @@
+<div>
+	<div class="projects-grid grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+		@for (project of projects(); track project.title; let i = $index) {
+			<div
+				[class]="project.featured ? 'md:col-span-2' : 'md:col-span-1'"
+				appScrollObserver
+				[class.stagger-1]="i === 0"
+				[class.stagger-2]="i === 1"
+				[class.stagger-3]="i === 2"
+				[class.stagger-4]="i === 3"
+			>
+				<app-project-card [project]="project" [cardIndex]="i" />
+			</div>
+		}
+	</div>
+
+	@if (showViewAll()) {
+		<div class="mt-10 text-center">
+			<a
+				routerLink="/projects"
+				class="inline-flex items-center gap-2.5 font-pixel text-sm text-[--color-muted] px-6 py-3 border border-[--color-border] hover:text-[--color-primary] hover:border-[--color-primary] transition-all duration-200"
+			>
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M2 5a2 2 0 012-2h3l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" />
+				</svg>
+				{{ i18n.t()('projects.view-all') }}
+				<svg
+					width="13"
+					height="13"
+					viewBox="0 0 14 14"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M2 7h10M8 3l4 4-4 4" />
+				</svg>
+			</a>
+		</div>
+	}
+</div>

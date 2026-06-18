@@ -1,0 +1,283 @@
+<div class="lstm-container card-border">
+	<div class="lstm-header">
+		<div class="academic-title">// LSTM_RECURRENT_CELL_PLAYGROUND</div>
+		<div class="academic-subtitle">
+			Visualizing Tensor Propagation &amp; Error Flow through Memory Gates
+		</div>
+	</div>
+
+	<div class="lstm-grid">
+		<!-- Sliders and Inputs Panel -->
+		<div class="control-panel">
+			<h3 class="panel-title">1. Inputs &amp; Biases Configuration</h3>
+
+			<div class="control-group">
+				<label>Input Vector component (x<sub>t, 1</sub>) = {{ xt1() | number: '1.2-2' }}</label>
+				<input
+					type="range"
+					min="-2.0"
+					max="2.0"
+					step="0.1"
+					[value]="xt1()"
+					(input)="updateXt1(+$any($event.target).value)"
+				/>
+			</div>
+
+			<div class="control-group">
+				<label>Input Vector component (x<sub>t, 2</sub>) = {{ xt2() | number: '1.2-2' }}</label>
+				<input
+					type="range"
+					min="-2.0"
+					max="2.0"
+					step="0.1"
+					[value]="xt2()"
+					(input)="updateXt2(+$any($event.target).value)"
+				/>
+			</div>
+
+			<div class="control-group">
+				<label
+					>Previous Hidden State (h<sub>t-1</sub>) = {{ prevHidden() | number: '1.2-2' }}</label
+				>
+				<input
+					type="range"
+					min="0.0"
+					max="1.0"
+					step="0.05"
+					[value]="prevHidden()"
+					(input)="updatePrevHidden(+$any($event.target).value)"
+				/>
+			</div>
+
+			<div class="control-group">
+				<label>Previous Cell State (C<sub>t-1</sub>) = {{ prevCell() | number: '1.2-2' }}</label>
+				<input
+					type="range"
+					min="0.0"
+					max="1.0"
+					step="0.05"
+					[value]="prevCell()"
+					(input)="updatePrevCell(+$any($event.target).value)"
+				/>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="control-group">
+				<label>Forget Gate Bias (b<sub>f</sub>) = {{ biasForget() | number: '1.2-2' }}</label>
+				<input
+					type="range"
+					min="-3.0"
+					max="3.0"
+					step="0.1"
+					[value]="biasForget()"
+					(input)="updateForget(+$any($event.target).value)"
+				/>
+				<span class="gate-hint">Lower values force the cell to reset its long-term state.</span>
+			</div>
+
+			<div class="control-group">
+				<label>Input Gate Bias (b<sub>i</sub>) = {{ biasInput() | number: '1.2-2' }}</label>
+				<input
+					type="range"
+					min="-3.0"
+					max="3.0"
+					step="0.1"
+					[value]="biasInput()"
+					(input)="updateInput(+$any($event.target).value)"
+				/>
+			</div>
+		</div>
+
+		<!-- Interactive Cell Visualizer -->
+		<div class="visualizer-panel">
+			<h3 class="panel-title">2. Memory Cell Computational Flow</h3>
+
+			<div class="svg-wrapper">
+				<svg viewBox="0 0 540 320" width="100%" height="100%">
+					<!-- Definitions for markers/gradients -->
+					<defs>
+						<marker
+							id="arrow"
+							viewBox="0 0 10 10"
+							refX="6"
+							refY="5"
+							markerWidth="6"
+							markerHeight="6"
+							orient="auto-start-reverse"
+						>
+							<path d="M 0 2 L 8 5 L 0 8 z" fill="var(--color-border)" />
+						</marker>
+						<marker
+							id="arrow-green"
+							viewBox="0 0 10 10"
+							refX="6"
+							refY="5"
+							markerWidth="6"
+							markerHeight="6"
+							orient="auto-start-reverse"
+						>
+							<path d="M 0 2 L 8 5 L 0 8 z" fill="var(--color-success)" />
+						</marker>
+					</defs>
+
+					<!-- Input labels -->
+					<text x="130" y="270" class="svg-text" text-anchor="end">x_t (Input)</text>
+					<text x="130" y="80" class="svg-text" text-anchor="end">C_t-1 (Prev Cell)</text>
+					<text x="130" y="180" class="svg-text" text-anchor="end">h_t-1 (Prev Hidden)</text>
+
+					<!-- Core flow lines -->
+					<!-- Cell state top line -->
+					<line
+						x1="138"
+						y1="80"
+						x2="440"
+						y2="80"
+						stroke="var(--color-border)"
+						stroke-width="2.5"
+						marker-end="url(#arrow)"
+					/>
+
+					<!-- Forget gate merge -->
+					<circle
+						cx="160"
+						cy="80"
+						r="16"
+						class="cell-node"
+						[style.fill]="'rgba(59, 158, 255, ' + forgetGate() + ')'"
+					/>
+					<text x="160" y="84" class="node-label">×</text>
+
+					<!-- Input gate merge -->
+					<circle
+						cx="280"
+						cy="80"
+						r="16"
+						class="cell-node"
+						[style.fill]="'rgba(52, 211, 153, ' + inputGate() + ')'"
+					/>
+					<text x="280" y="84" class="node-label">+</text>
+
+					<!-- Output hidden state calculation -->
+					<circle cx="400" cy="80" r="16" class="cell-node" />
+					<text x="400" y="84" class="node-label">×</text>
+
+					<!-- Connection links from inputs to gates -->
+					<line
+						x1="160"
+						y1="230"
+						x2="160"
+						y2="96"
+						stroke="var(--color-border)"
+						stroke-width="1.5"
+						stroke-dasharray="4"
+						marker-end="url(#arrow)"
+					/>
+					<line
+						x1="280"
+						y1="230"
+						x2="280"
+						y2="96"
+						stroke="var(--color-border)"
+						stroke-width="1.5"
+						stroke-dasharray="4"
+						marker-end="url(#arrow)"
+					/>
+					<line
+						x1="400"
+						y1="230"
+						x2="400"
+						y2="96"
+						stroke="var(--color-border)"
+						stroke-width="1.5"
+						stroke-dasharray="4"
+						marker-end="url(#arrow)"
+					/>
+
+					<!-- Gate activation nodes -->
+					<!-- Forget gate node -->
+					<rect x="125" y="160" width="70" height="30" rx="3" class="gate-box" />
+					<text x="160" y="178" class="gate-text">f_t = {{ forgetGate() | number: '1.2-2' }}</text>
+
+					<!-- Input gate node -->
+					<rect x="245" y="160" width="70" height="30" rx="3" class="gate-box" />
+					<text x="280" y="178" class="gate-text">i_t = {{ inputGate() | number: '1.2-2' }}</text>
+
+					<!-- Output gate node -->
+					<rect x="365" y="160" width="70" height="30" rx="3" class="gate-box" />
+					<text x="400" y="178" class="gate-text">o_t = {{ outputGate() | number: '1.2-2' }}</text>
+
+					<!-- Output states -->
+					<text x="450" y="84" class="svg-text">C_t = {{ cellState() | number: '1.2-2' }}</text>
+
+					<line
+						x1="400"
+						y1="96"
+						x2="450"
+						y2="150"
+						stroke="var(--color-border)"
+						stroke-width="2"
+						marker-end="url(#arrow)"
+					/>
+					<text x="460" y="165" class="svg-text font-bold text-[--color-primary]">
+						h_t = {{ hiddenState() | number: '1.2-2' }}
+					</text>
+				</svg>
+			</div>
+
+			<!-- Ecuaciones Formateadas (Academic View) -->
+			<div class="equations-box">
+				<h4 class="box-subtitle">Recurrent State Equations:</h4>
+				<div class="eq-row">
+					<span class="eq-math"
+						>f<sub>t</sub> = &sigma;(W<sub>f</sub> &middot; [h<sub>t-1</sub>, x<sub>t</sub>] +
+						b<sub>f</sub>)</span
+					>
+					<span class="eq-val">f<sub>t</sub> = {{ forgetGate() | number: '1.4-4' }}</span>
+				</div>
+				<div class="eq-row">
+					<span class="eq-math"
+						>i<sub>t</sub> = &sigma;(W<sub>i</sub> &middot; [h<sub>t-1</sub>, x<sub>t</sub>] +
+						b<sub>i</sub>)</span
+					>
+					<span class="eq-val">i<sub>t</sub> = {{ inputGate() | number: '1.4-4' }}</span>
+				</div>
+				<div class="eq-row">
+					<span class="eq-math"
+						>C&#771;<sub>t</sub> = tanh(W<sub>c</sub> &middot; [h<sub>t-1</sub>, x<sub>t</sub>] +
+						b<sub>c</sub>)</span
+					>
+					<span class="eq-val">C&#771;<sub>t</sub> = {{ candidateCell() | number: '1.4-4' }}</span>
+				</div>
+				<div class="eq-row">
+					<span class="eq-math"
+						>C<sub>t</sub> = f<sub>t</sub> * C<sub>t-1</sub> + i<sub>t</sub> * C&#771;<sub
+							>t</sub
+						></span
+					>
+					<span class="eq-val">C<sub>t</sub> = {{ cellState() | number: '1.4-4' }}</span>
+				</div>
+				<div class="eq-row">
+					<span class="eq-math"
+						>o<sub>t</sub> = &sigma;(W<sub>o</sub> &middot; [h<sub>t-1</sub>, x<sub>t</sub>] +
+						b<sub>o</sub>)</span
+					>
+					<span class="eq-val">o<sub>t</sub> = {{ outputGate() | number: '1.4-4' }}</span>
+				</div>
+				<div class="eq-row font-bold">
+					<span class="eq-math">h<sub>t</sub> = o<sub>t</sub> * tanh(C<sub>t</sub>)</span>
+					<span class="eq-val">h<sub>t</sub> = {{ hiddenState() | number: '1.4-4' }}</span>
+				</div>
+			</div>
+
+			<!-- Gradient Path Diagnosis -->
+			<div class="diagnosis-card" [class]="gradientStatus().color + ' ' + gradientStatus().glow">
+				<div class="diag-header">
+					<span class="status-indicator-dot"></span>
+					<span class="diag-label">GRADIENT_FLOW: {{ gradientStatus().label }}</span>
+				</div>
+				<p class="diag-desc">{{ gradientStatus().desc }}</p>
+			</div>
+		</div>
+	</div>
+</div>

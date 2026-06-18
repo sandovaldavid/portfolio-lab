@@ -1,0 +1,14 @@
+<span
+	class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-pixel text-[--color-muted] surface-card transition-colors duration-150 hover:text-[--color-text] hover:border-[--color-primary]"
+>
+	@if (iconPath()) {
+		<img
+			[src]="iconPath()!"
+			[alt]=""
+			class="w-4 h-4 object-contain tech-pill-icon"
+			aria-hidden="true"
+			loading="lazy"
+		/>
+	}
+	{{ label() }}
+</span>

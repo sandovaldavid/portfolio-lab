@@ -23,7 +23,13 @@
       "dom"
     ],
     "useDefineForClassFields": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@shared/*": ["src/app/shared/*"],
+      "@entities/*": ["src/app/entities/*"],
+      "@features/*": ["src/app/features/*"],
+      "@widgets/*": ["src/app/widgets/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

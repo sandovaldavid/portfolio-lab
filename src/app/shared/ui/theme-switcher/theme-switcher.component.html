@@ -1,0 +1,10 @@
+<button
+	(click)="theme.toggle()"
+	class="font-pixel text-[8px] px-2 py-1 pixel-border cursor-pointer transition-colors duration-200 hover:pixel-border-primary"
+	[class]="theme.theme() === 'neon-dark' ? 'text-[--color-primary]' : 'text-[--color-accent]'"
+	[attr.aria-label]="
+		theme.theme() === 'neon-dark' ? 'Switch to Navy Blue theme' : 'Switch to Neon Dark theme'
+	"
+>
+	{{ theme.theme() === 'neon-dark' ? '[◈ CYAN]' : '[◈ NAVY]' }}
+</button>
