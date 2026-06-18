@@ -1,0 +1,85 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+  schedule:
+    - cron: '0 2 * * 0'
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.7.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.1"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+
+      - name: Build project
+        run: pnpm build
+
+      - name: Run Lighthouse CI
+        run: pnpm lighthouse
+        env:
+          BASE_URL: http://localhost:5173
+
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: lighthouse-results/
+          retention-days: 30
+
+      - name: Comment PR with Lighthouse results
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const resultsDir = 'lighthouse-results';
+
+            if (fs.existsSync(resultsDir)) {
+              const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json'));
+              if (files.length > 0) {
+                const report = JSON.parse(fs.readFileSync(path.join(resultsDir, files[0]), 'utf8'));
+                const scores = report.categories || {};
+                const body = `[info] Lighthouse Audit Results
+
+| Category | Score |
+|----------|-------|
+| Performance | ${(scores.performance?.score * 100 || 0).toFixed(0)}% |
+| Accessibility | ${(scores.accessibility?.score * 100 || 0).toFixed(0)}% |
+| Best Practices | ${(scores['best-practices']?.score * 100 || 0).toFixed(0)}% |
+| SEO | ${(scores.seo?.score * 100 || 0).toFixed(0)}% |`;
+
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: body
+                });
+              }
+            }

@@ -22,7 +22,7 @@ pnpm build
 
 # Run tests
 pnpm test
-
+pla
 # Check code quality
 pnpm lint
 pnpm format:check
@@ -30,19 +30,34 @@ pnpm format:check
 
 ## Available Scripts
 
+### Development
+
 | Command | Description |
 |---------|-------------|
 | `pnpm dev` | Start dev server with HMR |
 | `pnpm build` | Build for production (client + server) |
-| `pnpm test` | Run tests once |
-| `pnpm test:ui` | Run tests with UI dashboard |
-| `pnpm test:coverage` | Generate coverage report |
-| `pnpm lint` | Run ESLint checks |
-| `pnpm lint:fix` | Fix linting issues |
-| `pnpm format` | Format code with Prettier |
-| `pnpm format:check` | Check formatting |
-| `pnpm audit` | Check for vulnerabilities |
 | `pnpm preview` | Preview production build locally |
+
+### Testing
+
+| Command | Description |
+|---------|-------------|
+| `pnpm test` | Run unit tests (watch mode) |
+| `pnpm test:ui` | Run tests with visual UI dashboard |
+| `pnpm test:coverage` | Generate coverage report |
+| `pnpm test:e2e` | Run E2E tests with Playwright |
+| `pnpm test:e2e:ui` | Run E2E tests in interactive mode |
+
+### Quality & Performance
+
+| Command | Description |
+|---------|-------------|
+| `pnpm lint` | Run ESLint checks |
+| `pnpm lint:fix` | Fix linting issues automatically |
+| `pnpm format` | Format code with Prettier |
+| `pnpm format:check` | Check code formatting |
+| `pnpm audit` | Check for dependency vulnerabilities |
+| `pnpm lighthouse` | Run Lighthouse CI audit |
 
 ## Project Structure
 
@@ -102,6 +117,48 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines on:
 - Commit conventions
 - PR requirements
 - Code standards
+
+## Testing & Quality
+
+### Unit Tests
+
+Run with Vitest. Coverage reports generated automatically.
+
+```bash
+pnpm test:coverage
+open coverage/index.html
+```
+
+See [coverage reports](https://github.com/devsandoval/portfolio/actions) in GitHub Actions.
+
+### End-to-End Tests
+
+Run with Playwright. Tests all major user flows.
+
+```bash
+pnpm test:e2e
+```
+
+See [E2E_TESTING.md](./E2E_TESTING.md) for detailed guide.
+
+### Performance Audits
+
+Automatic Lighthouse CI audits on every push:
+
+- Performance (target: 90+)
+- Accessibility (target: 95+)
+- Best Practices (target: 90+)
+- SEO (target: 95+)
+
+See [LIGHTHOUSE_CI.md](./LIGHTHOUSE_CI.md) for details.
+
+### Reports Dashboard
+
+All reports published to GitHub Pages:
+
+- [Bundle Analysis](https://devsandoval.github.io/portfolio/bundle-analysis/)
+- [Lighthouse Reports](https://devsandoval.github.io/portfolio/lighthouse/)
+- [Coverage Reports](https://devsandoval.github.io/portfolio/coverage/)
 
 ## Security
 
