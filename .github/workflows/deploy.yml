@@ -86,7 +86,8 @@ jobs:
       - name: Deploy to Vercel
         id: vercel
         run: |
-          npx vercel deploy --prebuilt ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} > deploy_output.txt 2>&1
+          set -o pipefail
+          npx vercel deploy --prebuilt --yes ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee deploy_output.txt
           DEPLOY_URL=$(grep -oP 'https://[^ ]+' deploy_output.txt | head -1)
           echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
           echo "[success] Deployed to: $DEPLOY_URL"
