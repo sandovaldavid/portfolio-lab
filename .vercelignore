@@ -1,11 +1,10 @@
 node_modules
 dist
-src
 .husky
 *.md
 tsconfig*.json
 eslint.config.js
 .prettierrc
 .editorconfig
-vite.config.ts
 angular.json
+docs
