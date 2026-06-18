@@ -9,9 +9,7 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": ".vercel/output",
   "env": {
-    "SKIP_ENV_VALIDATION": {
-      "value": "true"
-    }
+    "SKIP_ENV_VALIDATION": "true"
   },
   "headers": [
     {
