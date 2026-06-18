@@ -17,11 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
 
       - name: Install dependencies
@@ -63,16 +61,19 @@ jobs:
             const score = s => s ? `${(s.score * 100).toFixed(0)}%` : 'N/A';
             const mark = s => s && s.score >= 0.9 ? '[pass]' : s && s.score >= 0.8 ? '[warn]' : '[fail]';
 
-            const body = `[info] Lighthouse Audit Results
-
-| Category | Score | Status |
-|----------|-------|--------|
-| Performance | ${score(cats.performance)} | ${mark(cats.performance)} |
-| Accessibility | ${score(cats.accessibility)} | ${mark(cats.accessibility)} |
-| Best Practices | ${score(cats['best-practices'])} | ${mark(cats['best-practices'])} |
-| SEO | ${score(cats.seo)} | ${mark(cats.seo)} |
-
-Full report available in [workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).`;
+            const rows = [
+              '[info] Lighthouse Audit Results',
+              '',
+              '| Category | Score | Status |',
+              '|----------|-------|--------|',
+              '| Performance | ' + score(cats.performance) + ' | ' + mark(cats.performance) + ' |',
+              '| Accessibility | ' + score(cats.accessibility) + ' | ' + mark(cats.accessibility) + ' |',
+              '| Best Practices | ' + score(cats['best-practices']) + ' | ' + mark(cats['best-practices']) + ' |',
+              '| SEO | ' + score(cats.seo) + ' | ' + mark(cats.seo) + ' |',
+              '',
+              'Full report available in [workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
+            ];
+            const body = rows.join('\n');
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,

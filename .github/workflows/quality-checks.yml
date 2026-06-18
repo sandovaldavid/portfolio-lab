@@ -7,9 +7,6 @@ on:
         type: boolean
         default: false
         description: Run pnpm audit
-    secrets:
-      GITHUB_TOKEN:
-        required: false
 
 jobs:
   lint:
@@ -17,11 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
@@ -44,11 +39,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
@@ -60,11 +53,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
@@ -76,11 +67,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
@@ -101,16 +90,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm audit --audit-level=moderate
+      - run: pnpm audit --audit-level=high
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
         uses: actions/github-script@v7

@@ -13,8 +13,9 @@ export default defineConfig({
 	forbidOnly: isCI,
 	retries: isCI ? 1 : 0,
 	workers: isCI ? 2 : undefined,
+	outputDir: 'test-results',
 	reporter: [
-		['html', { outputFolder: 'test-results/playwright', open: 'never' }],
+		['html', { outputFolder: 'playwright-report', open: 'never' }],
 		['json', { outputFile: 'test-results/playwright.json' }],
 		['junit', { outputFile: 'test-results/junit.xml' }],
 		['list'],

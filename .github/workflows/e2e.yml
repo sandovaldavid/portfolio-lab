@@ -20,11 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
 
       - name: Install dependencies
@@ -57,7 +55,7 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: test-results/playwright/
+          path: playwright-report/
           retention-days: 30
 
       - name: Comment PR with test results
@@ -70,10 +68,8 @@ jobs:
             if (fs.existsSync(reportPath)) {
               const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
               const stats = report.stats || {};
-              const body = `[info] E2E Test Results
-- Tests: ${stats.expected || 0}
-- Passed: ${stats.unexpected ? stats.expected - stats.unexpected : 0}
-- Failed: ${stats.unexpected || 0}`;
+              const passed = stats.unexpected ? stats.expected - stats.unexpected : 0;
+              const body = '[info] E2E Test Results\n- Tests: ' + (stats.expected || 0) + '\n- Passed: ' + passed + '\n- Failed: ' + (stats.unexpected || 0);
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,

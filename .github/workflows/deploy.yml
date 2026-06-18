@@ -29,11 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
@@ -58,11 +56,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: "11.7.0"
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.19.1"
+          node-version: "22"
           cache: pnpm
 
       - name: Download build artifacts
@@ -80,7 +76,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: context.ref,
-              environment: '${{ github.ref == ''refs/heads/main'' && ''production'' || ''preview'' }}',
+              environment: "${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}",
               auto_merge: false,
               required_contexts: [],
               production_environment: ${{ github.ref == 'refs/heads/main' }}
