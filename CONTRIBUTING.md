@@ -37,7 +37,7 @@
 
 3. Add upstream remote:
    ```bash
-   git remote add upstream https://github.com/devsandoval/portfolio.git
+   git remote add upstream https://github.com/sandovaldavid/portfolio.git
    ```
 
 4. Install dependencies:

@@ -156,9 +156,9 @@ See [LIGHTHOUSE_CI.md](./LIGHTHOUSE_CI.md) for details.
 
 All reports published to GitHub Pages:
 
-- [Bundle Analysis](https://devsandoval.github.io/portfolio/bundle-analysis/)
-- [Lighthouse Reports](https://devsandoval.github.io/portfolio/lighthouse/)
-- [Coverage Reports](https://devsandoval.github.io/portfolio/coverage/)
+- [Bundle Analysis](https://sandovaldavid.github.io/portfolio/bundle-analysis/)
+- [Lighthouse Reports](https://sandovaldavid.github.io/portfolio/lighthouse/)
+- [Coverage Reports](https://sandovaldavid.github.io/portfolio/coverage/)
 
 ## Security
 
