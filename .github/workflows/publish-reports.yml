@@ -84,7 +84,7 @@ jobs:
       # -------------------------------------------------------------
       - name: Download artifacts (only on workflow_run)
         if: github.event_name == 'workflow_run'
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           run_id: ${{ github.event.workflow_run.id }}
           path: ./downloaded-artifacts
