@@ -1,6 +1,6 @@
 {
   "name": "devsandoval-portfolio",
-  "version": "0.0.0",
+  "version": "0.9.10",
   "type": "module",
   "engines": {
     "node": ">=22.13.0"
