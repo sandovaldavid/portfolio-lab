@@ -174,12 +174,12 @@ ci/add-codeql-workflow
 develop  →  feat/your-feature  →  PR to develop  →  merge  →  PR to main  →  production
 ```
 
-Rules enforced by CI and branch-guard:
+Rules enforced by GitHub Rulesets and CI:
 - All PRs (features, fixes, etc.) target `develop`
-- Only `develop` → `main` PRs are allowed (branch-guard blocks anything else)
+- Only `develop` → `main` PRs are allowed
 - `develop` push → Vercel preview URL
 - `main` push → Vercel production (devsandoval.me)
-- Never commit directly to `main` or `develop`
+- Never commit directly to `main` or `develop` (protected via branch rulesets)
 
 ### Starting a new task
 
@@ -226,7 +226,7 @@ pnpm format       # Prettier
 ### Deploying
 
 - Push to `develop` → Vercel preview URL (automated via deploy.yml)
-- PR from `develop` → `main` only (branch-guard.yml blocks other sources)
+- PR from `develop` → `main` only
 - Push to `main` → Vercel production (automated via deploy.yml)
 
 ## Content & i18n
