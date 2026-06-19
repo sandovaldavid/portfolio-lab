@@ -2,7 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "main": false,
-      "develop": false
+      "develop": false,
+      "gh-pages": false
     }
   },
   "buildCommand": "pnpm build",
