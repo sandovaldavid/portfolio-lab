@@ -137,7 +137,7 @@ pnpm test:coverage
 open coverage/index.html
 ```
 
-See [coverage reports](https://github.com/devsandoval/portfolio/actions) in GitHub Actions.
+See [coverage reports](https://github.com/sandovaldavid/portfolio/actions) in GitHub Actions.
 
 ### End-to-End Tests
 

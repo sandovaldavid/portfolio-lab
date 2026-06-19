@@ -368,7 +368,7 @@ pnpm test:coverage
 ## Questions?
 
 - Email: hello@sandovaldavid.com
-- Issues: [GitHub Issues](https://github.com/devsandoval/portfolio/issues)
+- Issues: [GitHub Issues](https://github.com/sandovaldavid/portfolio/issues)
 
 ---
 
