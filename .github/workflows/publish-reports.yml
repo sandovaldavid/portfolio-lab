@@ -138,9 +138,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Exclude nested source checkout (has its own .git dir — would become a gitlink)
+          git rm --cached src-code 2>/dev/null || true
+          echo "src-code/" >> .gitignore
           git add -A
           if ! git diff-index --quiet HEAD; then
             git commit -m "chore: deploy test reports for ${{ github.event.workflow_run.head_branch || github.ref_name }} (${{ github.event.workflow_run.head_sha || github.sha }})"
+            # Pull --rebase to handle concurrent workflow runs writing to gh-pages
+            git pull --rebase origin gh-pages
             git push origin gh-pages
           else
             echo "No changes to commit"
