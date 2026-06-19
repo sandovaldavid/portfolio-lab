@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
 
@@ -39,7 +39,7 @@ jobs:
       # -------------------------------------------------------------
       - name: Checkout source code (only on push)
         if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: src-code
 
@@ -84,7 +84,7 @@ jobs:
       # -------------------------------------------------------------
       - name: Download artifacts (only on workflow_run)
         if: github.event_name == 'workflow_run'
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           run_id: ${{ github.event.workflow_run.id }}
           path: ./downloaded-artifacts
