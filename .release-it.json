@@ -1,9 +1,10 @@
 {
 	"git": {
 		"commitMessage": "chore(release): v${version}",
-		"tagName": "v${version}",
-		"requireBranch": "main",
-		"requireCleanWorkingDir": true
+		"tagName": "v${version}"
+	},
+	"npm": {
+		"publish": false
 	},
 	"github": {
 		"release": true,

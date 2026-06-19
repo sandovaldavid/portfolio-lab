@@ -123,6 +123,10 @@ export class ChaosPlaygroundComponent {
 		return id ? (NODES.find((n) => n.id === id) ?? null) : null;
 	});
 
+	nodeLabel(node: Node): string {
+		return node.label.replace(/\n/g, ' ');
+	}
+
 	nodeClass(node: Node): string {
 		const state = this.systemState();
 		if (node.id === 'db') {

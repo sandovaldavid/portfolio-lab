@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: ${{ github.ref == 'refs/heads/main' && 'Stable release' || 'Beta prerelease' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Release (stable)
+        if: github.ref == 'refs/heads/main'
+        run: pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release (beta)
+        if: github.ref == 'refs/heads/develop'
+        run: pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks --preRelease=beta
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

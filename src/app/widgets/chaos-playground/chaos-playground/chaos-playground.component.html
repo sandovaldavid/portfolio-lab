@@ -141,7 +141,7 @@
 		<!-- Node tooltip -->
 		@if (activeNode(); as node) {
 			<div class="node-tooltip" role="status">
-				<div class="tooltip-title">{{ node.label.replace('\n', ' ') }}</div>
+				<div class="tooltip-title">{{ nodeLabel(node) }}</div>
 				<div class="tooltip-desc">{{ node.desc }}</div>
 				<div class="tooltip-tech">{{ node.tech }}</div>
 			</div>
