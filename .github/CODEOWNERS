@@ -2,22 +2,22 @@
 # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # Default owner for everything
-* @devsandoval
+* @sandovaldavid
 
 # CI/CD workflows
-.github/workflows/ @devsandoval
+.github/workflows/ @sandovaldavid
 
 # Build and config
-vite.config.ts @devsandoval
-angular.json @devsandoval
-tsconfig*.json @devsandoval
-vercel.json @devsandoval
+vite.config.ts @sandovaldavid
+angular.json @sandovaldavid
+tsconfig*.json @sandovaldavid
+vercel.json @sandovaldavid
 
 # Linting and formatting
-.eslintrc* @devsandoval
-.prettierrc* @devsandoval
-.editorconfig @devsandoval
+.eslintrc* @sandovaldavid
+.prettierrc* @sandovaldavid
+.editorconfig @sandovaldavid
 
 # Git configuration
-.gitignore @devsandoval
-.gitattributes @devsandoval
+.gitignore @sandovaldavid
+.gitattributes @sandovaldavid
