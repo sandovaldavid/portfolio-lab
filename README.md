@@ -3,15 +3,15 @@
 [![CI](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml)
 [![Deploy](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml)
-[![Angular](https://img.shields.io/badge/Angular-21-red?logo=angular)](https://angular.io)
+[![Angular](https://img.shields.io/badge/Angular-22-red?logo=angular)](https://angular.io)
 [![Built with Analog](https://img.shields.io/badge/Built%20with-Analog-blue)](https://analogjs.org)
 [![License](https://img.shields.io/github/license/sandovaldavid/portfolio)](LICENSE)
 
-Portfolio website built with [Analog](https://analogjs.org), the fullstack meta-framework for Angular 21+. Features include bilingual content (ES/EN), feature-sliced design architecture, and pixel NES aesthetics.
+Portfolio website built with [Analog](https://analogjs.org), the fullstack meta-framework for Angular 22+. Features include bilingual content (ES/EN), feature-sliced design architecture, and pixel NES aesthetics.
 
 ## Prerequisites
 
-- Node.js >= 20.19.1
+- Node.js >= 22.13.0
 - pnpm >= 11.7.0 ([install pnpm](https://pnpm.io/installation))
 
 ## Quick Start
@@ -29,7 +29,7 @@ pnpm build
 
 # Run tests
 pnpm test
-pla
+
 # Check code quality
 pnpm lint
 pnpm format:check
@@ -92,8 +92,9 @@ Code quality is enforced via pre-commit hooks:
 
 Commits follow [Conventional Commits](./CONTRIBUTING.md#commit-conventions) with type prefixes.
 
-### Pull Requests
+### Pull Requests & Branch Protection
 
+- Enforced via **GitHub Rulesets** (direct commits to `main` and `develop` are blocked)
 - Only `develop` → `main` PRs are allowed
 - All CI checks must pass (lint, format, typecheck, tests)
 - Create PRs with clear descriptions
@@ -108,7 +109,7 @@ Auto-deploys to [Vercel](https://vercel.com):
 
 ## Technology Stack
 
-- **Framework**: Angular 21, Analog (SSR/SSG)
+- **Framework**: Angular 22, Analog (SSR/SSG)
 - **Build Tool**: Vite 7
 - **Testing**: Vitest, Testing Library
 - **Styling**: Tailwind CSS 4
