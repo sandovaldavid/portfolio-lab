@@ -46,6 +46,8 @@ jobs:
       - name: Install pnpm (only on push)
         if: github.event_name == 'push'
         uses: pnpm/action-setup@v6
+        with:
+          version: 11.7.0
 
       - name: Setup Node.js (only on push)
         if: github.event_name == 'push'
