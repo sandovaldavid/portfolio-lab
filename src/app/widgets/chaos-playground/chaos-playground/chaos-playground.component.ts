@@ -124,7 +124,7 @@ export class ChaosPlaygroundComponent {
 	});
 
 	nodeLabel(node: Node): string {
-		return node.label.replace(/\n/g, ' ');
+		return node.label.replace(/[\r\n]+/g, ' ');
 	}
 
 	nodeClass(node: Node): string {

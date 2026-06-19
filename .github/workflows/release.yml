@@ -36,12 +36,24 @@ jobs:
 
       - name: Release (stable)
         if: github.ref == 'refs/heads/main'
-        run: pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks
+        run: |
+          FIRST_TAG=$(git tag -l 'v[0-9]*.[0-9]*.[0-9]*' | grep -v -- '-' | sort -V | head -1)
+          if [ -z "$FIRST_TAG" ]; then
+            pnpm release --ci --increment=1.0.0 --no-git.commit --no-git.requireCleanWorkingDir --no-hooks
+          else
+            pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release (beta)
         if: github.ref == 'refs/heads/develop'
-        run: pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks --preRelease=beta
+        run: |
+          FIRST_TAG=$(git tag -l 'v[0-9]*' | sort -V | head -1)
+          if [ -z "$FIRST_TAG" ]; then
+            pnpm release --ci --increment=1.0.0-beta.0 --no-git.commit --no-git.requireCleanWorkingDir --no-hooks
+          else
+            pnpm release --ci --no-git.commit --no-git.requireCleanWorkingDir --no-hooks --preRelease=beta
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
