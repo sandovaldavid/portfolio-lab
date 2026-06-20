@@ -59,21 +59,41 @@ Never import "upward" (e.g. shared must not import from features).
 
 ### Angular Components
 
-Always use standalone components with signals:
+Every component must live in its own directory with four separate files — never inline template or styles in the decorator:
+
+```
+widgets/my-widget/
+├── my-widget.component.ts      # Class + @Component metadata only
+├── my-widget.component.html    # Template
+├── my-widget.component.css     # Styles
+└── my-widget.component.spec.ts # Unit tests
+```
+
+Generate with Angular CLI (always from the project root):
+
+```bash
+ng generate component widgets/my-widget --standalone --change-detection OnPush
+# or the shorthand:
+ng g c widgets/my-widget --standalone --change-detection OnPush
+```
+
+The `.ts` file must use `templateUrl` and `styleUrl` — never `template` or `styles`:
 
 ```typescript
 @Component({
-  selector: 'app-example',
+  selector: 'app-my-widget',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `...`,
+  templateUrl: './my-widget.component.html',
+  styleUrl: './my-widget.component.css',
 })
-export class ExampleComponent {
+export class MyWidgetComponent {
   title = input.required<string>();
   clicked = output<void>();
 }
 ```
 
+Additional rules:
 - `input()` / `input.required()` over `@Input()`
 - `output()` over `@Output()`
 - `OnPush` change detection always
@@ -92,10 +112,19 @@ Example: `feat(hero): add animated typing effect`
 
 ### File Naming
 
-- Components: `name.component.ts`
-- Services: `name.service.ts`
-- Specs: `name.component.spec.ts`
+Every component produces exactly four files — no exceptions:
+
+| File | Purpose |
+|------|---------|
+| `name.component.ts` | Class declaration, `@Component` metadata (`templateUrl`, `styleUrl`) |
+| `name.component.html` | Template markup |
+| `name.component.css` | Component styles |
+| `name.component.spec.ts` | Unit tests |
+
+Other conventions:
+- Services: `name.service.ts` + `name.service.spec.ts`
 - Selectors: `app-name` (kebab-case with `app` prefix)
+- Inline `template:` or `styles:` in `@Component` are **not allowed**
 
 ## Testing Requirements
 

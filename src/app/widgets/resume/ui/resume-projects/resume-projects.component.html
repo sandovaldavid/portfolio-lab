@@ -1,0 +1,61 @@
+@if (visible()) {
+	<section class="resume-section">
+		<h2 class="resume-section-title">{{ i18n.t()('resume.section.projects') }}</h2>
+		<hr class="section-rule" />
+		@for (project of projects(); track project.title) {
+			@if (isProjectVisible(project.title)) {
+				<div
+				class="project-item"
+				role="button"
+				tabindex="0"
+				[attr.aria-pressed]="isProjectVisible(project.title)"
+				(click)="toggleProject.emit(project.title)"
+				(keyup.enter)="toggleProject.emit(project.title)"
+				(keyup.space)="toggleProject.emit(project.title)"
+			>
+					<div class="project-header">
+						<span class="project-title">{{ project.title }}</span>
+						@if (project.link) {
+							<a
+								[href]="project.link"
+								target="_blank"
+								rel="noopener"
+								class="project-link"
+								(click)="$event.stopPropagation()"
+								>↗ Live</a
+							>
+						}
+						@if (project.github) {
+							<a
+								[href]="project.github"
+								target="_blank"
+								rel="noopener"
+								class="project-link"
+								(click)="$event.stopPropagation()"
+								>GitHub</a
+							>
+						}
+					</div>
+					<p class="project-desc">{{ project.description }}</p>
+					<div class="project-tech">
+						@for (tag of project.tags; track tag.name) {
+							<span class="tech-tag">{{ tag.name }}</span>
+						}
+					</div>
+				</div>
+			} @else {
+				<div
+				class="project-item project-hidden"
+				role="button"
+				tabindex="0"
+				[attr.aria-pressed]="isProjectVisible(project.title)"
+				(click)="toggleProject.emit(project.title)"
+				(keyup.enter)="toggleProject.emit(project.title)"
+				(keyup.space)="toggleProject.emit(project.title)"
+			>
+					<span class="bullet-restore">+ {{ project.title }} (hidden — click to show)</span>
+				</div>
+			}
+		}
+	</section>
+}

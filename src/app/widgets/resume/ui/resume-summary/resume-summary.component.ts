@@ -5,15 +5,8 @@ import { I18nService } from '@shared/lib/i18n/i18n.service';
 	selector: 'app-resume-summary',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `
-		@if (visible()) {
-			<section class="resume-section">
-				<h2 class="resume-section-title">{{ i18n.t()('resume.section.summary') }}</h2>
-				<hr class="section-rule" />
-				<p class="summary-text">{{ i18n.t()('resume.summary') }}</p>
-			</section>
-		}
-	`,
+	templateUrl: './resume-summary.component.html',
+	styleUrl: './resume-summary.component.css',
 })
 export class ResumeSummaryComponent {
 	readonly i18n = inject(I18nService);

@@ -11,13 +11,13 @@ import { I18nService } from '@shared/lib/i18n/i18n.service';
 import type { ResumeSection, ResumeState, ResumeStyle } from './resume.types';
 import { ALL_SECTIONS, SKILL_CATEGORIES } from './resume.types';
 import { getProjectsData } from '@entities/project/model/project.data';
-import { ResumeHeaderComponent } from './ui/resume-header.component';
-import { ResumeSummaryComponent } from './ui/resume-summary.component';
-import { ResumeExperienceComponent } from './ui/resume-experience.component';
-import { ResumeEducationComponent } from './ui/resume-education.component';
-import { ResumeProjectsComponent } from './ui/resume-projects.component';
-import { ResumeSkillsComponent } from './ui/resume-skills.component';
-import { ResumeControlsComponent } from './ui/resume-controls.component';
+import { ResumeHeaderComponent } from './ui/resume-header/resume-header.component';
+import { ResumeSummaryComponent } from './ui/resume-summary/resume-summary.component';
+import { ResumeExperienceComponent } from './ui/resume-experience/resume-experience.component';
+import { ResumeEducationComponent } from './ui/resume-education/resume-education.component';
+import { ResumeProjectsComponent } from './ui/resume-projects/resume-projects.component';
+import { ResumeSkillsComponent } from './ui/resume-skills/resume-skills.component';
+import { ResumeControlsComponent } from './ui/resume-controls/resume-controls.component';
 
 const STORAGE_KEY = 'resume-builder-state';
 
