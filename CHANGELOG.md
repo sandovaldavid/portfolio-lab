@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.1.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.0.0-beta.0...v1.1.0-beta.0) (2026-06-20)
+
+
+### Features
+
+* **resume:** add interactive resume builder page ([ef398d2](https://github.com/sandovaldavid/portfolio/commit/ef398d26a0d3ca666f93554a7bb06076ba4f04e3))
+
+
+### Bug Fixes
+
+* **resume:** apply audit fixes — a11y, data integrity, tests, content ([55fc8f1](https://github.com/sandovaldavid/portfolio/commit/55fc8f1196244ae03af0a73fd746d443279f3786))
+
+
+### Refactoring
+
+* **experience:** move experience-item component to dedicated folder ([32d1261](https://github.com/sandovaldavid/portfolio/commit/32d1261ece140196485bb92558db70bf760c3685))
+* **mode-switcher:** separate terminal-switcher styles and add spec ([b25eb4d](https://github.com/sandovaldavid/portfolio/commit/b25eb4d2c9c05c2cb189755ab544b2181a751cf7))
+* **project:** move project-card component to dedicated folder ([35a23ca](https://github.com/sandovaldavid/portfolio/commit/35a23cad63d6b2545e6d98f87fbdf9242fd2ce5b))
+* **resume:** isolate subcomponents ([4e84098](https://github.com/sandovaldavid/portfolio/commit/4e8409860c8aeacd9e7c915fb6400a43c891fdf4))
+* **resume:** isolate subcomponents and update tsconfig ([#70](https://github.com/sandovaldavid/portfolio/issues/70)) ([a6a33bc](https://github.com/sandovaldavid/portfolio/commit/a6a33bc57e4d10d60818ba45deca310957f2a311))
+* **resume:** separate resume component template ([23ff97c](https://github.com/sandovaldavid/portfolio/commit/23ff97cc9e087da299efbf9d2ee5a9ba26ebe6f7))
+* **utility-panel:** fix component structure and naming ([995ff7e](https://github.com/sandovaldavid/portfolio/commit/995ff7ec6f7914c452ebe417aa2bea27b68302f5))
+* **widgets:** un-nest chaos-playground and star-ledger widgets ([29d4305](https://github.com/sandovaldavid/portfolio/commit/29d430557b5fe62de92bdb28d851623cebd957f5))
+
 ## [1.0.0](https://github.com/sandovaldavid/portfolio/compare/v0.9.9...v1.0.0) (2026-06-19)
 
 
