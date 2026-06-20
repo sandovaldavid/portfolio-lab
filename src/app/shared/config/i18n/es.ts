@@ -154,7 +154,7 @@ export const es: Record<TranslationKey, string> = {
 
 	// ── Resume Summary ────────────────────────────────────────────────
 	'resume.summary':
-		'Ingeniero de Software con 2+ años construyendo aplicaciones enterprise con Angular 21 + .NET 8 en fintech. Entregué Memory −34%, Throughput +60% y LCP −45% en producción en Atena. B.S. Ingeniería Informática, Universidad Nacional de Piura. Abierto a roles fullstack y backend.',
+		'Ingeniero de Software con 1+ año construyendo aplicaciones enterprise con Angular 21 + .NET 8 en fintech. Entregué Memory −34%, Throughput +60% y LCP −45% en producción en Atena. B.S. Ingeniería Informática, Universidad Nacional de Piura. Abierto a roles fullstack y backend.',
 
 	// ── Education ─────────────────────────────────────────────────────
 	'education.unp.degree': 'B.S. Ingeniería Informática',

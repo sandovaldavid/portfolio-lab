@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResumeControlsComponent } from './resume-controls.component';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
+import { vi } from 'vitest';
 
 describe('ResumeControlsComponent', () => {
 	let fixture: ComponentFixture<ResumeControlsComponent>;
@@ -60,5 +61,22 @@ describe('ResumeControlsComponent', () => {
 		const initialState = fixture.componentInstance.open();
 		toggleBtn?.click();
 		expect(fixture.componentInstance.open()).toBe(!initialState);
+	});
+
+	it('should toggle open state when R key is pressed', () => {
+		const initialOpen = fixture.componentInstance.open();
+		window.dispatchEvent(new KeyboardEvent('keydown', { key: 'r', bubbles: true }));
+		fixture.detectChanges();
+		expect(fixture.componentInstance.open()).toBe(!initialOpen);
+	});
+
+	it('should call window.print when print button is clicked', () => {
+		const printSpy = vi.spyOn(window, 'print').mockImplementation(() => undefined);
+		const printBtn = Array.from(fixture.nativeElement.querySelectorAll('.ctrl-btn')).find(
+			(b) => (b as HTMLElement).classList.contains('ctrl-btn-print'),
+		) as HTMLElement;
+		printBtn?.click();
+		expect(printSpy).toHaveBeenCalled();
+		printSpy.mockRestore();
 	});
 });

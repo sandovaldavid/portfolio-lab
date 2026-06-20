@@ -34,7 +34,8 @@ describe('ResumeProjectsComponent', () => {
 		fixture.detectChanges();
 		const item = fixture.nativeElement.querySelector('.project-item');
 		item?.click();
-		expect(emitted).toBeTruthy();
+		expect(typeof emitted).toBe('string');
+		expect((emitted as string).length).toBeGreaterThan(0);
 	});
 
 	it('should hide section when visible is false', () => {

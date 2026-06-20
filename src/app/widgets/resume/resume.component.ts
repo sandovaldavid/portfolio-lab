@@ -2,13 +2,15 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	OnInit,
+	ViewEncapsulation,
 	effect,
 	inject,
 	signal,
 } from '@angular/core';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import type { ResumeSection, ResumeState, ResumeStyle } from './resume.types';
-import { ALL_SECTIONS } from './resume.types';
+import { ALL_SECTIONS, SKILL_CATEGORIES } from './resume.types';
+import { getProjectsData } from '@entities/project/model/project.data';
 import { ResumeHeaderComponent } from './ui/resume-header.component';
 import { ResumeSummaryComponent } from './ui/resume-summary.component';
 import { ResumeExperienceComponent } from './ui/resume-experience.component';
@@ -23,6 +25,10 @@ const STORAGE_KEY = 'resume-builder-state';
 	selector: 'app-resume',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	// ViewEncapsulation.None so that resume.component.css styles (which target
+	// elements inside child sub-components) are emitted as plain global CSS.
+	// All selectors are resume-namespaced, so no global leakage risk.
+	encapsulation: ViewEncapsulation.None,
 	imports: [
 		ResumeHeaderComponent,
 		ResumeSummaryComponent,
@@ -141,7 +147,7 @@ export class ResumeComponent implements OnInit {
 	}
 
 	onToggleProject(title: string): void {
-		const allProjects = ['UNP Campus Map', 'MAD AI', 'FluentReads', 'Auctions'];
+		const allProjects = getProjectsData(this.i18n.t()).map((p) => p.title);
 		this.visibleProjects.update((projects) => {
 			if (projects.length === 0) {
 				return allProjects.filter((p) => p !== title);
@@ -154,29 +160,7 @@ export class ResumeComponent implements OnInit {
 	}
 
 	onToggleSkill(name: string): void {
-		const allSkills = [
-			'Angular',
-			'TypeScript',
-			'React',
-			'Next.js',
-			'Tailwind',
-			'RxJS',
-			'.NET 8',
-			'C#',
-			'Python',
-			'Django',
-			'Java',
-			'Spring Boot',
-			'Express',
-			'PostgreSQL',
-			'SQL Server',
-			'MySQL',
-			'SQLite',
-			'Azure DevOps',
-			'Astro',
-			'WordPress',
-			'Cloudinary',
-		];
+		const allSkills = SKILL_CATEGORIES.flatMap((cat) => cat.techs.map((t) => t.name));
 		this.visibleSkills.update((skills) => {
 			if (skills.length === 0) {
 				return allSkills.filter((s) => s !== name);

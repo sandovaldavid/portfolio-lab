@@ -17,8 +17,10 @@ import { getProjectsData } from '@entities/project/model/project.data';
 						class="project-item"
 						role="button"
 						tabindex="0"
+						[attr.aria-pressed]="isProjectVisible(project.title)"
 						(click)="toggleProject.emit(project.title)"
 						(keyup.enter)="toggleProject.emit(project.title)"
+						(keyup.space)="toggleProject.emit(project.title)"
 					>
 							<div class="project-header">
 								<span class="project-title">{{ project.title }}</span>
@@ -55,8 +57,10 @@ import { getProjectsData } from '@entities/project/model/project.data';
 						class="project-item project-hidden"
 						role="button"
 						tabindex="0"
+						[attr.aria-pressed]="isProjectVisible(project.title)"
 						(click)="toggleProject.emit(project.title)"
 						(keyup.enter)="toggleProject.emit(project.title)"
+						(keyup.space)="toggleProject.emit(project.title)"
 					>
 							<span class="bullet-restore">+ {{ project.title }} (hidden — click to show)</span>
 						</div>

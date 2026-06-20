@@ -3,6 +3,7 @@ import ResumePage from './resume.page';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { vi } from 'vitest';
 
 describe('ResumePage', () => {
 	let fixture: ComponentFixture<ResumePage>;
@@ -19,5 +20,14 @@ describe('ResumePage', () => {
 	it('should render the resume component', () => {
 		const resume = fixture.nativeElement.querySelector('app-resume');
 		expect(resume).toBeTruthy();
+	});
+
+	it('should call seo.updatePage with canonical resume URL on init', () => {
+		const seo = TestBed.inject(SeoService);
+		const spy = vi.spyOn(seo, 'updatePage');
+		fixture.componentInstance.ngOnInit();
+		expect(spy).toHaveBeenCalledWith(
+			expect.objectContaining({ canonical: 'https://devsandoval.me/resume' }),
+		);
 	});
 });

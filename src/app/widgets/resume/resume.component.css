@@ -4,7 +4,8 @@
 	gap: 1.5rem;
 	max-width: 1100px;
 	margin: 0 auto;
-	padding: 2rem 1rem;
+	/* 5rem top clears the fixed navbar (matches py-20 on other pages) */
+	padding: 5rem 1rem 2rem;
 	min-height: 100vh;
 	align-items: flex-start;
 }
@@ -173,6 +174,14 @@
 	border-top: 1px solid currentColor;
 	margin-bottom: 1rem;
 	opacity: 0.3;
+}
+
+/* ── Summary ─────────────────────────────────────────────────────── */
+.summary-text {
+	font-size: 0.82rem;
+	line-height: 1.6;
+	margin-bottom: 0.625rem;
+	color: inherit;
 }
 
 /* ── Header ─────────────────────────────────────────────────────── */
@@ -478,6 +487,22 @@
 	color: #1d4ed8;
 }
 
+.resume-document--modern .project-link {
+	color: #1d4ed8;
+}
+
+/* White-fill SVG icons are invisible on the light Modern background.
+   Same inversion pattern as tech-pill.component.css for mode-research. */
+.resume-document--modern .skill-icon[src$='Django.svg' i],
+.resume-document--modern .skill-icon[src$='Express.svg' i],
+.resume-document--modern .skill-icon[src$='AstroIcon.svg' i],
+.resume-document--modern .skill-icon[src$='sql-server.svg' i],
+.resume-document--modern .skill-icon[src$='ChartJs.svg' i],
+.resume-document--modern .skill-icon[src$='Angular.svg' i],
+.resume-document--modern .skill-icon[src$='Bootstrap.svg' i] {
+	filter: invert(1) brightness(0.15);
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    THEME: Harvard Classic
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -608,34 +633,76 @@
    PRINT
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media print {
-	.no-print {
+	/* ── Force white background on entire page ──────────────────────── */
+	html,
+	body,
+	app-root {
+		background: #fff !important;
+		color: #000 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* ── Hide global shell (navbar, footer, utility panel) ─────────── */
+	app-navbar,
+	app-footer,
+	app-utility-panel {
 		display: none !important;
 	}
 
+	/* Remove navbar padding from <main> */
+	main {
+		padding-top: 0 !important;
+		background: #fff !important;
+	}
+
+	/* ── Hide resume builder controls ──────────────────────────────── */
+	.no-print,
+	.resume-controls {
+		display: none !important;
+	}
+
+	/* ── Resume layout: full-width, no gap, no extra padding ────────── */
 	.resume-layout {
-		padding: 0;
-		gap: 0;
-		max-width: 100%;
+		padding: 0 !important;
+		gap: 0 !important;
+		max-width: 100% !important;
+		min-height: unset !important;
+		background: #fff !important;
 	}
 
-	.resume-document {
-		box-shadow: none;
-		border-radius: 0;
-		padding: 1rem;
+	/* ── Resume document: clean A4 sheet, no decorations ───────────── */
+	.resume-document,
+	.resume-document--modern,
+	.resume-document--harvard,
+	.resume-document--ats {
+		box-shadow: none !important;
+		border-radius: 0 !important;
+		border: none !important;
+		padding: 1.5rem 2rem !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin: 0 !important;
+		background: #fff !important;
 	}
 
-	h2 {
+	/* ── Page break control ─────────────────────────────────────────── */
+	h2,
+	.resume-section-title {
 		page-break-after: avoid;
 	}
 
 	.experience-item,
-	.project-item {
+	.project-item,
+	.education-item {
 		page-break-inside: avoid;
 	}
 
+	/* ── Preserve colors in PDF ─────────────────────────────────────── */
 	* {
 		-webkit-print-color-adjust: exact;
 		color-adjust: exact;
+		print-color-adjust: exact;
 	}
 }
 

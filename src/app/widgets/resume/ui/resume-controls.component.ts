@@ -8,6 +8,7 @@ import {
 	signal,
 } from '@angular/core';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
+import type { TranslationKey } from '@shared/config/i18n/en';
 import type { ResumeSection, ResumeStyle } from '../resume.types';
 import { ALL_SECTIONS } from '../resume.types';
 
@@ -16,7 +17,7 @@ import { ALL_SECTIONS } from '../resume.types';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<aside class="resume-controls no-print" [class.controls-collapsed]="!open()">
+		<aside class="resume-controls no-print" role="region" aria-label="Resume customization controls" [class.controls-collapsed]="!open()">
 			<button
 				class="controls-toggle"
 				(click)="open.set(!open())"
@@ -41,6 +42,7 @@ import { ALL_SECTIONS } from '../resume.types';
 								<button
 									class="style-btn"
 									[class.style-btn-active]="activeStyle() === s.value"
+									[attr.aria-label]="'Switch to ' + s.label + ' resume style'"
 									(click)="styleChange.emit(s.value)"
 								>
 									{{ s.label }}
@@ -58,7 +60,7 @@ import { ALL_SECTIONS } from '../resume.types';
 									[checked]="isSectionVisible(section)"
 									(change)="sectionToggle.emit(section)"
 								/>
-								<span>{{ i18n.t()('resume.section.' + section) }}</span>
+								<span>{{ sectionLabel(section) }}</span>
 							</label>
 						}
 					</div>
@@ -94,6 +96,10 @@ export class ResumeControlsComponent {
 
 	isSectionVisible(section: ResumeSection): boolean {
 		return this.visibleSections().includes(section);
+	}
+
+	sectionLabel(section: ResumeSection): string {
+		return this.i18n.t()(`resume.section.${section}` as TranslationKey);
 	}
 
 	printResume(): void {

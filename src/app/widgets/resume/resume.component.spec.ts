@@ -15,6 +15,10 @@ describe('ResumeComponent', () => {
 		fixture.detectChanges();
 	});
 
+	afterEach(() => {
+		localStorage.clear();
+	});
+
 	it('should render the resume layout', () => {
 		const layout = fixture.nativeElement.querySelector('.resume-layout');
 		expect(layout).toBeTruthy();
@@ -58,6 +62,40 @@ describe('ResumeComponent', () => {
 		fixture.detectChanges();
 		const stored = JSON.parse(localStorage.getItem('resume-builder-state') ?? '{}');
 		expect(stored.style).toBe('harvard');
+	});
+
+	it('should add bullet index to visibleBullets on first onToggleBullet call', () => {
+		fixture.componentInstance.onToggleBullet({ company: 'Atena', index: 0 });
+		fixture.detectChanges();
+		expect(fixture.componentInstance.visibleBullets()['Atena']).toContain(0);
+	});
+
+	it('should remove bullet index from visibleBullets on second onToggleBullet call', () => {
+		fixture.componentInstance.onToggleBullet({ company: 'Atena', index: 0 });
+		fixture.componentInstance.onToggleBullet({ company: 'Atena', index: 0 });
+		fixture.detectChanges();
+		expect(fixture.componentInstance.visibleBullets()['Atena']).not.toContain(0);
+	});
+
+	it('should hide a project when onToggleProject is called (all visible = empty list)', () => {
+		expect(fixture.componentInstance.visibleProjects().length).toBe(0);
+		fixture.componentInstance.onToggleProject('MAD AI');
+		fixture.detectChanges();
+		expect(fixture.componentInstance.visibleProjects()).not.toContain('MAD AI');
+	});
+
+	it('should restore a hidden project when onToggleProject is called again', () => {
+		fixture.componentInstance.onToggleProject('MAD AI');
+		fixture.componentInstance.onToggleProject('MAD AI');
+		fixture.detectChanges();
+		expect(fixture.componentInstance.visibleProjects()).toContain('MAD AI');
+	});
+
+	it('should hide a skill when onToggleSkill is called (all visible = empty list)', () => {
+		expect(fixture.componentInstance.visibleSkills().length).toBe(0);
+		fixture.componentInstance.onToggleSkill('Angular');
+		fixture.detectChanges();
+		expect(fixture.componentInstance.visibleSkills()).not.toContain('Angular');
 	});
 
 	it('should restore state from localStorage on init', async () => {

@@ -40,6 +40,6 @@ describe('ResumeExperienceComponent', () => {
 		fixture.detectChanges();
 		const hiddenBullet = fixture.nativeElement.querySelector('.bullet-hidden');
 		hiddenBullet?.click();
-		expect(emitted).toBeTruthy();
+		expect(emitted).toEqual({ company: 'Atena', index: expect.any(Number) });
 	});
 });

@@ -27,8 +27,10 @@ import { getExperienceData } from '@entities/experience/model/experience.data';
 										class="exp-bullet"
 										role="button"
 										tabindex="0"
+										[attr.aria-pressed]="isBulletVisible(item.company, $index)"
 										(click)="toggleBullet.emit({ company: item.company, index: $index })"
 										(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
+										(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
 										title="Click to hide"
 									>
 										{{ bullet }}
@@ -38,8 +40,10 @@ import { getExperienceData } from '@entities/experience/model/experience.data';
 										class="exp-bullet bullet-hidden"
 										role="button"
 										tabindex="0"
+										[attr.aria-pressed]="isBulletVisible(item.company, $index)"
 										(click)="toggleBullet.emit({ company: item.company, index: $index })"
 										(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
+										(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
 										title="Click to show"
 									>
 										<span class="bullet-restore">+ show hidden bullet</span>

@@ -152,7 +152,7 @@ export const en = {
 
 	// ── Resume Summary ────────────────────────────────────────────────
 	'resume.summary':
-		'Software Engineer with 2+ years building enterprise Angular 21 + .NET 8 applications in fintech. Delivered Memory −34%, Throughput +60%, and LCP −45% in production at Atena. B.S. Computer Engineering, National University of Piura. Open to full-stack and backend-heavy roles.',
+		'Software Engineer with 1+ years building enterprise Angular 21 + .NET 8 applications in fintech. Delivered Memory −34%, Throughput +60%, and LCP −45% in production at Atena. B.S. Computer Engineering, National University of Piura. Open to full-stack and backend-heavy roles.',
 
 	// ── Education ─────────────────────────────────────────────────────
 	'education.unp.degree': 'B.S. Computer Engineering',
