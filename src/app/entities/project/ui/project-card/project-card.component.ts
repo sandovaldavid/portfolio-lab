@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { TechPillComponent } from '@shared/ui/tech-pill/tech-pill.component';
-import type { ProjectItem } from '../model/project.model';
+import type { ProjectItem } from '../../model/project.model';
 
 const MAX_TAGS = 4;
 

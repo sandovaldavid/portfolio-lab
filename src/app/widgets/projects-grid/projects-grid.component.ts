@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
-import { ProjectCardComponent } from '@entities/project/ui/project-card.component';
+import { ProjectCardComponent } from '@entities/project/ui/project-card/project-card.component';
 import { getProjectsData } from '@entities/project/model/project.data';
 import { ScrollObserverDirective } from '@shared/lib/animation/scroll-observer.directive';
 

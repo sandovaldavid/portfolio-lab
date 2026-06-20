@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import { ProjectCardComponent } from './project-card.component';
-import type { ProjectItem } from '../model/project.model';
+import type { ProjectItem } from '../../model/project.model';
 
 describe('ProjectCardComponent', () => {
 	const mockProject: ProjectItem = {
