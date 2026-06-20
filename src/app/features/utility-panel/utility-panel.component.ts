@@ -13,16 +13,16 @@ import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboar
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { OWNER } from '@shared/config/contact.config';
-import { ShortcutsModal } from './shortcuts-modal/shortcuts-modal';
+import { ShortcutsModalComponent } from './shortcuts-modal/shortcuts-modal.component';
 
 @Component({
 	selector: 'app-utility-panel',
-	imports: [ShortcutsModal],
-	templateUrl: './utility-panel.html',
-	styleUrl: './utility-panel.css',
+	imports: [ShortcutsModalComponent],
+	templateUrl: './utility-panel.component.html',
+	styleUrl: './utility-panel.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UtilityPanel {
+export class UtilityPanelComponent {
 	readonly fontScale = inject(FontScaleService);
 	readonly mode = inject(ModeStateService);
 	readonly i18n = inject(I18nService);

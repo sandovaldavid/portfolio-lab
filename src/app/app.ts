@@ -7,12 +7,12 @@ import { FontScaleService } from '@shared/lib/font-scale/font-scale';
 import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboard-shortcuts';
 import { NavbarComponent } from '@widgets/navbar/navbar.component';
 import { FooterComponent } from '@widgets/footer/footer.component';
-import { UtilityPanel } from '@features/utility-panel/utility-panel';
+import { UtilityPanelComponent } from '@features/utility-panel/utility-panel.component';
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanel],
+	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanelComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<app-navbar />

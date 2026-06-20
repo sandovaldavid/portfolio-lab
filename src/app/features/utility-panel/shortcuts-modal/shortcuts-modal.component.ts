@@ -53,11 +53,11 @@ const SHORTCUT_GROUPS: ShortcutGroup[] = [
 @Component({
 	selector: 'app-shortcuts-modal',
 	imports: [],
-	templateUrl: './shortcuts-modal.html',
-	styleUrl: './shortcuts-modal.css',
+	templateUrl: './shortcuts-modal.component.html',
+	styleUrl: './shortcuts-modal.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShortcutsModal {
+export class ShortcutsModalComponent {
 	readonly shortcuts = inject(KeyboardShortcutsService);
 	readonly groups = SHORTCUT_GROUPS;
 
