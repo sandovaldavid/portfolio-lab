@@ -42,6 +42,8 @@ jobs:
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
             git commit -m "chore: cleanup reports for closed PR #${PR_NUMBER}"
+            # Pull --rebase to handle concurrent runs writing/cleaning gh-pages
+            git pull --rebase origin gh-pages
             git push origin gh-pages
             echo "Cleanup complete."
           else
