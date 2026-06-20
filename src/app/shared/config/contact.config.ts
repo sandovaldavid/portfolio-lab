@@ -10,6 +10,9 @@ export const OWNER = {
 	domain: 'devsandoval.me',
 	siteUrl: 'https://devsandoval.me',
 	location: 'Piura, Peru',
+	phone: '+51 999 999 999',
+	linkedin: 'https://www.linkedin.com/in/sandovaldavid',
+	github: 'https://github.com/sandovaldavid',
 	resumeFile: '/David_Sandoval_Salvador-resume.pdf',
 	avatarFile: '/profile/avatar.webp',
 } as const;

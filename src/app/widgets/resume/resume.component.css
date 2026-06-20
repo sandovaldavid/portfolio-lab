@@ -1,0 +1,656 @@
+/* ── Layout ─────────────────────────────────────────────────────── */
+.resume-layout {
+	display: flex;
+	gap: 1.5rem;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 2rem 1rem;
+	min-height: 100vh;
+	align-items: flex-start;
+}
+
+/* ── Controls Sidebar ────────────────────────────────────────────── */
+.resume-controls {
+	position: sticky;
+	top: 5rem;
+	width: 220px;
+	flex-shrink: 0;
+	background: var(--color-surface, #0d1b2e);
+	border: 1px solid var(--color-border, #1e3a5f);
+	border-radius: 0.75rem;
+	padding: 1rem;
+	transition: width 0.2s ease;
+	z-index: 10;
+}
+
+.controls-collapsed {
+	width: auto;
+}
+
+.controls-toggle {
+	background: none;
+	border: 1px solid var(--color-border, #1e3a5f);
+	border-radius: 0.375rem;
+	color: var(--color-primary, #3b9eff);
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 0.25rem 0.5rem;
+	margin-bottom: 0.75rem;
+	display: block;
+	width: 100%;
+	text-align: center;
+	transition: background 0.15s;
+}
+
+.controls-toggle:hover {
+	background: var(--color-primary, #3b9eff);
+	color: #fff;
+}
+
+.controls-title {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-primary, #3b9eff);
+	margin-bottom: 1rem;
+}
+
+.control-group {
+	margin-bottom: 1rem;
+}
+
+.control-label {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--color-muted, #64748b);
+	margin-bottom: 0.5rem;
+}
+
+.style-switcher {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+}
+
+.style-btn {
+	background: none;
+	border: 1px solid var(--color-border, #1e3a5f);
+	border-radius: 0.375rem;
+	color: var(--color-text, #e2e8f0);
+	cursor: pointer;
+	font-size: 0.75rem;
+	padding: 0.375rem 0.75rem;
+	text-align: left;
+	transition: all 0.15s;
+}
+
+.style-btn:hover {
+	border-color: var(--color-primary, #3b9eff);
+	color: var(--color-primary, #3b9eff);
+}
+
+.style-btn-active {
+	background: var(--color-primary, #3b9eff);
+	border-color: var(--color-primary, #3b9eff);
+	color: #fff;
+	font-weight: 600;
+}
+
+.section-toggle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8rem;
+	color: var(--color-text, #e2e8f0);
+	cursor: pointer;
+	margin-bottom: 0.375rem;
+}
+
+.section-toggle input {
+	accent-color: var(--color-primary, #3b9eff);
+}
+
+.control-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--color-border, #1e3a5f);
+}
+
+.ctrl-btn {
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 0.5rem;
+	transition: opacity 0.15s;
+	width: 100%;
+}
+
+.ctrl-btn:hover {
+	opacity: 0.85;
+}
+
+.ctrl-btn-reset {
+	background: var(--color-surface, #0d1b2e);
+	border: 1px solid var(--color-border, #1e3a5f);
+	color: var(--color-text, #e2e8f0);
+}
+
+.ctrl-btn-print {
+	background: var(--color-primary, #3b9eff);
+	color: #fff;
+}
+
+/* ── Resume Document (shared) ────────────────────────────────────── */
+.resume-document {
+	flex: 1;
+	min-width: 0;
+	border-radius: 0.75rem;
+	padding: 2.5rem;
+	transition: all 0.3s ease;
+}
+
+.resume-section {
+	margin-bottom: 1.75rem;
+}
+
+.resume-section-title {
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	margin-bottom: 0.375rem;
+}
+
+.section-rule {
+	border: none;
+	border-top: 1px solid currentColor;
+	margin-bottom: 1rem;
+	opacity: 0.3;
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+.resume-header {
+	margin-bottom: 1.75rem;
+}
+
+.resume-name {
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+}
+
+.resume-title {
+	font-size: 0.95rem;
+	margin-bottom: 0.5rem;
+	opacity: 0.8;
+}
+
+.resume-contact {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	font-size: 0.78rem;
+	align-items: center;
+}
+
+.resume-contact a {
+	text-decoration: none;
+}
+
+.resume-contact a:hover {
+	text-decoration: underline;
+}
+
+.separator {
+	opacity: 0.4;
+	padding: 0 0.125rem;
+}
+
+/* ── Experience ──────────────────────────────────────────────────── */
+.experience-item {
+	margin-bottom: 1.25rem;
+}
+
+.exp-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.exp-title {
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.exp-company {
+	font-size: 0.85rem;
+	opacity: 0.8;
+}
+
+.exp-date {
+	font-size: 0.78rem;
+	opacity: 0.6;
+	white-space: nowrap;
+}
+
+.exp-bullets {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 0.625rem;
+}
+
+.exp-bullet {
+	font-size: 0.82rem;
+	line-height: 1.6;
+	padding: 0.2rem 0 0.2rem 1rem;
+	position: relative;
+	cursor: pointer;
+	transition: opacity 0.15s;
+}
+
+.exp-bullet::before {
+	content: '▸';
+	position: absolute;
+	left: 0;
+	opacity: 0.5;
+	font-size: 0.7rem;
+	top: 0.3rem;
+}
+
+.exp-bullet:hover {
+	opacity: 0.7;
+}
+
+.bullet-hidden {
+	opacity: 0.3;
+	font-style: italic;
+	cursor: pointer;
+}
+
+.bullet-restore {
+	font-size: 0.75rem;
+	opacity: 0.5;
+}
+
+.exp-tech {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+.tech-tag {
+	font-size: 0.7rem;
+	padding: 0.125rem 0.5rem;
+	border-radius: 99px;
+	font-weight: 500;
+}
+
+/* ── Education ───────────────────────────────────────────────────── */
+.education-item {
+	margin-bottom: 1rem;
+}
+
+.edu-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.25rem;
+}
+
+.edu-degree {
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.edu-institution {
+	font-size: 0.85rem;
+	opacity: 0.8;
+}
+
+.edu-date {
+	font-size: 0.78rem;
+	opacity: 0.6;
+}
+
+.edu-location {
+	font-size: 0.78rem;
+	opacity: 0.6;
+	margin-bottom: 0.375rem;
+}
+
+.edu-bullets {
+	list-style: disc;
+	padding-left: 1.25rem;
+	font-size: 0.82rem;
+	line-height: 1.6;
+}
+
+/* ── Projects ────────────────────────────────────────────────────── */
+.project-item {
+	margin-bottom: 1rem;
+	cursor: pointer;
+	transition: opacity 0.15s;
+}
+
+.project-item:hover {
+	opacity: 0.8;
+}
+
+.project-hidden {
+	opacity: 0.3;
+	font-style: italic;
+}
+
+.project-header {
+	display: flex;
+	align-items: baseline;
+	gap: 0.625rem;
+	flex-wrap: wrap;
+	margin-bottom: 0.25rem;
+}
+
+.project-title {
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.project-link {
+	font-size: 0.75rem;
+	text-decoration: none;
+	opacity: 0.7;
+}
+
+.project-link:hover {
+	opacity: 1;
+	text-decoration: underline;
+}
+
+.project-desc {
+	font-size: 0.82rem;
+	line-height: 1.6;
+	margin-bottom: 0.375rem;
+}
+
+.project-tech {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+/* ── Skills ──────────────────────────────────────────────────────── */
+.skills-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
+}
+
+.skill-category {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.375rem;
+	font-size: 0.82rem;
+}
+
+.skill-cat-label {
+	font-weight: 700;
+	min-width: 80px;
+}
+
+.skill-items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+.skill-chip {
+	font-size: 0.75rem;
+	padding: 0.125rem 0.5rem;
+	border-radius: 99px;
+	cursor: pointer;
+	transition: all 0.15s;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.skill-chip:hover {
+	opacity: 0.7;
+}
+
+.skill-chip-hidden {
+	opacity: 0.25;
+	text-decoration: line-through;
+}
+
+.skill-icon {
+	display: inline-block;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   THEME: Modern
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.resume-document--modern {
+	background: #f8faff;
+	color: #0f172a;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.resume-document--modern .resume-name {
+	color: #0d1b2e;
+}
+.resume-document--modern .resume-title {
+	color: #334155;
+}
+.resume-document--modern .resume-contact {
+	color: #475569;
+}
+.resume-document--modern .resume-contact a {
+	color: #1d4ed8;
+}
+.resume-document--modern .resume-section-title {
+	color: #1d4ed8;
+}
+.resume-document--modern .section-rule {
+	border-color: #1d4ed8;
+}
+.resume-document--modern .tech-tag {
+	background: #e0e7ff;
+	color: #3730a3;
+}
+.resume-document--modern .skill-chip {
+	background: #e0e7ff;
+	color: #3730a3;
+}
+.resume-document--modern .exp-bullet::before {
+	color: #1d4ed8;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   THEME: Harvard Classic
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.resume-document--harvard {
+	background: #fff;
+	color: #1a1a1a;
+	font-family: 'Lora', Georgia, serif;
+	box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+	max-width: 780px;
+	margin: 0 auto;
+}
+
+.resume-document--harvard .resume-header {
+	text-align: center;
+	border-bottom: 2px solid #1a2744;
+	padding-bottom: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.resume-document--harvard .resume-name {
+	color: #1a2744;
+	font-size: 2rem;
+	letter-spacing: 0.04em;
+}
+
+.resume-document--harvard .resume-title {
+	color: #4a4a4a;
+}
+
+.resume-document--harvard .resume-contact {
+	justify-content: center;
+	color: #555;
+}
+
+.resume-document--harvard .resume-contact a {
+	color: #1a2744;
+}
+
+.resume-document--harvard .resume-section-title {
+	color: #1a2744;
+	font-family: 'Lora', Georgia, serif;
+	font-size: 0.9rem;
+}
+
+.resume-document--harvard .section-rule {
+	border-color: #1a2744;
+	opacity: 1;
+	border-top-width: 1.5px;
+}
+
+.resume-document--harvard .tech-tag {
+	background: #f0f2f8;
+	color: #1a2744;
+	border: 1px solid #c8cfe0;
+}
+
+.resume-document--harvard .skill-chip {
+	background: #f0f2f8;
+	color: #1a2744;
+	border: 1px solid #c8cfe0;
+}
+
+.resume-document--harvard .skill-icon {
+	display: none;
+}
+
+.resume-document--harvard .exp-bullet::before {
+	color: #1a2744;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   THEME: ATS Standard
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.resume-document--ats {
+	background: #fff;
+	color: #000;
+	font-family: Arial, system-ui, sans-serif;
+	box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+	max-width: 780px;
+	margin: 0 auto;
+}
+
+.resume-document--ats .resume-name {
+	color: #000;
+	font-size: 1.5rem;
+}
+
+.resume-document--ats .resume-contact {
+	color: #222;
+}
+.resume-document--ats .resume-contact a {
+	color: #000;
+}
+
+.resume-document--ats .resume-section-title {
+	color: #000;
+	font-size: 0.85rem;
+}
+
+.resume-document--ats .section-rule {
+	border-color: #000;
+	opacity: 1;
+}
+
+.resume-document--ats .tech-tag {
+	background: none;
+	color: #000;
+	border: 1px solid #aaa;
+	border-radius: 2px;
+}
+
+.resume-document--ats .skill-chip {
+	background: none;
+	color: #000;
+	border: 1px solid #aaa;
+	border-radius: 2px;
+}
+
+.resume-document--ats .skill-icon {
+	display: none;
+}
+
+.resume-document--ats .project-link {
+	color: #000;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PRINT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media print {
+	.no-print {
+		display: none !important;
+	}
+
+	.resume-layout {
+		padding: 0;
+		gap: 0;
+		max-width: 100%;
+	}
+
+	.resume-document {
+		box-shadow: none;
+		border-radius: 0;
+		padding: 1rem;
+	}
+
+	h2 {
+		page-break-after: avoid;
+	}
+
+	.experience-item,
+	.project-item {
+		page-break-inside: avoid;
+	}
+
+	* {
+		-webkit-print-color-adjust: exact;
+		color-adjust: exact;
+	}
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+	.resume-layout {
+		flex-direction: column;
+	}
+
+	.resume-controls {
+		position: static;
+		width: 100%;
+	}
+
+	.resume-document {
+		padding: 1.5rem;
+	}
+}

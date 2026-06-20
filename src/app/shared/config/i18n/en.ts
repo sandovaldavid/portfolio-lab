@@ -42,14 +42,14 @@ export const en = {
 	'experience.atena.title': 'Software Engineer',
 	'experience.atena.company': 'Atena',
 	'experience.atena.description':
-		'Leading the frontend migration of the salary advance platform to Angular 21 with a modern component architecture|Developing .NET 8 backend services and REST APIs to support the v2 platform|Implementing feature-sliced design patterns and signal-based state management for scalability|Collaborating with cross-functional teams on a fintech product used by Peruvian companies',
+		'Led Angular 21 frontend migration across 18+ components to signals architecture, reducing heap memory by 34%|Built .NET 8 REST API batch + cache layer, increasing throughput from 420 to 675 req/min (+60%)|Implemented Feature-Sliced Design and @defer blocks, reducing initial bundle size by 28% (1.4 MB → 1.0 MB)|Collaborated with cross-functional teams on CI/CD pipelines using Azure DevOps in an Agile/Scrum workflow',
 	'experience.atena.technologies': 'Angular,TypeScript,.NET 8,C#,SQL Server,Azure DevOps',
 
 	'experience.chirasoft.date': 'May 2025 – Jul 2025',
 	'experience.chirasoft.title': 'Fullstack Developer Freelance',
 	'experience.chirasoft.company': 'Chirasoft',
 	'experience.chirasoft.description':
-		'Migrated an educational institutional site from WordPress to Angular, improving performance, maintainability, and user experience|Contributed to the comprehensive development of an e-commerce platform, from frontend to backend business logic|Implemented responsive design patterns and optimized component architecture for scalability',
+		'Migrated institutional educational site from WordPress to Angular, improving Lighthouse performance score and maintainability|Developed full-stack e-commerce platform from REST API (Java Spring Boot) to Angular frontend|Implemented responsive UI patterns with Tailwind CSS and optimized component architecture for scalability',
 	'experience.chirasoft.technologies':
 		'Angular,TypeScript,WordPress,E-commerce,Responsive Design,Java,Spring Boot',
 
@@ -57,7 +57,7 @@ export const en = {
 	'experience.programador-ti.title': 'Software Developer and IT Specialist',
 	'experience.programador-ti.company': 'Provincial Municipality of Piura',
 	'experience.programador-ti.description':
-		'Provided technical support for the maintenance and configuration of technological infrastructure|Performed diagnosis and incident resolution, optimizing technological processes within the institutional environment|Supported the migration of institutional platforms from FoxPro to React (frontend), modernizing the technology stack',
+		'Administered and maintained technological infrastructure supporting municipal operations|Diagnosed and resolved software incidents, streamlining institutional IT processes|Contributed to migration of legacy FoxPro systems to React frontend, modernizing the institutional tech stack',
 	'experience.programador-ti.technologies':
 		'React,FoxPro,Systems Migration,Systems Administration,Infrastructure',
 
@@ -89,11 +89,11 @@ export const en = {
 
 	// ── About ─────────────────────────────────────────────────────────
 	'about-me.paragraph1':
-		'My name is Juan David, although most people know me as David. I am a Computer Engineer graduated from the National University of Piura with a passion for building impactful software.',
+		'Software Engineer at Atena, a Peruvian fintech startup, where I lead the Angular 21 + .NET 8 platform migration for a salary advance product. B.S. Computer Engineering from the National University of Piura.',
 	'about-me.paragraph2':
-		'Throughout my training and professional work, I have built projects ranging from web applications to enterprise platforms. Currently working at Atena, a Peruvian fintech startup where I lead the Angular + .NET 8 platform migration.',
+		'I build full-stack enterprise applications with a focus on performance and clean architecture. In the past year at Atena I shipped measurable improvements: −34% heap memory, +60% API throughput, −28% bundle size, and −45% LCP.',
 	'about-me.paragraph3':
-		'My focus is on leveraging technology to solve practical problems and improve processes through innovation. I aspire to continue learning and contributing to the world of software development.',
+		'I am open to full-stack, frontend-heavy, and backend-heavy roles. I bring production experience in Angular signals, .NET 8 CQRS/Clean Architecture, and CI/CD on Azure DevOps.',
 	'about-me.currently-focused': 'Currently focused on:',
 	'about-me.focus1': 'Angular signals & reactive architecture',
 	'about-me.focus2': '.NET 8 & clean architecture',
@@ -149,6 +149,40 @@ export const en = {
 	'seo.skills.title': 'Skills',
 	'seo.skills.description':
 		'David Sandoval technical skills — Angular, TypeScript, .NET 8, C#, PostgreSQL, and more.',
+
+	// ── Resume Summary ────────────────────────────────────────────────
+	'resume.summary':
+		'Software Engineer with 2+ years building enterprise Angular 21 + .NET 8 applications in fintech. Delivered Memory −34%, Throughput +60%, and LCP −45% in production at Atena. B.S. Computer Engineering, National University of Piura. Open to full-stack and backend-heavy roles.',
+
+	// ── Education ─────────────────────────────────────────────────────
+	'education.unp.degree': 'B.S. Computer Engineering',
+	'education.unp.institution': 'National University of Piura',
+	'education.unp.date': '2019 – 2024',
+	'education.unp.location': 'Piura, Peru',
+	'education.unp.description':
+		'Relevant coursework: Data Structures, Algorithms, Software Engineering, Databases, Networks|Final thesis: Recurrent Sequence Modeling for Financial Time Series with Deep LSTM Networks',
+
+	// ── Resume page ───────────────────────────────────────────────────
+	'nav.resume-page': 'Resume',
+	'resume.controls.title': 'Customize Resume',
+	'resume.controls.style': 'Visual Style',
+	'resume.controls.sections': 'Sections',
+	'resume.controls.reset': 'Restore Defaults',
+	'resume.controls.print': 'Print / Save PDF',
+	'resume.style.ats': 'ATS Standard',
+	'resume.style.harvard': 'Harvard Classic',
+	'resume.style.modern': 'Modern',
+	'resume.section.summary': 'Summary',
+	'resume.section.experience': 'Experience',
+	'resume.section.education': 'Education',
+	'resume.section.projects': 'Projects',
+	'resume.section.skills': 'Skills',
+	'resume.hint.bullet': 'Click bullet to toggle',
+	'resume.hint.skill': 'Click skill to toggle',
+	'resume.hint.project': 'Click project to toggle',
+	'seo.resume.title': 'Resume | David Sandoval',
+	'seo.resume.description':
+		'Interactive resume of David Sandoval — Software Engineer. Switch between ATS, Harvard, and Modern styles. Customize and print.',
 
 	// ── MEXT Thesis ──────────────────────────────────────────────────
 	'mext.title': 'MEXT Scholarship Research Pitch',

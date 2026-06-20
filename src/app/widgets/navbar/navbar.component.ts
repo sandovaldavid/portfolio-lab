@@ -11,7 +11,7 @@ import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { OWNER } from '@shared/config/contact.config';
 
 interface NavItem {
-	labelKey: 'nav.projects' | 'nav.experience' | 'nav.skills' | 'nav.about';
+	labelKey: 'nav.projects' | 'nav.experience' | 'nav.skills' | 'nav.about' | 'nav.resume-page';
 	path: string;
 	fragment?: string;
 }
@@ -21,6 +21,7 @@ const NAV_ITEMS: NavItem[] = [
 	{ labelKey: 'nav.experience', path: '/', fragment: 'experience' },
 	{ labelKey: 'nav.projects', path: '/', fragment: 'projects' },
 	{ labelKey: 'nav.skills', path: '/', fragment: 'skills' },
+	{ labelKey: 'nav.resume-page', path: '/resume' },
 ];
 
 @Component({
