@@ -27,7 +27,7 @@ describe('ResumePage', () => {
 		const spy = vi.spyOn(seo, 'updatePage');
 		fixture.componentInstance.ngOnInit();
 		expect(spy).toHaveBeenCalledWith(
-			expect.objectContaining({ canonical: 'https://devsandoval.me/resume' }),
+			expect.objectContaining({ canonical: 'https://devsandoval.me/resume' })
 		);
 	});
 });

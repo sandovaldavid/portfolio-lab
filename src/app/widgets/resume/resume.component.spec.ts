@@ -107,7 +107,7 @@ describe('ResumeComponent', () => {
 				visibleBullets: {},
 				visibleProjects: [],
 				visibleSkills: [],
-			}),
+			})
 		);
 
 		await TestBed.resetTestingModule();

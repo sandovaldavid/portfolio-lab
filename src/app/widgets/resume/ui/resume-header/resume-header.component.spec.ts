@@ -21,8 +21,8 @@ describe('ResumeHeaderComponent', () => {
 
 	it('should render email link', () => {
 		const links = fixture.nativeElement.querySelectorAll('a');
-		const emailLink = Array.from(links).find(
-			(a: unknown) => (a as HTMLAnchorElement).href.includes('mailto:'),
+		const emailLink = Array.from(links).find((a: unknown) =>
+			(a as HTMLAnchorElement).href.includes('mailto:')
 		);
 		expect(emailLink).toBeTruthy();
 	});
@@ -30,7 +30,7 @@ describe('ResumeHeaderComponent', () => {
 	it('should render linkedin link', () => {
 		const links = fixture.nativeElement.querySelectorAll('a');
 		const linkedinLink = Array.from(links).find((a: unknown) =>
-			(a as HTMLAnchorElement).textContent?.includes('linkedin'),
+			(a as HTMLAnchorElement).textContent?.includes('linkedin')
 		);
 		expect(linkedinLink).toBeTruthy();
 	});

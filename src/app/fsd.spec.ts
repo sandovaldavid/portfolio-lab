@@ -55,7 +55,8 @@ describe('Feature-Sliced Design (FSD) Architectural Rules', () => {
 		);
 
 		// Regex to match static: import ... from '...' and dynamic: import('...')
-		const importPattern = /(?:import\s+.*?\s+from\s+['"]([^'"]+)['"])|(?:import\(['"]([^'"]+)['"]\))/g;
+		const importPattern =
+			/(?:import\s+.*?\s+from\s+['"]([^'"]+)['"])|(?:import\(['"]([^'"]+)['"]\))/g;
 		const violations: string[] = [];
 
 		for (const file of tsFiles) {

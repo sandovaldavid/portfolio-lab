@@ -24,7 +24,7 @@ describe('ResumeControlsComponent', () => {
 		let emitted: unknown = null;
 		fixture.componentInstance.styleChange.subscribe((v: unknown) => (emitted = v));
 		const atsBtnArr = Array.from(
-			fixture.nativeElement.querySelectorAll('.style-btn'),
+			fixture.nativeElement.querySelectorAll('.style-btn')
 		) as HTMLElement[];
 		const atsBtn = atsBtnArr.find((b) => b.textContent?.includes('ATS'));
 		atsBtn?.click();
@@ -35,7 +35,7 @@ describe('ResumeControlsComponent', () => {
 		let emitted: unknown = null;
 		fixture.componentInstance.sectionToggle.subscribe((v: unknown) => (emitted = v));
 		const checkbox = fixture.nativeElement.querySelector(
-			'input[type=checkbox]',
+			'input[type=checkbox]'
 		) as HTMLInputElement;
 		checkbox?.click();
 		expect(emitted).toBeTruthy();
@@ -45,7 +45,7 @@ describe('ResumeControlsComponent', () => {
 		let emitted = false;
 		fixture.componentInstance.resetClick.subscribe(() => (emitted = true));
 		const resetBtn = Array.from(fixture.nativeElement.querySelectorAll('.ctrl-btn')).find((b) =>
-			(b as HTMLElement).classList.contains('ctrl-btn-reset'),
+			(b as HTMLElement).classList.contains('ctrl-btn-reset')
 		) as HTMLElement;
 		resetBtn?.click();
 		expect(emitted).toBe(true);
@@ -72,8 +72,8 @@ describe('ResumeControlsComponent', () => {
 
 	it('should call window.print when print button is clicked', () => {
 		const printSpy = vi.spyOn(window, 'print').mockImplementation(() => undefined);
-		const printBtn = Array.from(fixture.nativeElement.querySelectorAll('.ctrl-btn')).find(
-			(b) => (b as HTMLElement).classList.contains('ctrl-btn-print'),
+		const printBtn = Array.from(fixture.nativeElement.querySelectorAll('.ctrl-btn')).find((b) =>
+			(b as HTMLElement).classList.contains('ctrl-btn-print')
 		) as HTMLElement;
 		printBtn?.click();
 		expect(printSpy).toHaveBeenCalled();
