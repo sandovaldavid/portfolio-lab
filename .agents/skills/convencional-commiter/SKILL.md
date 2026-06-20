@@ -1,20 +1,20 @@
 ---
 name: convencional-commiter
-description: Enforces DevSandoval V4.0 Elite Edition commit protocol combining Conventional Commits 1.0.0 with Gitmoji visual system. Use when creating Git commits to ensure proper format with emoji, type, scope, optional BREAKING CHANGE (! suffix or footer), and imperative description (max 72 chars). Prevents generic commits and enforces professional commit standards for .NET/Angular/AnalogJS/LSTM projects.
+description: Enforces Conventional Commits 1.0.0 — no emojis, semantic and imperative descriptions. Use when creating Git commits to ensure proper format with type, scope, optional BREAKING CHANGE (! suffix or footer), and a meaningful description (max 72 chars header). Prevents generic commits and enforces professional semantic standards.
 ---
 
 # Convencional Commiter
 
 ## Overview
 
-This skill enforces the **DevSandoval V4.0 (Elite Edition)** commit protocol, combining **[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)** with **[Gitmoji](https://gitmoji.dev/)** for high-resolution version history. Every commit becomes technical evidence of professionalism and discipline.
+This skill enforces **Conventional Commits 1.0.0** — clean, semantic, emoji-free commit messages that form a high-resolution version history. Every commit is technical evidence of what changed, why it matters, and what version impact it carries.
 
 ## The Golden Rule
 
 Every commit MUST follow this exact pattern:
 
 ```
-[gitmoji] [type]([scope])[!]: [imperative description]
+type(scope)!: imperative description
 
 [optional body]
 
@@ -22,19 +22,18 @@ Every commit MUST follow this exact pattern:
 ```
 
 **Components:**
-- **Gitmoji**: Visual emoji (e.g., ✨ `:sparkles:`) — placed before the type
 - **Type**: Semantic category (e.g., `feat`, `fix`, `docs`) — must be lowercase
-- **Scope**: Affected module in lowercase, wrapped in parentheses (optional but recommended)
+- **Scope**: Affected module in lowercase, wrapped in parentheses (optional but strongly recommended)
 - **`!`**: Append immediately before `:` to signal a BREAKING CHANGE (optional)
-- **Description**: Imperative mood, starts lowercase, no period, max 72 chars total header
+- **Description**: Imperative mood, starts lowercase, no period, max 50 chars (header total ≤ 72)
 - **Body**: Free-form explanation of WHY (not WHAT); starts one blank line after description
 - **Footers**: Token: value pairs after blank line; `BREAKING CHANGE:` is a special footer
 
 **Standard examples:**
 ```
-✨ feat(api): add LSTM prediction endpoint
-🐛 fix(auth): resolve token expiration edge case
-💥 feat(api)!: remove v1 users endpoint
+feat(api): add LSTM prediction endpoint
+fix(auth): resolve token expiration edge case
+feat(api)!: remove v1 users endpoint
 
 BREAKING CHANGE: /v1/users has been removed. Migrate to /v2/users.
 ```
@@ -57,7 +56,7 @@ These are the canonical types. The first two have SemVer implications:
 | `chore` | — | Maintenance tasks, tooling, miscellaneous |
 | `revert` | — | Revert a previous commit |
 
-**Extended types** (DevSandoval project-specific, not in spec but valid):
+**Extended types** (project-specific, not in spec but valid):
 
 | Type | Purpose |
 |------|--------|
@@ -67,39 +66,37 @@ These are the canonical types. The first two have SemVer implications:
 
 > Any type can carry a BREAKING CHANGE by appending `!` or adding a `BREAKING CHANGE:` footer → triggers a SemVer MAJOR bump.
 
-## Quick Start: Common Patterns
+## Quick Reference: Common Patterns
 
 ### Development
-- ✨ `feat` — New feature: `✨ feat(signals): add computed state`
-- 🐛 `fix` — Bug fix: `🐛 fix(auth): resolve token expiration`
-- 🚑️ `fix` — Critical hotfix: `🚑️ fix(api): patch null reference crash`
-- 🩹 `fix` — Minor non-critical fix: `🩹 fix(ui): correct button label typo`
-- ⚡️ `perf` — Performance: `⚡️ perf(db): optimize queries`
-- 💥 `feat!` — Breaking change: `💥 feat(api)!: drop v1 endpoint`
+- `feat` — New feature: `feat(hero): add animated typing effect`
+- `feat` — New feature: `feat(language-picker): add Portuguese locale`
+- `fix` — Bug fix: `fix(navbar): resolve mobile menu overflow`
+- `fix` — Minor fix: `fix(tech-pill): correct border radius on safari`
+- `perf` — Performance: `perf(projects-grid): lazy load project images`
+- `feat!` — Breaking change: `feat(i18n)!: replace i18n keys structure`
 
 ### Quality
-- ♻️ `refactor` — Refactor: `♻️ refactor(services): extract utilities`
-- 🎨 `style` — Formatting: `🎨 style(theme): adjust mobile padding`
-- 💄 `style` — UI/CSS: `💄 style(layout): redesign hero section`
-- 📝 `docs` — Documentation: `📝 docs(readme): update setup`
-- 🧪 `test` — Add failing test: `🧪 test(lstm): add failing gate test`
-- ✅ `test` — Add/update/pass tests: `✅ test(api): add endpoint coverage`
+- `refactor` — Refactor: `refactor(mode-switcher): migrate to signals`
+- `style` — Formatting: `style(hero): align spacing with design tokens`
+- `docs` — Documentation: `docs(readme): update dev setup instructions`
+- `test` — Add test: `test(experience-timeline): add render spec`
+- `test` — Update tests: `test(project): verify model shape on missing fields`
 
 ### Infrastructure
-- 🔧 `config` — Configuration: `🔧 config(husky): add validation`
-- 👷 `ci` — CI/CD: `👷 ci(github): add build pipeline`
-- 🧱 `ci` — Infrastructure: `🧱 ci(docker): add production image`
-- ⬆️ `chore` — Dep upgrade: `⬆️ chore(deps): upgrade to .NET 8`
-- ⬇️ `chore` — Dep downgrade: `⬇️ chore(deps): pin rxjs to 7.5`
-- ⏪️ `revert` — Revert: `⏪️ revert(auth): undo session refactor`
+- `config` — Configuration: `config(husky): add pre-push lint validation`
+- `ci` — CI/CD: `ci(github): add Playwright e2e workflow`
+- `build` — Build: `build(vite): increase chunk size warning limit`
+- `chore` — Dep upgrade: `chore(deps): upgrade to angular 21`
+- `chore` — Dep downgrade: `chore(deps): pin rxjs to 7.5`
+- `revert` — Revert: `revert(mode-switcher): undo terminal toggle refactor`
 
 ### Special Cases
-- 🎉 `chore` — Init project: `🎉 chore: initial project scaffold`
-- 🚀 `ci` — Deploy: `🚀 ci(azure): deploy to production`
-- 🔖 `chore` — Release tag: `🔖 chore(release): v2.1.0`
-- 🚧 `wip` — Work in progress: `🚧 wip(lstm): partial gate refactor`
+- `chore` — Init project: `chore: initial project scaffold`
+- `ci` — Deploy: `ci(vercel): configure preview deployments`
+- `chore` — Release tag: `chore(release): v2.1.0`
 
-For the complete mapping dictionary, see [references/api_reference.md](references/api_reference.md).
+For the complete type and scope reference, see [references/api_reference.md](references/api_reference.md).
 
 ## BREAKING CHANGE Syntax
 
@@ -107,12 +104,12 @@ Two equivalent ways to signal a breaking change:
 
 **Option A — `!` suffix (preferred for visibility):**
 ```
-💥 feat(api)!: remove deprecated /v1/users endpoint
+feat(api)!: remove deprecated /v1/users endpoint
 ```
 
 **Option B — `BREAKING CHANGE:` footer:**
 ```
-💥 feat(api): remove deprecated /v1/users endpoint
+feat(api): remove deprecated /v1/users endpoint
 
 BREAKING CHANGE: The /v1/users endpoint has been removed.
 Migrate to /v2/users which supports pagination.
@@ -121,7 +118,7 @@ Refs: #42
 
 **Both together (explicit):**
 ```
-💥 feat(api)!: remove deprecated /v1/users endpoint
+feat(api)!: remove deprecated /v1/users endpoint
 
 Removes the legacy endpoint that was deprecated in v1.8.0.
 
@@ -141,60 +138,150 @@ When creating commits for the user, follow this process:
 - Determine the core purpose and impact
 - Check if any public API is changed (→ BREAKING CHANGE candidate)
 
-### 2. Select Gitmoji + Type
-Use the quick reference above or consult [api_reference.md](references/api_reference.md):
+### 2. Select Type
+Choose the most specific applicable type from the table above:
 
-| Intent | Gitmoji | Type |
-|--------|---------|------|
-| New functionality | ✨ | `feat` |
-| Critical hotfix | 🚑️ | `fix` |
-| Bug fix | 🐛 | `fix` |
-| Minor/typo fix | 🩹 | `fix` |
-| Refactoring | ♻️ | `refactor` |
-| Documentation | 📝 | `docs` |
-| Comments in code | 💡 | `docs` |
-| Performance | ⚡️ | `perf` |
-| Add failing test | 🧪 | `test` |
-| Add/pass tests | ✅ | `test` |
-| Configuration | 🔧 | `config` |
-| CI/CD pipeline | 👷 | `ci` |
-| Deploy | 🚀 | `ci` |
-| Architecture | 🏗️ | `arch` |
-| Breaking change | 💥 | any type + `!` |
-| Revert | ⏪️ | `revert` |
+| Intent | Type |
+|--------|------|
+| New functionality | `feat` |
+| Bug fix (any severity) | `fix` |
+| Refactoring | `refactor` |
+| Documentation | `docs` |
+| Comments in code | `docs` |
+| Performance | `perf` |
+| Tests | `test` |
+| Configuration | `config` |
+| CI/CD pipeline | `ci` |
+| Architecture | `arch` |
+| Breaking change | any type + `!` |
+| Revert | `revert` |
 
 ### 3. Determine Scope
-Choose the most specific applicable scope:
 
-**Backend (.NET):** `api`, `auth`, `core`, `services`, `models`, `db`
+**Scope is required.** Use the most specific name that matches the changed module.
 
-**Frontend (Angular / AnalogJS):** `signals`, `components`, `pages`, `services`, `guards`, `interceptors`, `theme`, `ssg`
+**Rule:** use the component/module name for single-area changes; use the FSD layer only when the change spans the entire layer.
 
-**Research (LSTM):** `lstm`, `dataset`, `preprocessing`, `model`, `training`, `evaluation`
+---
 
-**Tooling/Docs:** `readme`, `docs`, `thesis`, `husky`, `github`, `deps`, `docker`
+**Widgets** (`src/app/widgets/`)
+
+| Scope | Module |
+|-------|--------|
+| `hero` | Hero section |
+| `navbar` | Navigation bar |
+| `footer` | Footer |
+| `about-section` | About section |
+| `experience-timeline` | Experience timeline |
+| `projects-grid` | Projects grid |
+| `skills-section` | Skills section |
+| `star-ledger` | Star ledger widget |
+| `chaos-playground` | Chaos playground |
+| `lstm-playground` | LSTM playground |
+| `mext-thesis-pitch` | MEXT thesis pitch |
+
+---
+
+**Features** (`src/app/features/`)
+
+| Scope | Module |
+|-------|--------|
+| `language-picker` | Language switcher |
+| `mode-switcher` | Terminal/visual mode toggle |
+| `utility-panel` | Utility panel + shortcuts modal |
+
+---
+
+**Entities** (`src/app/entities/`)
+
+| Scope | Module |
+|-------|--------|
+| `technology` | Technology entity (model + UI) |
+| `experience` | Experience entity (model + UI) |
+| `project` | Project entity (model + UI) |
+
+---
+
+**Shared** (`src/app/shared/`)
+
+| Scope | Module |
+|-------|--------|
+| `i18n` | Internationalization (ES/EN) |
+| `theme` | Theme system / design tokens |
+| `seo` | SEO metadata |
+| `mode` | Dark/light mode |
+| `animation` | Shared animations |
+| `font-scale` | Font scaling |
+| `keyboard-shortcuts` | Keyboard shortcut bindings |
+| `badge` | Badge UI primitive |
+| `pixel-button` | Pixel-button UI primitive |
+| `pixel-card` | Pixel-card UI primitive |
+| `section-title` | Section-title UI primitive |
+| `tech-pill` | Tech-pill UI primitive |
+| `theme-switcher` | Theme-switcher UI component |
+
+---
+
+**Pages** (`src/app/pages/`)
+
+| Scope | Route |
+|-------|-------|
+| `index` | Home page (`/`) |
+| `about` | About page |
+| `experience` | Experience page |
+| `projects` | Projects page |
+| `skills` | Skills page |
+| `notes` | Notes (dynamic route) |
+
+---
+
+**Infrastructure**
+
+| Scope | Area |
+|-------|------|
+| `ci` | GitHub Actions workflows |
+| `config` | Project config files (vite, tsconfig, eslint…) |
+| `build` | Build tooling (Vite, Analog SSG) |
+| `deps` | Dependencies (package.json) |
+| `vercel` | Vercel config / deployment |
+| `ssg` | Static site generation |
+| `server` | Analog SSR server logic |
+| `content` | Static content (`src/content/`) |
+
+---
+
+**FSD layer** (only when change spans the entire layer)
+
+`shared` · `entities` · `features` · `widgets` · `pages`
+
+```
+# Single component — use component scope:
+refactor(hero): migrate to signals-based state
+
+# Entire layer — use layer scope:
+refactor(widgets): apply OnPush to all section components
+```
 
 ### 4. Craft Description
 - Use imperative mood: "add", "fix", "update" (not "added", "fixes", "updating")
 - Start with lowercase letter
-- Be specific and meaningful
-- Keep total header (gitmoji + type + scope + `:` + description) ≤ 72 characters
+- Be specific and meaningful — describe the actual change, not "update file"
+- Keep description ≤ 50 chars; total header ≤ 72 characters
 - **NO period at the end**
 
 ### 5. Add Body (Optional)
 For complex changes, add a body explaining **WHY**, not **WHAT**:
 - Architectural reasoning
 - Performance considerations
-- Research citations
 - Non-obvious implications
+- Context a future maintainer would need
 
 **Example with body:**
 ```
-✨ feat(lstm): implement forget gate initialization
+feat(lstm): implement forget gate initialization
 
-Physical intuition: Initializing forget gate weights to 1.0
-prevents vanishing gradient in long sequences, as suggested
-in Gers et al. (2000).
+Initializing forget gate weights to 1.0 prevents vanishing
+gradient in long sequences (Gers et al. 2000).
 ```
 
 ### 6. Add Footers (Optional)
@@ -209,49 +296,56 @@ BREAKING CHANGE: <description>
 
 Before proposing any commit, verify:
 
-- ✅ Gitmoji is present and matches change type
 - ✅ Type is from approved list (conventional or project-extended)
 - ✅ Scope is lowercase and relevant
 - ✅ Description starts with lowercase
 - ✅ Description is imperative mood
-- ✅ Total header ≤ 72 characters
+- ✅ Description is specific (not "update", "fix bug", "changes")
+- ✅ Total header ≤ 72 characters; description ≤ 50 chars
 - ✅ No period at end of description
-- ✅ Message is specific (not "update" or "fix bug")
+- ✅ No emojis anywhere in the header
 - ✅ Body added for complex changes (blank line separating it)
 - ✅ Breaking changes use `!` and/or `BREAKING CHANGE:` footer
 - ✅ `BREAKING CHANGE` footer is UPPERCASE
 
 ## NEVER Allow
 
-❌ Generic messages:
+❌ Generic, non-semantic messages:
 ```
 git commit -m "update"
 git commit -m "fix bug"
 git commit -m "changes"
+git commit -m "wip"
 ```
 
 ❌ Capitalization errors:
 ```
-git commit -m "✨ feat: Added New Feature."
-git commit -m "🐛 Fix: bug in auth"
+git commit -m "feat: Added New Feature."
+git commit -m "Fix: bug in auth"
 ```
 
-❌ Missing components:
+❌ Emojis in any position:
 ```
-git commit -m "add feature"        # Missing gitmoji and type
-git commit -m "✨ add feature"      # Missing type
+git commit -m "✨ feat: add new feature"
+git commit -m "feat: add sparkle ✨ effect"
+```
+
+❌ Missing type:
+```
+git commit -m "add feature"
+git commit -m "(signals): add computed state"
 ```
 
 ❌ Silent breaking changes (no `!` or footer):
 ```
-git commit -m "✨ feat(api): redesign users endpoint"  # Breaking but not marked
+git commit -m "feat(api): redesign users endpoint"  # Breaking but not marked
 ```
 
 ## The Commit Mental Model
 
 Every commit is **technical evidence**:
 - Messy commits = messy engineer
-- Protocol-compliant commits = reliable engineer
+- Semantic commits = reliable engineer
 
 When examining changes, think like a senior engineer:
 - What problem does this solve?
@@ -259,43 +353,22 @@ When examining changes, think like a senior engineer:
 - Does this break any existing API or behavior?
 - How will future maintainers understand this?
 
+A good commit subject answers: "If applied, this commit will **[description]**."
+
 ## Resources
 
-This skill includes bundled resources:
-
 ### [references/api_reference.md](references/api_reference.md)
-Complete gitmoji mapping dictionary with:
-- All official gitmojis from gitmoji.dev with their conventional commit type mapping
-- Context-specific scope examples
-- Extended usage examples
-- Quick reference table
-
-**When to use:** Consult when unsure about gitmoji selection or need specific examples.
+Type and scope reference with:
+- Detailed explanation of each type and when to use it
+- Scope conventions by project area
+- Semantic quality guide — good vs. bad descriptions
 
 ### [assets/commitlint.config.json](assets/commitlint.config.json)
-Commitlint configuration file with:
-- All approved type enums (spec + project extensions)
-- Subject case validation (lowercase)
-- Header max length (72 chars — accommodates gitmoji prefix)
-- Full stop prevention
-
-**When to use:** Recommend this configuration when user wants to enforce commit standards with commitlint.
+Commitlint configuration with all approved types, lowercase enforcement, header max length (72), and full-stop prevention.
 
 ### [assets/commit-template.txt](assets/commit-template.txt)
 Git commit message template with format reminder and examples.
 
-**When to use:** Recommend setting as Git commit template:
 ```bash
-git config commit.template .agent/skills/convencional-commiter/assets/commit-template.txt
+git config commit.template .agents/skills/convencional-commiter/assets/commit-template.txt
 ```
-
-## Integration Notes
-
-This skill is designed for DevSandoval's tech stack:
-- **.NET 8** backend with API-first architecture
-- **Angular 19** frontend with signals
-- **AnalogJS** SSG/SSR portfolio
-- **LSTM research** for thesis work
-- **Modern DevOps** with Husky, commitlint, GitHub Actions
-
-Scope conventions align with this stack, but can be adapted for other contexts.
