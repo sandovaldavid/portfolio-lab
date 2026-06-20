@@ -1,8 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -12,7 +10,6 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -26,10 +23,10 @@
     "useDefineForClassFields": false,
     "skipLibCheck": true,
     "paths": {
-      "@shared/*": ["src/app/shared/*"],
-      "@entities/*": ["src/app/entities/*"],
-      "@features/*": ["src/app/features/*"],
-      "@widgets/*": ["src/app/widgets/*"]
+      "@shared/*": ["./src/app/shared/*"],
+      "@entities/*": ["./src/app/entities/*"],
+      "@features/*": ["./src/app/features/*"],
+      "@widgets/*": ["./src/app/widgets/*"]
     }
   },
   "angularCompilerOptions": {
