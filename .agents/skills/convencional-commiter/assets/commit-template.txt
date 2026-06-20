@@ -1,9 +1,9 @@
-# [gitmoji] [type]([scope])[!]: [imperative description]
+# type(scope)!: imperative description
 #
-# Conventional Commits 1.0.0 + Gitmoji — DevSandoval V4.0 protocol
+# Conventional Commits 1.0.0 — DevSandoval protocol
 #
 # STRUCTURE:
-#   [gitmoji] [type]([scope])[!]: [description]   ← header (max 72 chars)
+#   type(scope)!: description          ← header (max 72 chars, desc ≤ 50)
 #   <blank line>
 #   [optional body — explain WHY, not WHAT]
 #   <blank line>
@@ -11,34 +11,33 @@
 #
 # TYPES (core spec):  feat | fix | docs | style | refactor | perf |
 #                     test | build | ci | chore | revert
-# TYPES (extended):   arch | config | lint | wip
+# TYPES (extended):   arch | config | lint
 #
 # BREAKING CHANGE — two ways (both trigger SemVer MAJOR):
-#   Option A:  💥 feat(api)!: remove /v1/users endpoint
+#   Option A:  feat(api)!: remove /v1/users endpoint
 #   Option B:  add footer:  BREAKING CHANGE: <description>
 #
-# Scope: module in lowercase — api | auth | signals | pages | lstm | deps | ...
-# Description: imperative mood, lowercase start, no period at end
+# Scope: module in lowercase — api | auth | signals | pages | deps | ...
+# Description: imperative mood, lowercase start, no period at end, no emojis
 #
 # EXAMPLES:
-# ✨ feat(api): add LSTM prediction endpoint
-# 🐛 fix(signals): prevent memory leak on destroy
-# 📝 docs(readme): update installation instructions
-# ♻️ refactor(auth): simplify JWT validation logic
-# ✅ test(api): add endpoint integration coverage
-# 🧪 test(lstm): add failing gate activation test
-# 💥 feat(api)!: remove deprecated /v1/users endpoint
+# feat(api): add LSTM prediction endpoint
+# fix(signals): prevent memory leak on destroy
+# docs(readme): update installation instructions
+# refactor(auth): simplify JWT validation logic
+# test(api): add endpoint integration coverage
+# feat(api)!: remove deprecated /v1/users endpoint
 #
 # EXAMPLE with body + footer:
-# ✨ feat(lstm): implement forget gate initialization
+# feat(lstm): implement forget gate initialization
 #
-# Physical intuition: initializing forget gate weights to 1.0
-# prevents vanishing gradient in long sequences (Gers et al. 2000).
+# Initializing forget gate weights to 1.0 prevents vanishing
+# gradient in long sequences (Gers et al. 2000).
 #
 # Refs: #42
 #
 # EXAMPLE with breaking change footer:
-# 💥 feat(api)!: redesign authentication flow
+# feat(api)!: redesign authentication flow
 #
 # Replaces session-based auth with stateless JWT.
 #
