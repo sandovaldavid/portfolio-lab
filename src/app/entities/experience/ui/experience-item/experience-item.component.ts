@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { BadgeComponent } from '@shared/ui/badge/badge.component';
-import type { ExperienceItem } from '../model/experience.model';
+import type { ExperienceItem } from '../../model/experience.model';
 
 @Component({
 	selector: 'app-experience-item',

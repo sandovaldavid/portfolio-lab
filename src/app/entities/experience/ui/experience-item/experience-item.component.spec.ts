@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import { ExperienceItemComponent } from './experience-item.component';
-import type { ExperienceItem } from '../model/experience.model';
+import type { ExperienceItem } from '../../model/experience.model';
 
 describe('ExperienceItemComponent', () => {
 	const mockExperience: ExperienceItem = {
