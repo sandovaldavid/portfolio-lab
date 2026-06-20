@@ -9,8 +9,8 @@ import { ProjectsGridComponent } from '@widgets/projects-grid/projects-grid.comp
 import { SkillsSectionComponent } from '@widgets/skills-section/skills-section.component';
 import { SectionTitleComponent } from '@shared/ui/section-title/section-title.component';
 import { ScrollObserverDirective } from '@shared/lib/animation/scroll-observer.directive';
-import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground/chaos-playground.component';
-import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger/star-ledger.component';
+import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground.component';
+import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component';
 import { LstmPlaygroundComponent } from '@widgets/lstm-playground/lstm-playground.component';
 import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';

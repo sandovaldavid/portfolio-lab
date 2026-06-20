@@ -3,8 +3,8 @@ import { SeoService } from '@shared/lib/seo/seo.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SectionTitleComponent } from '@shared/ui/section-title/section-title.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
-import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger/star-ledger.component';
-import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground/chaos-playground.component';
+import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component';
+import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground.component';
 
 @Component({
 	selector: 'app-experience-page',
