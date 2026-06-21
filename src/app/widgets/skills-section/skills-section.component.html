@@ -19,20 +19,75 @@
 		</div>
 	</div>
 } @else {
-	<!-- Full categorized view for /skills page -->
-	<div class="space-y-10">
-		@for (group of techCategories; track group.label; let i = $index) {
+	<!-- Full categorized grid view for /skills page -->
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		@for (category of domainCategories; track category.key; let i = $index) {
 			<div
 				appScrollObserver
 				[class.stagger-1]="i === 0"
 				[class.stagger-2]="i === 1"
 				[class.stagger-3]="i === 2"
 				[class.stagger-4]="i === 3"
+				class="card-base card-{{ category.key }} surface-card p-6 rounded-xl transition-all duration-300 hover:-translate-y-1"
 			>
-				<p class="font-pixel text-sm text-[--color-accent] mb-5">// {{ group.label }}</p>
-				<div class="flex flex-wrap gap-2">
-					@for (tech of group.techs; track tech.name) {
-						<app-tech-pill [label]="tech.name" [iconPath]="tech.iconPath" />
+				<!-- Card Header -->
+				<div class="flex items-start gap-4 mb-6">
+					<!-- Icon Box -->
+					<div class="w-12 h-12 flex items-center justify-center rounded-lg border border-[--card-accent-border] bg-[--card-accent-bg] text-[--card-accent] shrink-0">
+						@switch (category.icon) {
+							@case ('server') {
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+									<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+									<rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+									<line x1="6" x2="6.01" y1="6" y2="6"/>
+									<line x1="6" x2="6.01" y1="18" y2="18"/>
+									<line x1="10" x2="10.01" y1="6" y2="6"/>
+									<line x1="10" x2="10.01" y1="18" y2="18"/>
+								</svg>
+							}
+							@case ('brain') {
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+									<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1 0-3.12 3 3 0 0 1 0-4.88 2.5 2.5 0 0 1 0-3.12A2.5 2.5 0 0 1 9.5 2Z"/>
+									<path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-3.12 3 3 0 0 0 0-4.88 2.5 2.5 0 0 0 0-3.12A2.5 2.5 0 0 0 14.5 2Z"/>
+								</svg>
+							}
+							@case ('monitor') {
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+									<rect width="20" height="14" x="2" y="3" rx="2"/>
+									<line x1="8" x2="16" y1="21" y2="21"/>
+									<line x1="12" x2="12" y1="17" y2="21"/>
+								</svg>
+							}
+							@case ('box') {
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+									<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+									<polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+									<line x1="12" x2="12" y1="22.08" y2="12"/>
+								</svg>
+							}
+						}
+					</div>
+
+					<!-- Title & Description -->
+					<div>
+						<h3 class="font-pixel text-base md:text-lg font-bold text-[--color-heading] transition-colors duration-200">
+							{{ i18n.t()(category.titleKey) }}
+						</h3>
+						<p class="font-body text-xs md:text-sm text-[--color-muted] mt-1 leading-relaxed">
+							{{ i18n.t()(category.descKey) }}
+						</p>
+					</div>
+				</div>
+
+				<!-- Pills Area -->
+				<div class="flex flex-wrap gap-2.5 mt-4">
+					@for (pill of category.pills; track pill.name) {
+						<div class="skill-pill">
+							<span class="pill-label">{{ pill.name }}</span>
+							@if (pill.suffix) {
+								<span class="pill-suffix">{{ pill.suffix }}</span>
+							}
+						</div>
 					}
 				</div>
 			</div>
