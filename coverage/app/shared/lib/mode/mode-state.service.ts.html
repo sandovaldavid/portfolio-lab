@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.76% </span>
+                <span class="strong">61.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/26</span>
+                <span class='fraction'>16/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>6/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/7</span>
+                <span class='fraction'>3/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.81% </span>
+                <span class="strong">68.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/22</span>
+                <span class='fraction'>15/22</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -128,28 +128,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,6 +143,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
@@ -175,15 +175,15 @@ export class ModeStateService {
 	readonly isAcademic = computed(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >this.currentMode() === 'RESEARCH_FELLOW')</span>;
 	readonly isArchitect = computed(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >this.currentMode() === 'SYSTEM_ARCHITECT')</span>;
 &nbsp;
-<span class="fstat-no" title="function not covered" >	apply(</span>): void {
-<span class="cstat-no" title="statement not covered" >		if (this.isBrowser) {</span>
-			const stored = <span class="cstat-no" title="statement not covered" >localStorage.getItem(MODE_STORAGE_KEY);</span>
-<span class="cstat-no" title="statement not covered" >			if (stored === 'SYSTEM_ARCHITECT' || stored === 'RESEARCH_FELLOW') {</span>
+	apply(): void {
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (this.isBrowser) {
+			const stored = localStorage.getItem(MODE_STORAGE_KEY);
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (stored === 'SYSTEM_ARCHITECT' || stored === 'RESEARCH_FELLOW') {
 <span class="cstat-no" title="statement not covered" >				this.setMode(stored);</span>
 <span class="cstat-no" title="statement not covered" >				return;</span>
 			}
 		}
-<span class="cstat-no" title="statement not covered" >		this._syncDom(this.currentMode());</span>
+		this._syncDom(this.currentMode());
 	}
 &nbsp;
 <span class="fstat-no" title="function not covered" >	setMode(</span>mode: PortfolioMode): void {
@@ -200,11 +200,11 @@ export class ModeStateService {
 		);
 	}
 &nbsp;
-	private <span class="fstat-no" title="function not covered" >_syncDom(</span>mode: PortfolioMode): void {
-<span class="cstat-no" title="statement not covered" >		if (!this.isBrowser) <span class="cstat-no" title="statement not covered" >return;</span></span>
-		const root = <span class="cstat-no" title="statement not covered" >this.doc.documentElement;</span>
-<span class="cstat-no" title="statement not covered" >		root.classList.remove('mode-architect', 'mode-research');</span>
-<span class="cstat-no" title="statement not covered" >		root.classList.add(mode === 'SYSTEM_ARCHITECT' ? 'mode-architect' : 'mode-research');</span>
+	private _syncDom(mode: PortfolioMode): void {
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (!this.isBrowser) <span class="cstat-no" title="statement not covered" >return;</span>
+		const root = this.doc.documentElement;
+		root.classList.remove('mode-architect', 'mode-research');
+		root.classList.add(mode === 'SYSTEM_ARCHITECT' ? 'mode-architect' : <span class="branch-1 cbranch-no" title="branch not covered" >'mode-research')</span>;
 	}
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -214,7 +214,7 @@ export class ModeStateService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-23T05:07:22.642Z
+                at 2026-06-23T23:56:48.669Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
