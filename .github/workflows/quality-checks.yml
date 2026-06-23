@@ -24,7 +24,7 @@ jobs:
       - run: pnpm lint
       - name: Comment PR on lint failure
         if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             github.rest.issues.createComment({
@@ -100,7 +100,7 @@ jobs:
       - run: pnpm audit --audit-level=critical
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             github.rest.issues.createComment({
