@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.1.0-beta.0...v1.2.0-beta.0) (2026-06-23)
+
+
+### Features
+
+* **skills:** update competency domains and layout ([#71](https://github.com/sandovaldavid/portfolio/issues/71)) ([50eaa1b](https://github.com/sandovaldavid/portfolio/commit/50eaa1bc9620b816e71a23d9a0411a344069dc28))
+
+
+### Refactoring
+
+* **style:** move duplicate inline svgs to assets ([#78](https://github.com/sandovaldavid/portfolio/issues/78)) ([5fa95c2](https://github.com/sandovaldavid/portfolio/commit/5fa95c2b6b4390981c18843f66f9cad5646e8609))
+
 ## [1.1.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.0.0-beta.0...v1.1.0-beta.0) (2026-06-20)
 
 
