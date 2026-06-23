@@ -107,6 +107,20 @@ export const en = {
 	'skills.category.backend': 'Backend',
 	'skills.category.databases': 'Databases',
 	'skills.category.tools': 'Tools & DevOps',
+	'skills.page.subtitle': 'COMPETENCY DOMAINS',
+	'skills.page.title': 'Technical Stack',
+	'skills.page.description':
+		'Specialized domains with years of experience in production and research environments.',
+	'skills.category.enterprise': 'Enterprise Engineering',
+	'skills.category.enterprise.desc':
+		'Scalable enterprise architectures with production-proven patterns.',
+	'skills.category.ai': 'AI & Deep Learning',
+	'skills.category.ai.desc': 'Applied research in recurrent neural networks and sequence models.',
+	'skills.category.frontend-arch': 'Frontend Architecture',
+	'skills.category.frontend-arch.desc':
+		'High-performance reactive interfaces using the latest framework APIs.',
+	'skills.category.devops': 'Systems & DevOps',
+	'skills.category.devops.desc': 'Infrastructure as code and automated continuous deployment.',
 
 	// ── Footer ────────────────────────────────────────────────────────
 	'footer.title': "Let's build something together",

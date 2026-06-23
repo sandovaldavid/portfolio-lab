@@ -109,6 +109,21 @@ export const es: Record<TranslationKey, string> = {
 	'skills.category.backend': 'Backend',
 	'skills.category.databases': 'Bases de datos',
 	'skills.category.tools': 'Herramientas & DevOps',
+	'skills.page.subtitle': 'DOMINIOS DE COMPETENCIA',
+	'skills.page.title': 'Stack Técnico',
+	'skills.page.description':
+		'Dominios especializados con años de experiencia en producción y entornos de investigación.',
+	'skills.category.enterprise': 'Enterprise Engineering',
+	'skills.category.enterprise.desc':
+		'Arquitecturas empresariales escalables con patrones probados en producción.',
+	'skills.category.ai': 'AI & Deep Learning',
+	'skills.category.ai.desc':
+		'Investigación aplicada en redes neuronales recurrentes y modelos de secuencia.',
+	'skills.category.frontend-arch': 'Frontend Architecture',
+	'skills.category.frontend-arch.desc':
+		'Interfaces reactivas de alta performance con las últimas APIs del framework.',
+	'skills.category.devops': 'Systems & DevOps',
+	'skills.category.devops.desc': 'Infraestructura como código y despliegue continuo automatizado.',
 
 	// ── Footer ────────────────────────────────────────────────────────
 	'footer.title': 'Construyamos algo juntos',
