@@ -1,0 +1,20 @@
+{
+  "name": "David Sandoval | Software Engineer",
+  "short_name": "David Sandoval",
+  "description": "Software Engineer specializing in Angular and .NET. Building impactful web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["technology", "portfolio", "software engineer"],
+  "lang": "en",
+  "dir": "ltr"
+}
