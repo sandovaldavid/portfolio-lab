@@ -64,9 +64,6 @@ importers:
       '@fontsource/lora':
         specifier: ^5.2.8
         version: 5.2.8
-      '@fontsource/press-start-2p':
-        specifier: ^5.2.7
-        version: 5.2.7
       '@tailwindcss/vite':
         specifier: ^4.1.4
         version: 4.1.18(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0))
@@ -1022,9 +1019,6 @@ packages:
 
   '@fontsource/lora@5.2.8':
     resolution: {integrity: sha512-AQlfsHw4TP1x/eb2IZ6VjQ70ctKa39m9JN9A4zlvDOeKYLrCs+GaYIEQ86Y6YfSPGHn01bErXkRcyktOW0LOPQ==}
-
-  '@fontsource/press-start-2p@5.2.7':
-    resolution: {integrity: sha512-ezSxYRchANoteja170ZHh2Tt4oejmVEvX42VFPOVVvERSZ68pcuZFjbhHfrK/sNjYmaGg656y7B3431ojO9PCQ==}
 
   '@formatjs/ecma402-abstract@2.3.6':
     resolution: {integrity: sha512-HJnTFeRM2kVFVr5gr5kH1XP6K0JcJtE7Lzvtr3FS/so5f1kpsqqqxy5JF+FRaO6H2qmcMfAUIox7AJteieRtVw==}
@@ -3860,7 +3854,7 @@ packages:
   git-raw-commits@4.0.0:
     resolution: {integrity: sha512-ICsMM1Wk8xSGMowkOmPrzo2Fgmfo4bMHLNX6ytHjajRJUqvHOw/TFapQ+QG75c3X/tTDDhOSRPGC52dDbNM8FQ==}
     engines: {node: '>=16'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-up@8.1.1:
@@ -7462,8 +7456,6 @@ snapshots:
   '@fontsource/jetbrains-mono@5.2.8': {}
 
   '@fontsource/lora@5.2.8': {}
-
-  '@fontsource/press-start-2p@5.2.7': {}
 
   '@formatjs/ecma402-abstract@2.3.6':
     dependencies:
