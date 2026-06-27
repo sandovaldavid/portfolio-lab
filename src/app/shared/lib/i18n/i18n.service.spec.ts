@@ -48,7 +48,9 @@ describe('I18nService', () => {
 
 	it('should return key if translation not found', () => {
 		const t = service.t();
-		const result = t('nonexistent.key' as keyof typeof service.t extends () => (key: infer K) => string ? K : never);
+		const result = t(
+			'nonexistent.key' as keyof typeof service.t extends () => (key: infer K) => string ? K : never
+		);
 		expect(result).toBe('nonexistent.key');
 	});
 
