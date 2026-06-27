@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.17% </span>
+                <span class="strong">44.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/29</span>
+                <span class='fraction'>13/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.41% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/17</span>
+                <span class='fraction'>4/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/21</span>
+                <span class='fraction'>12/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -130,10 +130,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,13 +143,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,8 +180,8 @@ export class FontScaleService {
 	readonly canDecrease = computed(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >this.scaleIndex() &gt; 0)</span>;
 	readonly canIncrease = computed(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >this.scaleIndex() &lt; SCALES.length - 1)</span>;
 &nbsp;
-	apply(): void {
-		this._syncDom(this.scaleIndex());
+<span class="fstat-no" title="function not covered" >	apply(</span>): void {
+<span class="cstat-no" title="statement not covered" >		this._syncDom(this.scaleIndex());</span>
 	}
 &nbsp;
 <span class="fstat-no" title="function not covered" >	increase(</span>): void {
@@ -202,9 +202,9 @@ export class FontScaleService {
 <span class="cstat-no" title="statement not covered" >		this._syncDom(level);</span>
 	}
 &nbsp;
-	private _syncDom(level: ScaleLevel): void {
-		<span class="missing-if-branch" title="if path not taken" >I</span>if (!this.isBrowser) <span class="cstat-no" title="statement not covered" >return;</span>
-		document.documentElement.style.fontSize = `${SCALES[level]}px`;
+	private <span class="fstat-no" title="function not covered" >_syncDom(</span>level: ScaleLevel): void {
+<span class="cstat-no" title="statement not covered" >		if (!this.isBrowser) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >		document.documentElement.style.fontSize = `${SCALES[level]}px`;</span>
 	}
 &nbsp;
 	private _getInitialScale(): ScaleLevel {
@@ -223,7 +223,7 @@ export class FontScaleService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-23T23:56:48.708Z
+                at 2026-06-27T07:40:48.090Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
