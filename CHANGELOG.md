@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.2.1-beta.0...v1.3.0-beta.0) (2026-06-27)
+
+
+### Features
+
+* **hero:** replace generic typewriter with real metrics ([#83](https://github.com/sandovaldavid/portfolio/issues/83)) ([7c6a864](https://github.com/sandovaldavid/portfolio/commit/7c6a8649ca7483ed0cf2ab7ae5984c5c711ac98a))
+
+
+### Bug Fixes
+
+* **a11y:** add skip link and improve aria-labels ([#84](https://github.com/sandovaldavid/portfolio/issues/84)) ([1efcd8b](https://github.com/sandovaldavid/portfolio/commit/1efcd8b89baf33f7e2766b0783add594a56ece2b))
+* **notes:** integrate katex for latex rendering ([#87](https://github.com/sandovaldavid/portfolio/issues/87)) ([6e15cb4](https://github.com/sandovaldavid/portfolio/commit/6e15cb426a48e1ece00553089ba5ad741c602c61))
+* **security:** add security headers and pwa manifest ([#86](https://github.com/sandovaldavid/portfolio/issues/86)) ([7677cb2](https://github.com/sandovaldavid/portfolio/commit/7677cb25231cffc50710cdb972ecddc31295d7c2))
+
 ## [1.2.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.2.0-beta.0...v1.2.1-beta.0) (2026-06-27)
 
 
