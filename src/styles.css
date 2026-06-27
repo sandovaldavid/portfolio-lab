@@ -390,6 +390,13 @@ html.mode-research {
 @page {
 	size: A4;
 	margin: 1.5cm;
+
+	/* PR4: Page numbers */
+	@bottom-center {
+		content: 'Página ' counter(page);
+		font-size: 9pt;
+		color: #666;
+	}
 }
 
 @media print {

@@ -782,3 +782,32 @@
 		transform: translateY(0);
 	}
 }
+
+/* ── Print Optimizations ─────────────────────────────────────────── */
+@media print {
+	/* PR2: Optimized font sizes for print */
+	.resume-name {
+		font-size: 18pt;
+	}
+
+	.resume-title {
+		font-size: 12pt;
+	}
+
+	.resume-document {
+		font-size: 10pt;
+	}
+
+	/* PR3: Show URLs for links in print */
+	a::after {
+		content: ' (' attr(href) ')';
+		font-size: 8pt;
+		color: #666;
+	}
+
+	/* Don't show URLs for internal links or email */
+	a[href^='#']::after,
+	a[href^='mailto:']::after {
+		content: '';
+	}
+}
