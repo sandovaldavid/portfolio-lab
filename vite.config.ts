@@ -6,6 +6,61 @@ import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
+import katex from 'katex';
+
+// Custom marked extension for KaTeX math rendering
+function markedKatexExtension() {
+  return {
+    extensions: [
+      {
+        name: 'blockMath',
+        level: 'block',
+        start(src: string) {
+          return src.match(/\$\$/)?.index;
+        },
+        tokenizer(src: string) {
+          const match = src.match(/^\$\$([\s\S]+?)\$\$/);
+          if (match) {
+            return {
+              type: 'blockMath',
+              raw: match[0],
+              text: match[1].trim(),
+            };
+          }
+        },
+        renderer(token: { text: string }) {
+          return `<div class="katex-block">${katex.renderToString(token.text, {
+            displayMode: true,
+            throwOnError: false,
+          })}</div>`;
+        },
+      },
+      {
+        name: 'inlineMath',
+        level: 'inline',
+        start(src: string) {
+          return src.match(/\$/)?.index;
+        },
+        tokenizer(src: string) {
+          const match = src.match(/^\$([\s\S]+?)\$/);
+          if (match) {
+            return {
+              type: 'inlineMath',
+              raw: match[0],
+              text: match[1].trim(),
+            };
+          }
+        },
+        renderer(token: { text: string }) {
+          return katex.renderToString(token.text, {
+            displayMode: false,
+            throwOnError: false,
+          });
+        },
+      },
+    ],
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -40,6 +95,9 @@ export default defineConfig(({ mode }) => ({
         highlighter: 'prism',
         prismOptions: {
           additionalLangs: ['csharp'],
+        },
+        markedOptions: {
+          extensions: [markedKatexExtension()],
         },
       },
       prerender: {
