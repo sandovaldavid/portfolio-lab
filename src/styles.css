@@ -367,3 +367,18 @@ html.mode-research {
 		-webkit-mask-position: center;
 	}
 }
+
+/* ============================================================
+   PRINT STYLES — A4 page setup
+   ============================================================ */
+@page {
+	size: A4;
+	margin: 1.5cm;
+}
+
+@media print {
+	body {
+		print-color-adjust: exact;
+		-webkit-print-color-adjust: exact;
+	}
+}
