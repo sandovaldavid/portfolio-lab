@@ -211,6 +211,16 @@ export const en = {
 		'Mitigate backpropagation-through-time (BPTT) gradient degradation through custom gate normalization.',
 	'mext.proposal.bullet3':
 		'Bridge the gap between empirical enterprise transaction patterns and predictive deep learning methods.',
+
+	// ── 404 Page ─────────────────────────────────────────────────────
+	'404.title': '404',
+	'404.heading': 'Page_Not_Found',
+	'404.description':
+		'The route you requested does not exist in this system. It may have been moved or never existed.',
+	'404.back-home': 'Return to Base',
+	'404.view-projects': 'View Projects',
+	'seo.404.title': '404 — Page Not Found | David Sandoval',
+	'seo.404.description': 'The page you are looking for does not exist.',
 } as const;
 
 export type TranslationKey = keyof typeof en;

@@ -7,7 +7,6 @@ import { provideRouter } from '@angular/router';
 import { injectContent, provideContent, withMarkdownRenderer } from '@analogjs/content';
 import { of } from 'rxjs';
 
-// Mock injectContent
 vi.mock('@analogjs/content', async () => {
 	const actual = await vi.importActual<Record<string, unknown>>('@analogjs/content');
 	return {
@@ -20,7 +19,6 @@ describe('NoteDetailPage', () => {
 	it('should render details of the loaded note', async () => {
 		const mockLangSignal = signal<'en' | 'es'>('en');
 
-		// Setup mock return value for injectContent
 		const mockNote = {
 			attributes: {
 				title: 'Mock Title Note',
@@ -56,5 +54,37 @@ describe('NoteDetailPage', () => {
 		expect(screen.getByText(/back_to_vault/)).toBeTruthy();
 		expect(screen.getByText('Mock Title Note')).toBeTruthy();
 		expect(screen.getByText('Mock note description content.')).toBeTruthy();
+	});
+
+	it('should render not found state when note does not exist', async () => {
+		const mockLangSignal = signal<'en' | 'es'>('en');
+
+		(injectContent as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+			of({ attributes: {}, content: '' } as never)
+		);
+
+		await render(NoteDetailPage, {
+			providers: [
+				provideRouter([]),
+				provideContent(withMarkdownRenderer()),
+				{
+					provide: I18nService,
+					useValue: {
+						lang: mockLangSignal,
+						t: () => (key: string) => key,
+					},
+				},
+				{
+					provide: SeoService,
+					useValue: {
+						updatePage: vi.fn(),
+					},
+				},
+			],
+		});
+
+		expect(screen.getByText('404')).toBeTruthy();
+		expect(screen.getByText(/Note_Not_Found/)).toBeTruthy();
+		expect(screen.getByText(/return_to_vault/)).toBeTruthy();
 	});
 });
