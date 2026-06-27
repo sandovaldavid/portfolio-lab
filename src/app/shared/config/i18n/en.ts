@@ -3,14 +3,14 @@ export const en = {
 	'hero.available': 'Available for work',
 	'hero.intro': "Hello, I'm",
 	'hero.name': 'David Sandoval',
-	'hero.role': 'Software Engineer at Atena',
+	'hero.role': 'Software Engineer · Angular & .NET Performance',
 	'hero.company-desc':
 		'Building Angular + .NET 8 · Salary advance fintech platform · Open to new opportunities',
 	'hero.subtitle': 'Software Engineer | B.S. Computer Engineering',
 	'hero.cta.projects': 'View Projects',
 	'hero.cta.contact': 'Contact Me',
 	'hero.cta.resume': 'resume.pdf',
-	'hero.typewriter.phrases': 'Building Software,Solving Problems,Shipping Code',
+	'hero.typewriter.phrases': '-34% heap memory,+60% throughput,-45% LCP,-28% bundle size',
 
 	// ── Navigation ────────────────────────────────────────────────────
 	'nav.home': 'Home',

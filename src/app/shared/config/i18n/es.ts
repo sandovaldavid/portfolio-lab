@@ -5,14 +5,14 @@ export const es: Record<TranslationKey, string> = {
 	'hero.available': 'Disponible para trabajar',
 	'hero.intro': 'Hola, soy',
 	'hero.name': 'David Sandoval',
-	'hero.role': 'Ingeniero de Software en Atena',
+	'hero.role': 'Ingeniero de Software · Angular & .NET',
 	'hero.company-desc':
 		'Construyendo Angular + .NET 8 · Plataforma fintech de adelantos de sueldo · Abierto a nuevas oportunidades',
 	'hero.subtitle': 'Ingeniero de Software | B.S. Ingeniería Informática',
 	'hero.cta.projects': 'Ver Proyectos',
 	'hero.cta.contact': 'Contáctame',
 	'hero.cta.resume': 'resume.pdf',
-	'hero.typewriter.phrases': 'Construyendo Software,Resolviendo Problemas,Enviando Código',
+	'hero.typewriter.phrases': '-34% memoria heap,+60% throughput,-45% LCP,-28% bundle',
 
 	// ── Navigation ────────────────────────────────────────────────────
 	'nav.home': 'Inicio',
