@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.2.0-beta.0...v1.2.1-beta.0) (2026-06-27)
+
+
+### Bug Fixes
+
+* **pages:** add 404 catch-all and note error state ([#82](https://github.com/sandovaldavid/portfolio/issues/82)) ([3ec778a](https://github.com/sandovaldavid/portfolio/commit/3ec778a903ce5dd0a378e15d6d374634681e9ab6))
+* **resume:** resolve style hover contrast and add animations ([#81](https://github.com/sandovaldavid/portfolio/issues/81)) ([df2190f](https://github.com/sandovaldavid/portfolio/commit/df2190f45810e631f886c3632f956b41811ffef0))
+
 ## [1.2.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.1.0-beta.0...v1.2.0-beta.0) (2026-06-23)
 
 
