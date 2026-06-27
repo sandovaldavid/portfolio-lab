@@ -86,7 +86,13 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 					<p class="font-body text-sm text-[--color-muted] mb-6 -mt-4">
 						{{ i18n.t()('chaos.subtitle') }}
 					</p>
-					<app-chaos-playground />
+					@defer (on viewport) {
+						<app-chaos-playground />
+					} @placeholder {
+						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]">Loading chaos simulation...</span>
+						</div>
+					}
 				</section>
 
 				<!-- STAR Ledger Accomplishments -->
@@ -97,7 +103,13 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 					<p class="font-body text-sm text-[--color-muted] mb-6 -mt-4">
 						{{ i18n.t()('star.subtitle') }}
 					</p>
-					<app-star-ledger />
+					@defer (on viewport) {
+						<app-star-ledger />
+					} @placeholder {
+						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]">Loading accomplishments...</span>
+						</div>
+					}
 				</section>
 			}
 
@@ -109,7 +121,13 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 					aria-label="LSTM Recurrent Cell simulation"
 					appScrollObserver
 				>
-					<app-lstm-playground />
+					@defer (on viewport) {
+						<app-lstm-playground />
+					} @placeholder {
+						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]">Loading LSTM simulation...</span>
+						</div>
+					}
 				</section>
 
 				<!-- MEXT Thesis Abstract -->
@@ -119,7 +137,13 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 					aria-label="MEXT Research Proposal Abstract"
 					appScrollObserver
 				>
-					<app-mext-thesis-pitch />
+					@defer (on viewport) {
+						<app-mext-thesis-pitch />
+					} @placeholder {
+						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]">Loading research proposal...</span>
+						</div>
+					}
 				</section>
 			}
 
