@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.0-beta.0...v1.3.1-beta.0) (2026-06-27)
+
+
+### Bug Fixes
+
+* add a4 page setup for print styles ([#92](https://github.com/sandovaldavid/portfolio/issues/92)) ([cdd269e](https://github.com/sandovaldavid/portfolio/commit/cdd269e8027840b773837bede019a3d3f68a8a54))
+
+
+### Performance
+
+* add [@defer](https://github.com/defer) for heavy widgets on homepage ([#89](https://github.com/sandovaldavid/portfolio/issues/89)) ([c676fd6](https://github.com/sandovaldavid/portfolio/commit/c676fd6d72fc90c11759c46a0d9940bacfe0edb1))
+* optimize project images and remove dead asset ([#90](https://github.com/sandovaldavid/portfolio/issues/90)) ([15d256e](https://github.com/sandovaldavid/portfolio/commit/15d256e8c1c7a3eafe18784b1313c744a8abd7ec))
+
 ## [1.3.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.2.1-beta.0...v1.3.0-beta.0) (2026-06-27)
 
 
