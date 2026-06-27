@@ -239,7 +239,115 @@
 	}
 }
 
+/* ── Prominent hero header ───────────────────────────────────── */
+.prominent-header {
+	padding: 2rem 1.25rem 1.5rem;
+	border-bottom: 1px solid var(--color-border);
+	background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+	text-align: center;
+}
+
+.prominent-eyebrow {
+	font-family: var(--font-code);
+	font-size: 0.75rem;
+	color: var(--color-muted);
+	margin-bottom: 0.5rem;
+	letter-spacing: 0.05em;
+}
+
+.prominent-title {
+	font-family: var(--font-pixel);
+	font-size: 1.5rem;
+	color: var(--color-primary);
+	margin-bottom: 0.75rem;
+	line-height: 1.2;
+}
+
+.prominent-subtitle {
+	font-size: 0.9375rem;
+	color: var(--color-text);
+	max-width: 42rem;
+	margin: 0 auto 1.5rem;
+	line-height: 1.6;
+}
+
+.metrics-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.75rem;
+	max-width: 48rem;
+	margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+	.metrics-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (min-width: 768px) {
+	.prominent-title {
+		font-size: 1.875rem;
+	}
+
+	.metrics-grid {
+		grid-template-columns: repeat(6, 1fr);
+	}
+}
+
 .metric-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+	padding: 0.875rem 0.5rem;
+	border: 1px solid var(--color-border);
+	background: var(--color-surface);
+	transition:
+		border-color 0.15s,
+		transform 0.15s;
+}
+
+.metric-card:hover {
+	border-color: var(--color-primary);
+	transform: translateY(-2px);
+}
+
+.metric-card--latency {
+	border-color: var(--color-primary);
+}
+.metric-card--throughput {
+	border-color: var(--color-accent);
+}
+.metric-card--scalability {
+	border-color: var(--color-secondary);
+}
+.metric-card--memory {
+	border-color: var(--color-success);
+}
+.metric-card--quality {
+	border-color: var(--color-muted);
+}
+
+.metric-card-value {
+	font-family: var(--font-code);
+	font-size: 1.125rem;
+	font-weight: 700;
+	color: var(--color-text);
+	line-height: 1;
+}
+
+.metric-card-label {
+	font-family: var(--font-code);
+	font-size: 0.625rem;
+	color: var(--color-muted);
+	text-align: center;
+	line-height: 1.3;
+}
+
+/* ── Detail metric card ───────────────────────────────────────── */
+.detail-metric-card {
 	display: flex;
 	flex-direction: column;
 	align-items: center;

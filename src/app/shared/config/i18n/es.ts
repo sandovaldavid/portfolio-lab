@@ -144,6 +144,27 @@ export const es: Record<TranslationKey, string> = {
 	'title.star-ledger': 'Impacto_de_Ingeniería',
 	'star.subtitle':
 		'Logros cuantificables de sistemas en producción en Atena — haz clic en cualquier fila para expandir.',
+	'star.hero.title': 'Impacto en Producción en Atena',
+	'star.hero.subtitle':
+		'Seis mejoras medibles enviadas a producción. Haz clic en cualquier entrada para ver la historia completa.',
+	'star.prompt': '$',
+	'star.header.path': 'atena://metricas/logros',
+	'star.header.badge': 'entradas',
+	'star.header.subtitle': 'Impacto de ingeniería cuantificable en Atena — medido, reproducible',
+	'star.filter.all': 'TODAS',
+	'star.filter.latency': 'LATENCIA',
+	'star.filter.throughput': 'RENDIMIENTO',
+	'star.filter.scalability': 'ESCALA',
+	'star.filter.memory': 'MEMORIA',
+	'star.filter.quality': 'CALIDAD',
+	'star.table.achievement': 'LOGRO',
+	'star.table.metric': 'MÉTRICA',
+	'star.table.pattern': 'PATRÓN',
+	'star.table.stack': 'STACK',
+	'star.table.type': 'TIPO',
+	'star.empty': '// ninguna entrada coincide con el filtro',
+	'star.detail.metric': 'métrica',
+	'star.detail.code-lang': 'typescript',
 
 	// ── Chaos Playground ─────────────────────────────────────────────
 	'title.chaos-playground': 'Simulador_Chaos_Engineering',
