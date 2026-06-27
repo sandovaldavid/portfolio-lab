@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.2-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.1-beta.0...v1.3.2-beta.0) (2026-06-27)
+
+
+### Bug Fixes
+
+* add complete print styles for resume component ([#100](https://github.com/sandovaldavid/portfolio/issues/100)) ([4e21736](https://github.com/sandovaldavid/portfolio/commit/4e217366741fc7f2d52587d6e8d2e787551a8f93))
+* pause skills marquee on focus-within for accessibility ([#95](https://github.com/sandovaldavid/portfolio/issues/95)) ([3250039](https://github.com/sandovaldavid/portfolio/commit/32500397484f580a003aec386cc57155291c1f08))
+
+
+### Performance
+
+* preload critical fonts for improved lcp ([#98](https://github.com/sandovaldavid/portfolio/issues/98)) ([260e30c](https://github.com/sandovaldavid/portfolio/commit/260e30c10be751713e1d443327686738da8ec7a4))
+
 ## [1.3.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.0-beta.0...v1.3.1-beta.0) (2026-06-27)
 
 
