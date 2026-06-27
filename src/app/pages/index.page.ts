@@ -90,7 +90,9 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 						<app-chaos-playground />
 					} @placeholder {
 						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]">Loading chaos simulation...</span>
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading chaos simulation...</span
+							>
 						</div>
 					}
 				</section>
@@ -107,7 +109,9 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 						<app-star-ledger />
 					} @placeholder {
 						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]">Loading accomplishments...</span>
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading accomplishments...</span
+							>
 						</div>
 					}
 				</section>
@@ -125,7 +129,9 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 						<app-lstm-playground />
 					} @placeholder {
 						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]">Loading LSTM simulation...</span>
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading LSTM simulation...</span
+							>
 						</div>
 					}
 				</section>
@@ -141,7 +147,9 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 						<app-mext-thesis-pitch />
 					} @placeholder {
 						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]">Loading research proposal...</span>
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading research proposal...</span
+							>
 						</div>
 					}
 				</section>
