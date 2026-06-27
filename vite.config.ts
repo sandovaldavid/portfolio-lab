@@ -17,7 +17,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           vendor: ['@angular/core', '@angular/common', '@angular/router'],
           fonts: [
-            '@fontsource/press-start-2p',
             '@fontsource/fira-code',
             '@fontsource/jetbrains-mono',
             '@fontsource/lora',

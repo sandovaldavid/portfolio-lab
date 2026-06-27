@@ -9,7 +9,7 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			description: t('projects.campus-map.description'),
 			link: 'https://mapa-unp.devsandoval.me',
 			github: 'https://github.com/dev-sandoval/unp-campus-map',
-			image: '/projects/project-08-campus-map.png',
+			image: '/projects/project-08-campus-map.webp',
 			tags: [TAGS.NEXTJS, TAGS.JAVASCRIPT, TAGS.TAILWIND, TAGS.CLOUDINARY, TAGS.MYSQL],
 			featured: true,
 			category: t('projects.category.fullstack'),
