@@ -105,6 +105,22 @@ html.mode-research {
 			transform: translateX(-50%);
 		}
 	}
+
+	/* Shadow scales */
+	--shadow-sm: 0 2px 8px rgb(0 0 0 / 0.15);
+	--shadow-md: 0 4px 20px rgb(0 0 0 / 0.2);
+	--shadow-lg: 0 8px 30px rgb(0 0 0 / 0.35);
+
+	/* Border radius scales */
+	--radius-sm: 2px;
+	--radius-md: 6px;
+	--radius-lg: 12px;
+	--radius-full: 9999px;
+
+	/* Duration scales */
+	--duration-fast: 0.15s;
+	--duration-normal: 0.25s;
+	--duration-slow: 0.4s;
 }
 
 /* ============================================================
