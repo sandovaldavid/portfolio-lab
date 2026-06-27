@@ -215,4 +215,14 @@ export const es: Record<TranslationKey, string> = {
 		'Mitigar la degradación del gradiente en la retropropagación a través del tiempo (BPTT) mediante la normalización de compuertas personalizada.',
 	'mext.proposal.bullet3':
 		'Cerrar la brecha entre los patrones de transacciones empresariales empíricas y los métodos de aprendizaje profundo predictivo.',
+
+	// ── 404 Page ─────────────────────────────────────────────────────
+	'404.title': '404',
+	'404.heading': 'Página_No_Encontrada',
+	'404.description':
+		'La ruta solicitada no existe en este sistema. Puede que haya sido movida o nunca existió.',
+	'404.back-home': 'Volver al Inicio',
+	'404.view-projects': 'Ver Proyectos',
+	'seo.404.title': '404 — Página No Encontrada | David Sandoval',
+	'seo.404.description': 'La página que buscas no existe.',
 } as const;
