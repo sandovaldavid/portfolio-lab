@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.2-beta.0...v1.4.0-beta.0) (2026-06-28)
+
+
+### Features
+
+* **contributions:** add github contributions graph to home page ([#107](https://github.com/sandovaldavid/portfolio/issues/107)) ([afc0375](https://github.com/sandovaldavid/portfolio/commit/afc03757f672640672cd5df3d1a427f267bd1732))
+* **hero:** add linkedin cta and oss card ([#105](https://github.com/sandovaldavid/portfolio/issues/105)) ([b394cc6](https://github.com/sandovaldavid/portfolio/commit/b394cc635ee518697ca08ae060633c75c667cc0b))
+* **projects:** add metrics and lighthouse scores to project cards ([#106](https://github.com/sandovaldavid/portfolio/issues/106)) ([2e0e575](https://github.com/sandovaldavid/portfolio/commit/2e0e575271bae393e0ed91ac0249a0fc44554c3c))
+* **research:** add dedicated research route for lstm and mext ([#104](https://github.com/sandovaldavid/portfolio/issues/104)) ([5856740](https://github.com/sandovaldavid/portfolio/commit/585674041e9266b6b44ed80434aa47b63e73acd1))
+* **star-ledger:** promote star ledger to protagonist section on home ([#102](https://github.com/sandovaldavid/portfolio/issues/102)) ([c626168](https://github.com/sandovaldavid/portfolio/commit/c6261687a9bebb66d31d053b86de80022f67fb72))
+
 ## [1.3.2-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.1-beta.0...v1.3.2-beta.0) (2026-06-27)
 
 
