@@ -1,0 +1,179 @@
+.github-contributions {
+	--day-size: 10px;
+	--day-gap: 3px;
+	--day-radius: 2px;
+
+	width: 100%;
+}
+
+.contributions-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+.contributions-title {
+	font-family: var(--font-mono);
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--color-heading);
+}
+
+.contributions-total {
+	font-family: var(--font-mono);
+	font-size: 1.125rem;
+	font-weight: 700;
+	color: var(--color-primary);
+	margin: 0;
+}
+
+.contributions-total-label {
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: var(--color-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-left: 0.25rem;
+}
+
+.contributions-card {
+	background-color: var(--card-bg);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 1rem;
+	overflow: hidden;
+}
+
+.contributions-graph {
+	display: flex;
+	gap: var(--day-gap);
+	overflow-x: auto;
+	padding-bottom: 0.5rem;
+}
+
+.contributions-week {
+	display: flex;
+	flex-direction: column;
+	gap: var(--day-gap);
+	flex-shrink: 0;
+}
+
+.contributions-day {
+	width: var(--day-size);
+	height: var(--day-size);
+	border-radius: var(--day-radius);
+	background-color: var(--color-surface-2);
+	transition:
+		transform 0.1s ease,
+		outline 0.1s ease;
+}
+
+.contributions-day.level-0 {
+	background-color: var(--color-surface-2);
+}
+
+.contributions-day.level-1 {
+	background-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-surface-2));
+}
+
+.contributions-day.level-2 {
+	background-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-surface-2));
+}
+
+.contributions-day.level-3 {
+	background-color: color-mix(in srgb, var(--color-primary) 80%, var(--color-surface-2));
+}
+
+.contributions-day.level-4 {
+	background-color: var(--color-primary);
+}
+
+.contributions-day[role='gridcell']:hover,
+.contributions-day[role='gridcell']:focus-visible {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: 1px;
+	transform: scale(1.15);
+}
+
+.contributions-footer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+.contributions-legend {
+	display: flex;
+	gap: var(--day-gap);
+}
+
+.contributions-legend-label {
+	font-size: 0.6875rem;
+	color: var(--color-muted);
+}
+
+.contributions-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	min-height: 8rem;
+	text-align: center;
+}
+
+.contributions-message {
+	font-size: 0.875rem;
+	color: var(--color-muted);
+	margin: 0;
+}
+
+.contributions-link {
+	font-size: 0.8125rem;
+	color: var(--color-primary);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.contributions-link:hover {
+	color: var(--color-accent);
+}
+
+.contributions-skeleton {
+	width: 100%;
+	max-width: 48rem;
+	height: 7rem;
+	border-radius: var(--radius-sm);
+	background: linear-gradient(
+		90deg,
+		var(--color-surface-2) 25%,
+		var(--color-border) 50%,
+		var(--color-surface-2) 75%
+	);
+	background-size: 200% 100%;
+	animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+@media (min-width: 640px) {
+	.github-contributions {
+		--day-size: 11px;
+		--day-gap: 4px;
+	}
+
+	.contributions-title {
+		font-size: 1.5rem;
+	}
+}

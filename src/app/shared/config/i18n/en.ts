@@ -129,6 +129,15 @@ export const en = {
 	'skills.category.devops': 'Systems & DevOps',
 	'skills.category.devops.desc': 'Infrastructure as code and automated continuous deployment.',
 
+	// ── GitHub Contributions ──────────────────────────────────────────
+	'contributions.title': 'Open Source Activity',
+	'contributions.total': 'contributions in the last year',
+	'contributions.less': 'Less',
+	'contributions.more': 'More',
+	'contributions.error': 'Could not load contribution graph.',
+	'contributions.view-profile': 'View GitHub profile',
+	'contributions.aria-label': 'GitHub contribution graph for the last year',
+
 	// ── Footer ────────────────────────────────────────────────────────
 	'footer.title': "Let's build something together",
 	'footer.subtitle': 'Open to new opportunities, collaborations, and interesting projects.',
