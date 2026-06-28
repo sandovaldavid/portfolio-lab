@@ -13,6 +13,7 @@ import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playgr
 import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component';
 import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
+import { GithubContributionsComponent } from '@widgets/github-contributions/github-contributions.component';
 
 @Component({
 	selector: 'app-home',
@@ -29,6 +30,7 @@ import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experi
 		StarLedgerComponent,
 		AboutSectionComponent,
 		ExperienceTimelineComponent,
+		GithubContributionsComponent,
 	],
 	template: `
 		<!-- Hero -->
@@ -64,6 +66,19 @@ import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experi
 						{{ i18n.t()('home.about.view-full') }} &gt;
 					</a>
 				</div>
+			</section>
+
+			<!-- GitHub Contributions -->
+			<section
+				id="contributions"
+				class="scroll-mt-36"
+				aria-labelledby="contributions-heading"
+				appScrollObserver
+			>
+				<app-section-title id="contributions-heading">
+					{{ i18n.t()('contributions.title') }}
+				</app-section-title>
+				<app-github-contributions />
 			</section>
 
 			<!-- Experience Section -->

@@ -1,0 +1,64 @@
+<section class="github-contributions" aria-labelledby="contributions-heading">
+	<div class="contributions-header">
+		<h2 id="contributions-heading" class="contributions-title">
+			{{ i18n.t()('contributions.title') }}
+		</h2>
+		@if (data(); as contributionData) {
+			<p class="contributions-total" aria-live="polite">
+				{{ contributionData.total.toLocaleString() }}
+				<span class="contributions-total-label">{{ i18n.t()('contributions.total') }}</span>
+			</p>
+		}
+	</div>
+
+	<div class="contributions-card">
+		@if (isLoading()) {
+			<div class="contributions-state" role="status" aria-label="Loading contribution graph">
+				<div class="contributions-skeleton" aria-hidden="true"></div>
+			</div>
+		} @else if (isError()) {
+			<div class="contributions-state">
+				<p class="contributions-message">{{ i18n.t()('contributions.error') }}</p>
+				<a [href]="githubHref" target="_blank" rel="noopener" class="contributions-link">
+					{{ i18n.t()('contributions.view-profile') }}
+				</a>
+			</div>
+		} @else {
+			<div
+				class="contributions-graph"
+				role="img"
+				[attr.aria-label]="i18n.t()('contributions.aria-label')"
+			>
+				@for (week of weeks(); track week.days[0]?.date ?? $index) {
+					<div class="contributions-week" role="row">
+						@for (day of week.days; track day.date) {
+							<div
+								class="contributions-day"
+								[class.level-0]="day.level === 0"
+								[class.level-1]="day.level === 1"
+								[class.level-2]="day.level === 2"
+								[class.level-3]="day.level === 3"
+								[class.level-4]="day.level === 4"
+								[title]="day.date"
+								role="gridcell"
+								[attr.aria-label]="day.date + ': ' + day.level + ' contributions'"
+							></div>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="contributions-footer">
+				<span class="contributions-legend-label">{{ i18n.t()('contributions.less') }}</span>
+				<div class="contributions-legend" aria-hidden="true">
+					<div class="contributions-day level-0"></div>
+					<div class="contributions-day level-1"></div>
+					<div class="contributions-day level-2"></div>
+					<div class="contributions-day level-3"></div>
+					<div class="contributions-day level-4"></div>
+				</div>
+				<span class="contributions-legend-label">{{ i18n.t()('contributions.more') }}</span>
+			</div>
+		}
+	</div>
+</section>

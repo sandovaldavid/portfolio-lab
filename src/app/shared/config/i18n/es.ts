@@ -132,6 +132,15 @@ export const es: Record<TranslationKey, string> = {
 	'skills.category.devops': 'Systems & DevOps',
 	'skills.category.devops.desc': 'Infraestructura como código y despliegue continuo automatizado.',
 
+	// ── GitHub Contributions ──────────────────────────────────────────
+	'contributions.title': 'Actividad Open Source',
+	'contributions.total': 'contribuciones en el último año',
+	'contributions.less': 'Menos',
+	'contributions.more': 'Más',
+	'contributions.error': 'No se pudo cargar el gráfico de contribuciones.',
+	'contributions.view-profile': 'Ver perfil de GitHub',
+	'contributions.aria-label': 'Gráfico de contribuciones de GitHub del último año',
+
 	// ── Footer ────────────────────────────────────────────────────────
 	'footer.title': 'Construyamos algo juntos',
 	'footer.subtitle': 'Abierto a nuevas oportunidades, colaboraciones y proyectos interesantes.',
