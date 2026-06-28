@@ -23,4 +23,37 @@ describe('HeroComponent', () => {
 
 		expect(screen.getByText('scroll')).toBeTruthy();
 	});
+
+	it('should render LinkedIn CTA with external link', async () => {
+		const mockLangSignal = signal<'en' | 'es'>('en');
+		const mockI18nService = {
+			lang: mockLangSignal,
+			t: () => (key: string) => key,
+		};
+
+		await render(HeroComponent, {
+			providers: [provideRouter([]), { provide: I18nService, useValue: mockI18nService }],
+		});
+
+		const linkedin = screen.getByLabelText('LinkedIn profile — sandovaldavid');
+		expect(linkedin).toBeTruthy();
+		expect(linkedin.getAttribute('href')).toBe('https://www.linkedin.com/in/sandovaldavid');
+		expect(linkedin.getAttribute('target')).toBe('_blank');
+	});
+
+	it('should render OSS card with GitHub link', async () => {
+		const mockLangSignal = signal<'en' | 'es'>('en');
+		const mockI18nService = {
+			lang: mockLangSignal,
+			t: () => (key: string) => key,
+		};
+
+		await render(HeroComponent, {
+			providers: [provideRouter([]), { provide: I18nService, useValue: mockI18nService }],
+		});
+
+		const ossCard = screen.getByLabelText('Open source profile on GitHub');
+		expect(ossCard).toBeTruthy();
+		expect(ossCard.getAttribute('href')).toBe('https://github.com/sandovaldavid');
+	});
 });

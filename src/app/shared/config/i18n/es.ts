@@ -11,8 +11,12 @@ export const es: Record<TranslationKey, string> = {
 	'hero.subtitle': 'Ingeniero de Software | B.S. Ingeniería Informática',
 	'hero.cta.projects': 'Ver Proyectos',
 	'hero.cta.contact': 'Contáctame',
+	'hero.cta.linkedin': 'LinkedIn',
 	'hero.cta.resume': 'resume.pdf',
 	'hero.typewriter.phrases': '-34% memoria heap,+60% throughput,-45% LCP,-28% bundle',
+	'hero.oss.title': 'Open Source',
+	'hero.oss.description': 'Contribuyente en ecosistemas Angular + .NET',
+	'hero.oss.link': 'Ver GitHub',
 
 	// ── Navigation ────────────────────────────────────────────────────
 	'nav.home': 'Inicio',
