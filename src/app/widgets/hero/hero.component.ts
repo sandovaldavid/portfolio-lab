@@ -23,6 +23,8 @@ export class HeroComponent implements OnInit, OnDestroy {
 	readonly displayedText = signal('');
 	readonly emailHref = `mailto:${OWNER.email}`;
 	readonly resumeFile = OWNER.resumeFile;
+	readonly linkedinHref = OWNER.linkedin;
+	readonly githubHref = OWNER.github;
 
 	private phrases: string[] = [];
 	private phraseIdx = 0;

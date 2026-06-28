@@ -9,8 +9,12 @@ export const en = {
 	'hero.subtitle': 'Software Engineer | B.S. Computer Engineering',
 	'hero.cta.projects': 'View Projects',
 	'hero.cta.contact': 'Contact Me',
+	'hero.cta.linkedin': 'LinkedIn',
 	'hero.cta.resume': 'resume.pdf',
 	'hero.typewriter.phrases': '-34% heap memory,+60% throughput,-45% LCP,-28% bundle size',
+	'hero.oss.title': 'Open Source',
+	'hero.oss.description': 'Contributor to Angular + .NET ecosystems',
+	'hero.oss.link': 'View GitHub',
 
 	// ── Navigation ────────────────────────────────────────────────────
 	'nav.home': 'Home',
