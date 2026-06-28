@@ -1,4 +1,17 @@
+import type { TranslationKey } from '@shared/config/i18n/en';
 import type { Technology } from '@entities/technology/model/technology.model';
+
+export interface ProjectMetric {
+	labelKey: TranslationKey;
+	value: string;
+}
+
+export interface LighthouseScores {
+	performance: number;
+	accessibility: number;
+	bestPractices: number;
+	seo: number;
+}
 
 export interface ProjectItem {
 	title: string;
@@ -9,4 +22,6 @@ export interface ProjectItem {
 	tags: Technology[];
 	featured?: boolean;
 	category?: string;
+	metrics?: ProjectMetric[];
+	lighthouse?: LighthouseScores;
 }

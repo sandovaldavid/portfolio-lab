@@ -39,6 +39,24 @@
 
 			<p class="card-desc">{{ project().description }}</p>
 
+			<!-- Metrics -->
+			@if (hasMetrics()) {
+				<div class="flex flex-wrap items-center gap-3 py-2">
+					@for (metric of project().metrics; track metric.labelKey) {
+						<div class="metric-pill">
+							<span class="metric-value">{{ metric.value }}</span>
+							<span class="metric-label">{{ t()(metric.labelKey) }}</span>
+						</div>
+					}
+					@if (lighthouseAverage(); as avg) {
+						<div class="metric-pill">
+							<span class="metric-value">{{ avg }}</span>
+							<span class="metric-label">{{ t()('projects.metric.lighthouse') }}</span>
+						</div>
+					}
+				</div>
+			}
+
 			<!-- Tech pills -->
 			<div class="flex flex-wrap gap-1.5 mt-auto">
 				@for (tag of visibleTags(); track tag.name) {
