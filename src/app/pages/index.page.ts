@@ -11,10 +11,8 @@ import { SectionTitleComponent } from '@shared/ui/section-title/section-title.co
 import { ScrollObserverDirective } from '@shared/lib/animation/scroll-observer.directive';
 import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playground.component';
 import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component';
-import { LstmPlaygroundComponent } from '@widgets/lstm-playground/lstm-playground.component';
 import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
-import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis-pitch.component';
 
 @Component({
 	selector: 'app-home',
@@ -29,8 +27,6 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 		ScrollObserverDirective,
 		ChaosPlaygroundComponent,
 		StarLedgerComponent,
-		LstmPlaygroundComponent,
-		MextThesisPitchComponent,
 		AboutSectionComponent,
 		ExperienceTimelineComponent,
 	],
@@ -111,44 +107,6 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
 							<span class="font-pixel text-xs text-[--color-muted]"
 								>Loading accomplishments...</span
-							>
-						</div>
-					}
-				</section>
-			}
-
-			@if (state.isAcademic()) {
-				<!-- LSTM Playground -->
-				<section
-					id="lstm"
-					class="scroll-mt-36"
-					aria-label="LSTM Recurrent Cell simulation"
-					appScrollObserver
-				>
-					@defer (on viewport) {
-						<app-lstm-playground />
-					} @placeholder {
-						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]"
-								>Loading LSTM simulation...</span
-							>
-						</div>
-					}
-				</section>
-
-				<!-- MEXT Thesis Abstract -->
-				<section
-					id="mext"
-					class="scroll-mt-36"
-					aria-label="MEXT Research Proposal Abstract"
-					appScrollObserver
-				>
-					@defer (on viewport) {
-						<app-mext-thesis-pitch />
-					} @placeholder {
-						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]"
-								>Loading research proposal...</span
 							>
 						</div>
 					}

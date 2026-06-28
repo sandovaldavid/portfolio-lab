@@ -147,6 +147,21 @@ export const en = {
 	'chaos.subtitle':
 		'Interactive resilience demo — hover nodes for implementation details, then inject a fault.',
 
+	// ── Research page ─────────────────────────────────────────────────
+	'title.lstm-playground': 'LSTM_Cell_Simulation',
+	'lstm.subtitle':
+		'Interactive Long Short-Term Memory cell — adjust gates to see how vanishing gradients are mitigated.',
+	'title.mext-proposal': 'MEXT_Research_Pitch',
+	'research.eyebrow': 'academic_track',
+	'research.title': 'Research & Academic Work',
+	'research.subtitle':
+		'Deep learning research and the MEXT scholarship proposal — separate from the engineering portfolio.',
+	'nav.research': 'Research',
+	'footer.research': 'Research track',
+	'seo.research.title': 'Research | David Sandoval',
+	'seo.research.description':
+		'Academic research by David Sandoval — LSTM sequence modeling and the MEXT scholarship proposal.',
+
 	// ── SEO ───────────────────────────────────────────────────────────
 	'seo.home.title': 'David Sandoval | Software Engineer',
 	'seo.home.description':
