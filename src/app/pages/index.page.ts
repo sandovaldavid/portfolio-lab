@@ -35,6 +35,21 @@ import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experi
 		<app-hero />
 
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-28 py-20">
+			<!-- STAR Ledger Accomplishments (protagonist section in architect mode) -->
+			@if (state.isArchitect()) {
+				<section id="star" class="scroll-mt-36" aria-labelledby="star-heading" appScrollObserver>
+					@defer (on viewport) {
+						<app-star-ledger [prominent]="true" />
+					} @placeholder {
+						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading accomplishments...</span
+							>
+						</div>
+					}
+				</section>
+			}
+
 			<!-- About Section -->
 			<section id="about" class="scroll-mt-36" aria-labelledby="about-heading" appScrollObserver>
 				<app-section-title id="about-heading">
@@ -88,25 +103,6 @@ import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experi
 						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
 							<span class="font-pixel text-xs text-[--color-muted]"
 								>Loading chaos simulation...</span
-							>
-						</div>
-					}
-				</section>
-
-				<!-- STAR Ledger Accomplishments -->
-				<section id="star" class="scroll-mt-36" aria-labelledby="star-heading" appScrollObserver>
-					<app-section-title id="star-heading">
-						{{ i18n.t()('title.star-ledger') }}
-					</app-section-title>
-					<p class="font-body text-sm text-[--color-muted] mb-6 -mt-4">
-						{{ i18n.t()('star.subtitle') }}
-					</p>
-					@defer (on viewport) {
-						<app-star-ledger />
-					} @placeholder {
-						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
-							<span class="font-pixel text-xs text-[--color-muted]"
-								>Loading accomplishments...</span
 							>
 						</div>
 					}

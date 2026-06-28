@@ -141,6 +141,27 @@ export const en = {
 	'title.star-ledger': 'Engineering_Impact',
 	'star.subtitle':
 		'Quantifiable achievements from production systems at Atena — click any row to expand.',
+	'star.hero.title': 'Production Impact at Atena',
+	'star.hero.subtitle':
+		'Six measurable improvements shipped to production. Click any entry for the full engineering story.',
+	'star.prompt': '$',
+	'star.header.path': 'atena://metrics/achievements',
+	'star.header.badge': 'entries',
+	'star.header.subtitle': 'Quantifiable engineering impact at Atena — measured, reproducible',
+	'star.filter.all': 'ALL',
+	'star.filter.latency': 'LATENCY',
+	'star.filter.throughput': 'THROUGHPUT',
+	'star.filter.scalability': 'SCALE',
+	'star.filter.memory': 'MEMORY',
+	'star.filter.quality': 'QUALITY',
+	'star.table.achievement': 'ACHIEVEMENT',
+	'star.table.metric': 'METRIC',
+	'star.table.pattern': 'PATTERN',
+	'star.table.stack': 'STACK',
+	'star.table.type': 'TYPE',
+	'star.empty': '// no entries match filter',
+	'star.detail.metric': 'metric',
+	'star.detail.code-lang': 'typescript',
 
 	// ── Chaos Playground ─────────────────────────────────────────────
 	'title.chaos-playground': 'Chaos_Engineering_Sim',
