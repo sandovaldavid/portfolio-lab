@@ -171,6 +171,21 @@ export const es: Record<TranslationKey, string> = {
 	'chaos.subtitle':
 		'Demo interactiva de resiliencia — hover en los nodos para detalles, luego inyecta un fallo.',
 
+	// ── Research page ─────────────────────────────────────────────────
+	'title.lstm-playground': 'Simulación_Celda_LSTM',
+	'lstm.subtitle':
+		'Celda Long Short-Term Memory interactiva — ajusta las compuertas para ver cómo se mitigan los gradientes que desaparecen.',
+	'title.mext-proposal': 'Propuesta_Investigación_MEXT',
+	'research.eyebrow': 'track_académico',
+	'research.title': 'Investigación y Trabajo Académico',
+	'research.subtitle':
+		'Investigación en deep learning y la propuesta de beca MEXT — separada del portafolio de ingeniería.',
+	'nav.research': 'Investigación',
+	'footer.research': 'Track académico',
+	'seo.research.title': 'Investigación | David Sandoval',
+	'seo.research.description':
+		'Investigación académica de David Sandoval — modelado de secuencias con LSTM y la propuesta de beca MEXT.',
+
 	// ── SEO ───────────────────────────────────────────────────────────
 	'seo.home.title': 'David Sandoval | Ingeniero de Software',
 	'seo.home.description':
