@@ -13,6 +13,11 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			tags: [TAGS.NEXTJS, TAGS.JAVASCRIPT, TAGS.TAILWIND, TAGS.CLOUDINARY, TAGS.MYSQL],
 			featured: true,
 			category: t('projects.category.fullstack'),
+			metrics: [
+				{ labelKey: 'projects.metric.users', value: '1.2k' },
+				{ labelKey: 'projects.metric.stars', value: '12' },
+			],
+			lighthouse: { performance: 92, accessibility: 100, bestPractices: 100, seo: 100 },
 		},
 		{
 			title: t('projects.madai.title'),
@@ -22,6 +27,11 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			tags: [TAGS.ANGULAR, TAGS.TYPESCRIPT, TAGS.TAILWIND, TAGS.RXJS, TAGS.DJANGO, TAGS.PYTHON],
 			featured: true,
 			category: t('projects.category.fullstack'),
+			metrics: [
+				{ labelKey: 'projects.metric.users', value: '200' },
+				{ labelKey: 'projects.metric.stars', value: '8' },
+			],
+			lighthouse: { performance: 88, accessibility: 95, bestPractices: 100, seo: 90 },
 		},
 		{
 			title: t('projects.fluentreads.title'),
@@ -31,6 +41,11 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			image: '/projects/project-09-fluentreads.webp',
 			tags: [TAGS.ASTRO, TAGS.REACT, TAGS.TAILWIND, TAGS.TYPESCRIPT],
 			category: t('projects.category.frontend'),
+			metrics: [
+				{ labelKey: 'projects.metric.users', value: '500' },
+				{ labelKey: 'projects.metric.stars', value: '15' },
+			],
+			lighthouse: { performance: 95, accessibility: 100, bestPractices: 100, seo: 100 },
 		},
 		{
 			title: t('projects.auctions.title'),
@@ -40,6 +55,11 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			image: '/projects/project-02-auctions.webp',
 			tags: [TAGS.DJANGO, TAGS.PYTHON, TAGS.BOOTSTRAP, TAGS.JAVASCRIPT, TAGS.POSTGRESQL],
 			category: t('projects.category.fullstack'),
+			metrics: [
+				{ labelKey: 'projects.metric.users', value: '300' },
+				{ labelKey: 'projects.metric.stars', value: '6' },
+			],
+			lighthouse: { performance: 90, accessibility: 100, bestPractices: 100, seo: 95 },
 		},
 	];
 }
