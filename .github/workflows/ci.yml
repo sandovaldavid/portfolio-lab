@@ -15,7 +15,7 @@ jobs:
   quality-checks:
     uses: ./.github/workflows/quality-checks.yml
     with:
-      run-audit: false
+      run-audit: true
     secrets: inherit
 
   build:
