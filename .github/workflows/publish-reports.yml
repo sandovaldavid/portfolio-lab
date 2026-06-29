@@ -161,7 +161,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       # -------------------------------------------------------------
       # Comment on PR with links (only on workflow_run)
