@@ -10,7 +10,9 @@ interface OGProps {
 	type: string;
 }
 
-function loadFont(): Promise<{ name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }[]> {
+function loadFont(): Promise<
+	{ name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }[]
+> {
 	try {
 		const font400: ArrayBuffer = readFileSync(
 			resolve(
@@ -173,7 +175,8 @@ function buildElement({ title, description, type }: OGProps) {
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const title = (query.title as string) || 'David Sandoval';
-	const description = (query.description as string) || 'Software Engineer · Angular & .NET Performance';
+	const description =
+		(query.description as string) || 'Software Engineer · Angular & .NET Performance';
 	const type = (query.type as string) || 'website';
 
 	const fonts = await loadFont();

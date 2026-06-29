@@ -66,7 +66,8 @@ describe('NotFoundPage', () => {
 		expect(seoService.updatePage).toHaveBeenCalledWith({
 			title: '404 — Page Not Found',
 			description: 'Page not found.',
-			ogImage: 'https://devsandoval.me/api/v1/og-image?title=404%20%E2%80%94%20Page%20Not%20Found&description=Page%20not%20found.&type=error',
+			ogImage:
+				'https://devsandoval.me/api/v1/og-image?title=404%20%E2%80%94%20Page%20Not%20Found&description=Page%20not%20found.&type=error',
 		});
 	});
 });
