@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/angular';
 import { ProjectCardComponent } from './project-card.component';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import type { ProjectItem } from '../../model/project.model';
 
 describe('ProjectCardComponent', () => {
@@ -24,7 +25,7 @@ describe('ProjectCardComponent', () => {
 			inputs: {
 				project: mockProject,
 			},
-			providers: [{ provide: I18nService, useValue: mockI18nService }],
+			providers: [{ provide: I18nService, useValue: mockI18nService }, provideRouter([])],
 		});
 
 		expect(screen.getByText('My Awesome Project')).toBeTruthy();
@@ -45,7 +46,7 @@ describe('ProjectCardComponent', () => {
 			inputs: {
 				project: projectWithMetrics,
 			},
-			providers: [{ provide: I18nService, useValue: mockI18nService }],
+			providers: [{ provide: I18nService, useValue: mockI18nService }, provideRouter([])],
 		});
 
 		expect(screen.getByText('1.2k')).toBeTruthy();

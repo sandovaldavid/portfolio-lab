@@ -79,6 +79,7 @@ export const es: Record<TranslationKey, string> = {
 	'projects.category.fullstack': 'Full-Stack',
 	'projects.category.enterprise': 'Empresarial',
 	'projects.category.frontend': 'Frontend',
+	'projects.read-case-study': 'Caso de Estudio',
 
 	'projects.campus-map.title': 'UNP Campus Map',
 	'projects.campus-map.description':

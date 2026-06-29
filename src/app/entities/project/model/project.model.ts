@@ -22,6 +22,7 @@ export interface ProjectItem {
 	tags: Technology[];
 	featured?: boolean;
 	category?: string;
+	caseStudy?: string;
 	metrics?: ProjectMetric[];
 	lighthouse?: LighthouseScores;
 }

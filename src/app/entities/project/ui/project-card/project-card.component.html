@@ -69,6 +69,22 @@
 
 			<!-- CTAs -->
 			<div class="card-cta">
+				@if (hasCaseStudy()) {
+					<a
+						[routerLink]="['/projects', project().caseStudy]"
+						class="cta-btn cta-outline"
+						attr.aria-label="Read case study for {{ project().title }}"
+					>
+						<span
+							class="mask-icon w-[13px] h-[13px]"
+							style="
+								mask-image: url(/assets/icons/file-text.svg);
+								-webkit-mask-image: url(/assets/icons/file-text.svg);
+							"
+						></span>
+						{{ t()('projects.read-case-study') }}
+					</a>
+				}
 				@if (project().github) {
 					<a
 						[href]="project().github"

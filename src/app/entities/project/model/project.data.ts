@@ -12,6 +12,7 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			image: '/projects/project-08-campus-map.webp',
 			tags: [TAGS.NEXTJS, TAGS.JAVASCRIPT, TAGS.TAILWIND, TAGS.CLOUDINARY, TAGS.MYSQL],
 			featured: true,
+			caseStudy: 'unp-campus-map',
 			category: t('projects.category.fullstack'),
 			metrics: [
 				{ labelKey: 'projects.metric.users', value: '1.2k' },
@@ -26,6 +27,7 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			image: '/projects/project-10-MAD-AI.webp',
 			tags: [TAGS.ANGULAR, TAGS.TYPESCRIPT, TAGS.TAILWIND, TAGS.RXJS, TAGS.DJANGO, TAGS.PYTHON],
 			featured: true,
+			caseStudy: 'mad-ai',
 			category: t('projects.category.fullstack'),
 			metrics: [
 				{ labelKey: 'projects.metric.users', value: '200' },
@@ -40,6 +42,7 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			github: 'https://github.com/dev-sandoval/fluentreads',
 			image: '/projects/project-09-fluentreads.webp',
 			tags: [TAGS.ASTRO, TAGS.REACT, TAGS.TAILWIND, TAGS.TYPESCRIPT],
+			caseStudy: 'fluentreads',
 			category: t('projects.category.frontend'),
 			metrics: [
 				{ labelKey: 'projects.metric.users', value: '500' },
@@ -54,6 +57,7 @@ export function getProjectsData(t: (key: TranslationKey) => string): ProjectItem
 			github: 'https://github.com/sandovaldavid/project-02-auctions',
 			image: '/projects/project-02-auctions.webp',
 			tags: [TAGS.DJANGO, TAGS.PYTHON, TAGS.BOOTSTRAP, TAGS.JAVASCRIPT, TAGS.POSTGRESQL],
+			caseStudy: 'auctions',
 			category: t('projects.category.fullstack'),
 			metrics: [
 				{ labelKey: 'projects.metric.users', value: '300' },

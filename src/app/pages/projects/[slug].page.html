@@ -1,0 +1,73 @@
+<div class="max-w-4xl mx-auto px-4 py-20 space-y-8">
+	<!-- Back Link -->
+	<a
+		routerLink="/projects"
+		class="back-link font-pixel text-sm text-[--color-primary] hover:underline flex items-center gap-2"
+	>
+		&lt; back_to_projects()
+	</a>
+
+	@if (isNotFound()) {
+	<div class="text-center py-12 space-y-6">
+		<div class="font-pixel text-6xl text-[--color-danger] opacity-60">404</div>
+		<h2 class="font-pixel text-xl text-[--color-heading] tracking-wider">Case_Study_Not_Found</h2>
+		<p class="font-body text-base text-[--color-muted] max-w-md mx-auto">
+			The case study you are looking for does not exist or may have been moved.
+		</p>
+		<a
+			routerLink="/projects"
+			class="inline-flex items-center gap-2 font-pixel text-sm px-6 py-3 text-[--color-primary] card-border hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:scale-[0.98]"
+		>
+			&lt; return_to_projects()
+		</a>
+	</div>
+	} @else if (caseStudy(); as study) {
+	<article class="space-y-6">
+		<!-- Header -->
+		<div class="space-y-4 border-b border-[--color-border] pb-6">
+			<div class="flex items-center gap-3">
+				<span
+					class="category-badge uppercase font-pixel text-xs text-[--color-accent] card-border px-2 py-0.5"
+				>
+					case-study
+				</span>
+				<time class="font-pixel text-xs text-[--color-muted]"
+					>{{ study.attributes.date | date:'yyyy-MM-dd' }}</time
+				>
+			</div>
+
+			<h1 class="font-pixel text-3xl md:text-4xl text-[--color-heading] leading-tight">
+				{{ study.attributes.title }}
+			</h1>
+
+			<p class="font-body text-base text-[--color-muted] italic">
+				{{ study.attributes.description }}
+			</p>
+
+			<div class="flex flex-wrap gap-2 pt-1">
+				@for (tag of study.attributes.tags; track tag) {
+				<span class="study-tag font-pixel text-xs text-[--color-muted]">#{{ tag }}</span>
+				}
+			</div>
+		</div>
+
+		<!-- Markdown Content -->
+		<div class="markdown-content font-body">
+			<analog-markdown [content]="study.content" />
+		</div>
+
+		<!-- Footer CTA -->
+		<div
+			class="border-t border-[--color-border] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+		>
+			<a routerLink="/projects" class="font-pixel text-sm text-[--color-primary] hover:underline">
+				&lt; back_to_projects()
+			</a>
+		</div>
+	</article>
+	} @else {
+	<div class="text-center py-12">
+		<p class="font-body text-base text-[--color-muted]">Loading case study...</p>
+	</div>
+	}
+</div>
