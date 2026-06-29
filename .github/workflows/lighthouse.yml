@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - develop
 
 permissions:
   contents: read
@@ -34,16 +35,16 @@ jobs:
         run: pnpm lighthouse
 
       - name: Upload Lighthouse reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-reports
           path: lighthouse-results/
-          retention-days: 30
+          retention-days: 14
 
       - name: Comment PR with Lighthouse results
         if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -59,8 +60,9 @@ jobs:
             const score = s => s ? `${(s.score * 100).toFixed(0)}%` : 'N/A';
             const mark = s => s && s.score >= 0.9 ? '[pass]' : s && s.score >= 0.8 ? '[warn]' : '[fail]';
 
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const rows = [
-              '[info] Lighthouse Audit Results',
+              '### 🔦 Lighthouse Audit Results',
               '',
               '| Category | Score | Status |',
               '|----------|-------|--------|',
@@ -69,7 +71,12 @@ jobs:
               '| Best Practices | ' + score(cats['best-practices']) + ' | ' + mark(cats['best-practices']) + ' |',
               '| SEO | ' + score(cats.seo) + ' | ' + mark(cats.seo) + ' |',
               '',
-              'Full report available in [workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
+              `📦 **Download Artifact:** Descarga los reportes desde [GitHub Actions Run](${runUrl}).`,
+              '',
+              '💻 **View Locally:** Para descargar y levantar este reporte en tu máquina local, ejecuta:',
+              '```bash',
+              `gh run download ${context.runId} -n lighthouse-reports && npx serve lighthouse-results`,
+              '```'
             ];
             const body = rows.join('\n');
 

@@ -30,8 +30,24 @@ jobs:
         env:
           HUSKY: 0
 
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm exec playwright --version | cut -d' ' -f2)" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright binaries
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
       - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
 
       - name: Build project
         run: pnpm build
@@ -51,25 +67,16 @@ jobs:
           BASE_URL: http://localhost:3000
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
-
-      - name: Deploy Playwright Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: playwright-report/${{ github.event.pull_request.number || 'develop' }}
-          keep_files: true
+          retention-days: 14
 
       - name: Comment PR with test results
         if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -79,7 +86,8 @@ jobs:
               const stats = report.stats || {};
               const passed = stats.unexpected ? stats.expected - stats.unexpected : 0;
               const prNumber = context.issue.number;
-              const body = `### 🎭 Playwright E2E Test Results\n\n- **Total Tests**: ${stats.expected || 0}\n- **Passed**: ${passed}\n- **Failed**: ${stats.unexpected || 0}\n\n📖 **[View Interactive HTML Report](https://sandovaldavid.github.io/portfolio/playwright-report/${prNumber}/)**`;
+              const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+              const body = `### 🎭 Playwright E2E Test Results\n\n- **Total Tests**: ${stats.expected || 0}\n- **Passed**: ${passed}\n- **Failed**: ${stats.unexpected || 0}\n\n📦 **Download Artifact:** Puedes descargar el reporte desde la página de [GitHub Actions Run](${runUrl}).\n\n💻 **View Locally:** Para descargar y levantar este reporte interactivo localmente, ejecuta:\n\`\`\`bash\ngh run download ${context.runId} -n playwright-report && npx serve playwright-report\n\`\`\``;
               github.rest.issues.createComment({
                 issue_number: prNumber,
                 owner: context.repo.owner,

@@ -27,7 +27,10 @@
     "lighthouse:upload": "lhci upload",
     "release": "release-it",
     "release:dry": "release-it --dry-run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "report:playwright": "gh run download -n playwright-report && npx serve playwright-report",
+    "report:coverage": "gh run download -n coverage-report && npx serve coverage",
+    "report:lighthouse": "gh run download -n lighthouse-reports && npx serve lighthouse-results"
   },
   "private": true,
   "dependencies": {
