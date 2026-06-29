@@ -14,6 +14,8 @@ import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component'
 import { AboutSectionComponent } from '@widgets/about-section/about-section.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
 import { GithubContributionsComponent } from '@widgets/github-contributions/github-contributions.component';
+import { LstmPlaygroundComponent } from '@widgets/lstm-playground/lstm-playground.component';
+import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis-pitch.component';
 
 @Component({
 	selector: 'app-home',
@@ -31,6 +33,8 @@ import { GithubContributionsComponent } from '@widgets/github-contributions/gith
 		AboutSectionComponent,
 		ExperienceTimelineComponent,
 		GithubContributionsComponent,
+		LstmPlaygroundComponent,
+		MextThesisPitchComponent,
 	],
 	template: `
 		<!-- Hero -->
@@ -46,6 +50,27 @@ import { GithubContributionsComponent } from '@widgets/github-contributions/gith
 						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
 							<span class="font-pixel text-xs text-[--color-muted]"
 								>Loading accomplishments...</span
+							>
+						</div>
+					}
+				</section>
+			}
+
+			<!-- LSTM Cell Playground (protagonist section in research mode) -->
+			@if (state.isAcademic()) {
+				<section id="lstm" class="scroll-mt-36" aria-labelledby="lstm-heading" appScrollObserver>
+					<app-section-title id="lstm-heading">
+						{{ i18n.t()('title.lstm-playground') }}
+					</app-section-title>
+					<p class="font-body text-sm text-[--color-muted] mb-6 -mt-4">
+						{{ i18n.t()('lstm.subtitle') }}
+					</p>
+					@defer (on viewport) {
+						<app-lstm-playground />
+					} @placeholder {
+						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading LSTM simulation...</span
 							>
 						</div>
 					}
@@ -118,6 +143,24 @@ import { GithubContributionsComponent } from '@widgets/github-contributions/gith
 						<div class="h-96 surface-card animate-pulse flex items-center justify-center">
 							<span class="font-pixel text-xs text-[--color-muted]"
 								>Loading chaos simulation...</span
+							>
+						</div>
+					}
+				</section>
+			}
+
+			@if (state.isAcademic()) {
+				<!-- MEXT Thesis Abstract -->
+				<section id="mext" class="scroll-mt-36" aria-labelledby="mext-heading" appScrollObserver>
+					<app-section-title id="mext-heading">
+						{{ i18n.t()('title.mext-proposal') }}
+					</app-section-title>
+					@defer (on viewport) {
+						<app-mext-thesis-pitch />
+					} @placeholder {
+						<div class="h-64 surface-card animate-pulse flex items-center justify-center">
+							<span class="font-pixel text-xs text-[--color-muted]"
+								>Loading research proposal...</span
 							>
 						</div>
 					}
