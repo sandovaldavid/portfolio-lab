@@ -1,4 +1,4 @@
-import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontScaleService } from '../font-scale/font-scale';
@@ -9,16 +9,28 @@ export class KeyboardShortcutsService {
 	private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly router = inject(Router);
 	private readonly fontScale = inject(FontScaleService);
+	private readonly _destroyRef = inject(DestroyRef);
 
 	readonly shortcutsVisible = signal(false);
 
 	private _lastKey = '';
 	private _lastKeyTime = 0;
+	private _handler: ((e: KeyboardEvent) => void) | null = null;
+
+	constructor() {
+		this._destroyRef.onDestroy(() => {
+			if (this._handler) {
+				document.removeEventListener('keydown', this._handler);
+			}
+		});
+	}
 
 	register(): void {
 		if (!this.isBrowser) return;
-		document.addEventListener('keydown', (e) => this._handle(e));
+		const handler = (e: KeyboardEvent) => this._handle(e);
+		document.addEventListener('keydown', handler);
 		this._registerDiagnostics();
+		this._handler = handler;
 	}
 
 	private _registerDiagnostics(): void {
