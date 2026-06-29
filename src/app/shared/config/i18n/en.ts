@@ -77,6 +77,7 @@ export const en = {
 	'projects.category.fullstack': 'Full-Stack',
 	'projects.category.enterprise': 'Enterprise',
 	'projects.category.frontend': 'Frontend',
+	'projects.read-case-study': 'Case Study',
 
 	'projects.campus-map.title': 'UNP Campus Map',
 	'projects.campus-map.description':
