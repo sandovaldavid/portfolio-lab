@@ -36,6 +36,8 @@
 				<time class="font-pixel text-xs text-[--color-muted]"
 					>{{ note.attributes.date | date:'yyyy-MM-dd' }}</time
 				>
+				<span class="font-pixel text-xs text-[--color-muted] opacity-60 mx-1">|</span>
+				<span class="font-pixel text-xs text-[--color-muted]">{{ readingTime() }} min read</span>
 			</div>
 
 			<h1 class="font-pixel text-3xl md:text-4xl text-[--color-heading] leading-tight">
@@ -57,6 +59,30 @@
 		<div class="markdown-content font-body">
 			<analog-markdown [content]="note.content" />
 		</div>
+
+		<!-- Related Notes -->
+		@if (relatedNotes().length > 0) {
+		<div class="border-t border-[--color-border] pt-8 mt-12">
+			<h3 class="font-pixel text-sm text-[--color-muted] uppercase tracking-wider mb-4">
+				related_entries()
+			</h3>
+			<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+				@for (related of relatedNotes(); track related.slug) {
+				<a
+					[routerLink]="['/notes', related.slug]"
+					class="block p-4 card-border bg-[--color-surface] hover:border-[--color-primary] transition-all duration-150 active:scale-[0.98]"
+				>
+					<span class="block font-pixel text-xs text-[--color-accent] mb-1">{{
+						related.attributes.category
+					}}</span>
+					<span class="block font-pixel text-sm text-[--color-heading] leading-snug">{{
+						related.attributes.title
+					}}</span>
+				</a>
+				}
+			</div>
+		</div>
+		}
 	</article>
 	} @else {
 	<div class="text-center py-12">

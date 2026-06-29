@@ -2,14 +2,7 @@ import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontScaleService } from '../font-scale/font-scale';
-
-const PAGE_ROUTES: Record<string, string> = {
-	'1': '/',
-	'2': '/projects',
-	'3': '/experience',
-	'4': '/skills',
-	'5': '/about',
-};
+import { NAV_ROUTES, PAGE_ROUTES } from '@shared/config/navigation.config';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardShortcutsService {
@@ -176,7 +169,7 @@ export class KeyboardShortcutsService {
 			return;
 		}
 
-		const routes = ['/', '/projects', '/experience', '/skills', '/about', '/notes'];
+		const routes = NAV_ROUTES as unknown as string[];
 		const current = this.router.url;
 		const currentIndex = routes.indexOf(current);
 

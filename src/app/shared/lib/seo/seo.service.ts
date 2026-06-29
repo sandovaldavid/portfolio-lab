@@ -38,6 +38,10 @@ export class SeoService {
 		this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
 		this.meta.updateTag({ name: 'twitter:title', content: fullTitle });
 		this.meta.updateTag({ name: 'twitter:description', content: config.description });
+		this.meta.updateTag({
+			name: 'twitter:image',
+			content: config.ogImage ?? 'https://devsandoval.me/portfolio_meta-data.webp',
+		});
 
 		this._upsertHreflang('en', 'https://devsandoval.me');
 		this._upsertHreflang('es', 'https://devsandoval.me');
