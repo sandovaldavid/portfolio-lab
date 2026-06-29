@@ -1,6 +1,10 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
     branches:
       - main
@@ -41,3 +45,9 @@ jobs:
           if [ $(du -s dist | cut -f1) -gt 700 ]; then
             echo "[warning] Bundle size warning: exceeds 700KB"
           fi
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-stats
+          path: dist/stats.html
+          retention-days: 14
