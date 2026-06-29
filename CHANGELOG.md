@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.4.0-beta.0...v1.5.0-beta.0) (2026-06-29)
+
+
+### Features
+
+* **home:** dynamic home views by mode ([#112](https://github.com/sandovaldavid/portfolio/issues/112)) ([bff506d](https://github.com/sandovaldavid/portfolio/commit/bff506d5f6dc01dd39a02bfec6ae9211bc776747))
+* **ui:** terminal switcher and crt curtain ([3e0ce09](https://github.com/sandovaldavid/portfolio/commit/3e0ce09bc8e32e5e906e57f05725695829d4459f))
+
+
+### Bug Fixes
+
+* **experience:** reframe programador-ti role ([#108](https://github.com/sandovaldavid/portfolio/issues/108)) ([235c272](https://github.com/sandovaldavid/portfolio/commit/235c27280d7c3365e0060fbeef2ee9ad4c8c82d6))
+
 ## [1.4.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.3.2-beta.0...v1.4.0-beta.0) (2026-06-28)
 
 
