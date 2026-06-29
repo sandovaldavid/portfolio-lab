@@ -17,9 +17,9 @@ describe('ResumePage', () => {
 		fixture.detectChanges();
 	});
 
-	it('should render the resume component', () => {
-		const resume = fixture.nativeElement.querySelector('app-resume');
-		expect(resume).toBeTruthy();
+	it('should render a placeholder while resume is deferred', () => {
+		const placeholder = fixture.nativeElement.querySelector('.min-h-screen');
+		expect(placeholder).toBeTruthy();
 	});
 
 	it('should call seo.updatePage with canonical resume URL on init', () => {
