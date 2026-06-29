@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.0-beta.0...v1.8.1-beta.0) (2026-06-29)
+
+
+### Performance
+
+* **resume:** defer resume widget load via [@defer](https://github.com/defer) (on viewport) ([668b331](https://github.com/sandovaldavid/portfolio/commit/668b3311ba88fe42416c1a8622728d596f27ea92))
+
 ## [1.8.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.7.0-beta.0...v1.8.0-beta.0) (2026-06-29)
 
 
