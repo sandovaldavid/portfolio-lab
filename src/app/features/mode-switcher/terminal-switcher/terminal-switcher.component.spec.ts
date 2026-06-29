@@ -32,8 +32,8 @@ describe('TerminalSwitcherComponent', () => {
 			providers: [{ provide: ModeStateService, useValue: mockModeStateService }],
 		});
 
-		const sysButton = screen.getByText('[SYS]');
-		const phdButton = screen.getByText('[PHD]');
+		const sysButton = screen.getByRole('button', { name: /\[SYS\]/ });
+		const phdButton = screen.getByRole('button', { name: /\[PHD\]/ });
 
 		expect(sysButton).toBeTruthy();
 		expect(phdButton).toBeTruthy();

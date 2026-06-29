@@ -1,34 +1,139 @@
-.switcher-group {
+.terminal-switcher {
+	width: 100%;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	overflow: hidden;
+	font-family: var(--font-code);
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+.terminal-header {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	background: color-mix(in srgb, var(--color-bg) 60%, transparent);
+	border-bottom: 1px solid var(--color-border);
+	font-size: 0.6875rem;
 }
-.switcher-btn {
-	font-family: var(--font-code);
-	font-size: 0.8rem;
-	padding: 5px 10px;
-	background: transparent;
-	border: 1px solid var(--color-border);
+
+.terminal-prompt {
+	color: var(--color-primary);
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+.terminal-cursor {
+	animation: cursor-blink 1s step-end infinite;
+}
+
+.terminal-title {
+	color: var(--color-muted);
+	letter-spacing: 0.08em;
+	font-weight: 600;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.terminal-buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1px;
+	background: var(--color-border);
+}
+
+.terminal-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+	padding: 0.75rem 0.5rem;
+	background: var(--color-surface);
+	border: none;
 	color: var(--color-muted);
 	cursor: pointer;
 	transition:
-		border-color 0.15s,
-		color 0.15s,
-		background 0.15s;
-	white-space: nowrap;
+		background 0.15s ease,
+		color 0.15s ease,
+		box-shadow 0.15s ease;
+	position: relative;
 }
-.switcher-btn:hover {
-	border-color: var(--color-primary);
+
+.terminal-btn:hover {
+	background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
 	color: var(--color-text);
 }
-.switcher-btn.active {
-	border-color: var(--color-primary);
+
+.terminal-btn.active {
+	background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
 	color: var(--color-primary);
-	background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+	box-shadow: inset 0 0 20px color-mix(in srgb, var(--color-primary) 12%, transparent);
 }
-.divider {
+
+/* ── Status LED ───────────────────────────────────────────────── */
+.status-led {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--color-border-light);
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-border-light) 30%, transparent);
+	transition:
+		background 0.15s ease,
+		box-shadow 0.15s ease;
+}
+
+.terminal-btn.active .status-led {
+	background: var(--color-success);
+	box-shadow:
+		0 0 6px var(--color-success),
+		0 0 0 1px color-mix(in srgb, var(--color-success) 30%, transparent);
+}
+
+/* ── Labels ───────────────────────────────────────────────────── */
+.btn-label {
+	font-size: 0.875rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+}
+
+.btn-subtitle {
+	font-size: 0.625rem;
+	letter-spacing: 0.06em;
 	color: var(--color-muted);
-	font-family: var(--font-code);
-	font-size: 0.8rem;
-	user-select: none;
+	transition: color 0.15s ease;
+}
+
+.terminal-btn.active .btn-subtitle {
+	color: var(--color-primary);
+}
+
+/* ── Scanline texture on hover/active ─────────────────────────── */
+.terminal-btn::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	background: repeating-linear-gradient(
+		0deg,
+		transparent,
+		transparent 2px,
+		color-mix(in srgb, var(--color-primary) 5%, transparent) 2px,
+		color-mix(in srgb, var(--color-primary) 5%, transparent) 4px
+	);
+	transition: opacity 0.15s ease;
+}
+
+.terminal-btn:hover::before,
+.terminal-btn.active::before {
+	opacity: 1;
+}
+
+/* Research mode adaptations */
+html.mode-research .terminal-btn:hover {
+	background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+}
+
+html.mode-research .terminal-btn.active {
+	background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
 }
