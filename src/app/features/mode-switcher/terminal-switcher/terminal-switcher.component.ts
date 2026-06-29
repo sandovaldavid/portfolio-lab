@@ -19,8 +19,10 @@ export class TerminalSwitcherComponent {
 			document.documentElement.classList.add('mode-transitioning');
 			setTimeout(() => {
 				this.mode.setMode(target);
-				document.documentElement.classList.remove('mode-transitioning');
 			}, 200);
+			setTimeout(() => {
+				document.documentElement.classList.remove('mode-transitioning');
+			}, 400);
 		} else {
 			this.mode.setMode(target);
 		}

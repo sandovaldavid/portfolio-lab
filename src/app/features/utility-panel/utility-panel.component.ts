@@ -10,21 +10,20 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { FontScaleService } from '@shared/lib/font-scale/font-scale';
 import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboard-shortcuts';
-import { ModeStateService } from '@shared/lib/mode/mode-state.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { OWNER } from '@shared/config/contact.config';
 import { ShortcutsModalComponent } from './shortcuts-modal/shortcuts-modal.component';
+import { TerminalSwitcherComponent } from '@features/mode-switcher/terminal-switcher/terminal-switcher.component';
 
 @Component({
 	selector: 'app-utility-panel',
-	imports: [ShortcutsModalComponent],
+	imports: [ShortcutsModalComponent, TerminalSwitcherComponent],
 	templateUrl: './utility-panel.component.html',
 	styleUrl: './utility-panel.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UtilityPanelComponent {
 	readonly fontScale = inject(FontScaleService);
-	readonly mode = inject(ModeStateService);
 	readonly i18n = inject(I18nService);
 	private readonly kbd = inject(KeyboardShortcutsService);
 	private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -49,19 +48,6 @@ export class UtilityPanelComponent {
 	scrollToTop(): void {
 		if (this.isBrowser) window.scrollTo({ top: 0, behavior: 'smooth' });
 		this.open.set(false);
-	}
-
-	switchMode(target: 'SYSTEM_ARCHITECT' | 'RESEARCH_FELLOW'): void {
-		if (this.mode.currentMode() === target) return;
-		if (this.isBrowser) {
-			document.documentElement.classList.add('mode-transitioning');
-			setTimeout(() => {
-				this.mode.setMode(target);
-				document.documentElement.classList.remove('mode-transitioning');
-			}, 200);
-		} else {
-			this.mode.setMode(target);
-		}
 	}
 
 	async copyEmail(): Promise<void> {
