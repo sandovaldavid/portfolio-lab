@@ -9,8 +9,8 @@ on:
         description: Run pnpm audit
 
 jobs:
-  static-analysis:
-    name: Static Analysis
+  setup:
+    name: Setup Dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -19,19 +19,35 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
 
-      - name: Check Format
-        run: pnpm format:check
-
-      - name: Lint Code
-        run: pnpm lint
-
-      - name: TypeScript Typecheck
-        run: npx tsc --noEmit -p tsconfig.app.json
-
+  lint:
+    name: Lint
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - run: pnpm lint
       - name: Comment PR on failure
         if: failure() && github.event_name == 'pull_request'
         uses: actions/github-script@v9
@@ -41,11 +57,12 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ **Static Analysis Failed!** Please run `pnpm lint:fix` and `pnpm format` locally to fix styles and check typescript errors.'
+              body: '❌ **ESLint check failed.** Please run `pnpm lint:fix` locally to fix issues.'
             })
 
-  test:
-    name: Unit Tests
+  format:
+    name: Format
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -54,9 +71,47 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - run: pnpm format:check
+
+  typecheck:
+    name: Typecheck
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - run: npx tsc --noEmit -p tsconfig.app.json
+
+  test:
+    name: Test
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Run unit tests with coverage
         run: pnpm test:coverage
       - name: Upload coverage to Codecov
@@ -76,6 +131,7 @@ jobs:
 
   security:
     name: Security Audit
+    needs: setup
     runs-on: ubuntu-latest
     if: inputs.run-audit
     steps:
@@ -85,9 +141,11 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm audit --audit-level=critical
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
