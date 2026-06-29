@@ -5,6 +5,7 @@ import { injectContent, MarkdownComponent } from '@analogjs/content';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
+import { ogImageUrl } from '@shared/config/contact.config';
 
 export interface CaseStudyAttributes {
 	title: string;
@@ -42,9 +43,12 @@ export default class CaseStudyPage implements OnInit {
 				description: this.i18n.t()('seo.404.description'),
 			});
 		} else {
+			const title = `${study.attributes.title} | Case Study | David Sandoval`;
+			const description = study.attributes.description;
 			this.seo.updatePage({
-				title: `${study.attributes.title} | Case Study | David Sandoval`,
-				description: study.attributes.description,
+				title,
+				description,
+				ogImage: ogImageUrl(title, description, 'case-study'),
 			});
 		}
 	}

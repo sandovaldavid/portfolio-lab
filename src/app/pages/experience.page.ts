@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
+import { ogImageUrl } from '@shared/config/contact.config';
 import { SectionTitleComponent } from '@shared/ui/section-title/section-title.component';
 import { ExperienceTimelineComponent } from '@widgets/experience-timeline/experience-timeline.component';
 import { StarLedgerComponent } from '@widgets/star-ledger/star-ledger.component';
@@ -49,9 +50,11 @@ export default class ExperiencePage implements OnInit {
 	private readonly seo = inject(SeoService);
 
 	ngOnInit(): void {
+		const t = this.i18n.t();
 		this.seo.updatePage({
-			title: this.i18n.t()('seo.experience.title'),
-			description: this.i18n.t()('seo.experience.description'),
+			title: t('seo.experience.title'),
+			description: t('seo.experience.description'),
+			ogImage: ogImageUrl(t('seo.experience.title'), t('seo.experience.description'), 'experience'),
 			canonical: 'https://devsandoval.me/experience',
 		});
 	}

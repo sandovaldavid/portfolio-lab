@@ -17,6 +17,10 @@ export const OWNER = {
 	avatarFile: '/profile/avatar.webp',
 } as const;
 
+export function ogImageUrl(title: string, description: string, type = 'website'): string {
+	return `${OWNER.siteUrl}/api/v1/og-image?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&type=${encodeURIComponent(type)}`;
+}
+
 export interface SocialLink {
 	id: string;
 	label: string;

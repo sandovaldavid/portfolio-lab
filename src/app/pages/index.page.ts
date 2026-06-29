@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
-import { OWNER } from '@shared/config/contact.config';
+import { OWNER, ogImageUrl } from '@shared/config/contact.config';
 import { HeroComponent } from '@widgets/hero/hero.component';
 import { ProjectsGridComponent } from '@widgets/projects-grid/projects-grid.component';
 import { SkillsSectionComponent } from '@widgets/skills-section/skills-section.component';
@@ -244,9 +244,11 @@ export default class HomePage implements OnInit {
 	private readonly seo = inject(SeoService);
 
 	ngOnInit(): void {
+		const t = this.i18n.t();
 		this.seo.updatePage({
-			title: this.i18n.t()('seo.home.title'),
-			description: this.i18n.t()('seo.home.description'),
+			title: t('seo.home.title'),
+			description: t('seo.home.description'),
+			ogImage: ogImageUrl(t('seo.home.title'), t('seo.home.description'), 'home'),
 			canonical: 'https://devsandoval.me',
 			jsonLd: {
 				'@context': 'https://schema.org',
