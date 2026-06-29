@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.2-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.1-beta.0...v1.8.2-beta.0) (2026-06-29)
+
+
+### Bug Fixes
+
+* **keyboard-shortcuts:** register keydown cleanup via destroy ref ([#129](https://github.com/sandovaldavid/portfolio/issues/129)) ([b1c26f2](https://github.com/sandovaldavid/portfolio/commit/b1c26f27b2e8e398e9b57b22b15970a67a70830d))
+
 ## [1.8.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.0-beta.0...v1.8.1-beta.0) (2026-06-29)
 
 
