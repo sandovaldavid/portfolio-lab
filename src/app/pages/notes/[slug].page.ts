@@ -5,6 +5,7 @@ import { injectContent, MarkdownComponent } from '@analogjs/content';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
+import { ogImageUrl } from '@shared/config/contact.config';
 import { NoteAttributes } from './index.page';
 
 @Component({
@@ -31,9 +32,12 @@ export default class NoteDetailPage implements OnInit {
 				description: this.i18n.t()('seo.404.description'),
 			});
 		} else {
+			const title = `${note.attributes.title} | TIL Vault`;
+			const description = note.attributes.description;
 			this.seo.updatePage({
-				title: `${note.attributes.title} | TIL Vault`,
-				description: note.attributes.description,
+				title,
+				description,
+				ogImage: ogImageUrl(title, description, 'note'),
 			});
 		}
 	}

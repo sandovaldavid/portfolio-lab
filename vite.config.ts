@@ -110,6 +110,12 @@ export default defineConfig(({ mode }) => ({
           '/notes',
           '/notes/binary-search',
           '/notes/circuit-breaker',
+          '/notes/quicksort-mergesort',
+          '/notes/dynamic-programming',
+          '/notes/graph-traversal',
+          '/notes/caching-strategies',
+          '/notes/database-indexing',
+          '/notes/cap-theorem',
         ],
         sitemap: {
           host: 'https://devsandoval.me',

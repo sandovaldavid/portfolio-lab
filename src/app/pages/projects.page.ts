@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
+import { ogImageUrl } from '@shared/config/contact.config';
 import { SectionTitleComponent } from '@shared/ui/section-title/section-title.component';
 import { ProjectCardComponent } from '@entities/project/ui/project-card/project-card.component';
 import { getProjectsData } from '@entities/project/model/project.data';
@@ -94,9 +95,11 @@ export default class ProjectsPage implements OnInit {
 	});
 
 	ngOnInit(): void {
+		const t = this.i18n.t();
 		this.seo.updatePage({
-			title: this.i18n.t()('seo.projects.title'),
-			description: this.i18n.t()('seo.projects.description'),
+			title: t('seo.projects.title'),
+			description: t('seo.projects.description'),
+			ogImage: ogImageUrl(t('seo.projects.title'), t('seo.projects.description'), 'projects'),
 			canonical: 'https://devsandoval.me/projects',
 		});
 	}

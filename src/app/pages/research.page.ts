@@ -5,6 +5,7 @@ import { SectionTitleComponent } from '@shared/ui/section-title/section-title.co
 import { ScrollObserverDirective } from '@shared/lib/animation/scroll-observer.directive';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
+import { ogImageUrl } from '@shared/config/contact.config';
 
 @Component({
 	selector: 'app-research-page',
@@ -71,9 +72,11 @@ export default class ResearchPage implements OnInit {
 	private readonly seo = inject(SeoService);
 
 	ngOnInit(): void {
+		const t = this.i18n.t();
 		this.seo.updatePage({
-			title: this.i18n.t()('seo.research.title'),
-			description: this.i18n.t()('seo.research.description'),
+			title: t('seo.research.title'),
+			description: t('seo.research.description'),
+			ogImage: ogImageUrl(t('seo.research.title'), t('seo.research.description'), 'research'),
 			canonical: 'https://devsandoval.me/research',
 		});
 	}
