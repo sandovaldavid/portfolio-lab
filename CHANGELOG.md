@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.5.0-beta.0...v1.6.0-beta.0) (2026-06-29)
+
+
+### Features
+
+* **case-studies:** add 4 project case studies with detail pages ([#113](https://github.com/sandovaldavid/portfolio/issues/113)) ([89429ca](https://github.com/sandovaldavid/portfolio/commit/89429cad0755e229fb221f616e674d3c3914364f))
+
 ## [1.5.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.4.0-beta.0...v1.5.0-beta.0) (2026-06-29)
 
 
