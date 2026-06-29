@@ -56,6 +56,10 @@ describe('SeoService', () => {
 		expect(spy).toHaveBeenCalledWith({ property: 'og:title', content: expect.any(String) });
 		expect(spy).toHaveBeenCalledWith({ property: 'og:description', content: 'Description' });
 		expect(spy).toHaveBeenCalledWith({ property: 'og:type', content: 'website' });
+		expect(spy).toHaveBeenCalledWith({
+			name: 'twitter:image',
+			content: 'https://devsandoval.me/portfolio_meta-data.webp',
+		});
 	});
 
 	it('should inject JSON-LD script', () => {

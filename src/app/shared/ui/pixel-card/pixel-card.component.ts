@@ -11,7 +11,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 	},
 })
 export class PixelCardComponent {
-	readonly scanlines = input(false);
 	readonly variant = input<'default' | 'elevated' | 'flush'>('default');
 	readonly hover = input(false);
 
