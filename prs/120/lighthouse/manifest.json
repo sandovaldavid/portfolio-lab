@@ -2,8 +2,8 @@
   {
     "url": "http://localhost:3000/",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_28_06.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_28_06.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_32_54.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_32_54.report.json",
     "summary": {
       "performance": 0.94,
       "accessibility": 1,
@@ -14,8 +14,8 @@
   {
     "url": "http://localhost:3000/about",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_28_22.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_28_22.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_33_10.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_33_10.report.json",
     "summary": {
       "performance": 0.96,
       "accessibility": 0.96,
@@ -26,8 +26,8 @@
   {
     "url": "http://localhost:3000/projects",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_28_48.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_28_48.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_33_51.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_33_51.report.json",
     "summary": {
       "performance": 0.93,
       "accessibility": 0.99,
@@ -38,8 +38,8 @@
   {
     "url": "http://localhost:3000/",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_27_48.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_27_48.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_32_36.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_32_36.report.json",
     "summary": {
       "performance": 0.87,
       "accessibility": 1,
@@ -50,8 +50,8 @@
   {
     "url": "http://localhost:3000/about",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_28_35.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_28_35.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_33_23.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_33_23.report.json",
     "summary": {
       "performance": 0.96,
       "accessibility": 0.96,
@@ -62,10 +62,10 @@
   {
     "url": "http://localhost:3000/projects",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_29_02.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_29_02.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_33_36.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_33_36.report.json",
     "summary": {
-      "performance": 0.93,
+      "performance": 0.9,
       "accessibility": 0.99,
       "best-practices": 1,
       "seo": 1
