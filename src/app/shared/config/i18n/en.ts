@@ -58,12 +58,12 @@ export const en = {
 		'Angular,TypeScript,WordPress,E-commerce,Responsive Design,Java,Spring Boot',
 
 	'experience.programador-ti.date': 'Jun 2024 – Oct 2024',
-	'experience.programador-ti.title': 'Software Developer and IT Specialist',
+	'experience.programador-ti.title': 'Software Engineer — Legacy Modernization',
 	'experience.programador-ti.company': 'Provincial Municipality of Piura',
 	'experience.programador-ti.description':
-		'Administered and maintained technological infrastructure supporting municipal operations|Diagnosed and resolved software incidents, streamlining institutional IT processes|Contributed to migration of legacy FoxPro systems to React frontend, modernizing the institutional tech stack',
+		'Led migration of legacy FoxPro systems to React, modernizing the municipal tech stack and improving maintainability|Designed and implemented frontend architecture for institutional systems, reducing technical debt|Supported critical IT infrastructure operations and resolved software incidents across municipal teams',
 	'experience.programador-ti.technologies':
-		'React,FoxPro,Systems Migration,Systems Administration,Infrastructure',
+		'React,FoxPro,Systems Migration,Frontend Architecture,Infrastructure',
 
 	// ── Projects ──────────────────────────────────────────────────────
 	'projects.code-button': 'Code',
