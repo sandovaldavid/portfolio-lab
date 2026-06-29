@@ -2,10 +2,10 @@
   {
     "url": "http://localhost:3000/",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_23_01_21_51.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_23_01_21_51.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_23_32.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_23_32.report.json",
     "summary": {
-      "performance": 0.96,
+      "performance": 0.94,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 1
@@ -14,10 +14,10 @@
   {
     "url": "http://localhost:3000/about",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_23_01_22_19.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_23_01_22_19.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_24_02.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_24_02.report.json",
     "summary": {
-      "performance": 0.97,
+      "performance": 0.96,
       "accessibility": 0.96,
       "best-practices": 1,
       "seo": 1
@@ -26,10 +26,10 @@
   {
     "url": "http://localhost:3000/projects",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_23_01_22_45.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_23_01_22_45.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_24_29.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_24_29.report.json",
     "summary": {
-      "performance": 0.91,
+      "performance": 0.93,
       "accessibility": 0.99,
       "best-practices": 1,
       "seo": 1
@@ -38,10 +38,10 @@
   {
     "url": "http://localhost:3000/",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_23_01_21_33.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_23_01_21_33.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_23_14.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost--2026_06_29_04_23_14.report.json",
     "summary": {
-      "performance": 0.89,
+      "performance": 0.87,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 1
@@ -50,10 +50,10 @@
   {
     "url": "http://localhost:3000/about",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_23_01_22_06.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_23_01_22_06.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_23_49.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-about-2026_06_29_04_23_49.report.json",
     "summary": {
-      "performance": 0.97,
+      "performance": 0.96,
       "accessibility": 0.96,
       "best-practices": 1,
       "seo": 1
@@ -62,10 +62,10 @@
   {
     "url": "http://localhost:3000/projects",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_23_01_22_31.report.html",
-    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_23_01_22_31.report.json",
+    "htmlPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_24_15.report.html",
+    "jsonPath": "/home/runner/work/portfolio/portfolio/lighthouse-results/localhost-projects-2026_06_29_04_24_15.report.json",
     "summary": {
-      "performance": 0.91,
+      "performance": 0.93,
       "accessibility": 0.99,
       "best-practices": 1,
       "seo": 1
