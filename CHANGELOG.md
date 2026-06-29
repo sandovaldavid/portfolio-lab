@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.6.0-beta.0...v1.6.1-beta.0) (2026-06-29)
+
+
+### Refactoring
+
+* **ci:** optimize workflows and transition reports to artifacts ([#120](https://github.com/sandovaldavid/portfolio/issues/120)) ([eb21810](https://github.com/sandovaldavid/portfolio/commit/eb21810f6c2602c333da58cb461f6f55d6c40a84))
+
 ## [1.6.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.5.0-beta.0...v1.6.0-beta.0) (2026-06-29)
 
 
