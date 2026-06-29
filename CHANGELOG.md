@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.6.1-beta.0...v1.7.0-beta.0) (2026-06-29)
+
+
+### Features
+
+* **config:** add note prerender routes and improve obsidian sync ([0763077](https://github.com/sandovaldavid/portfolio/commit/0763077f4fa0742f866ef6605d1a1282ad46550a))
+* **notes:** add OG images, 6 new TIL notes, and improve Obsidian sync webhook ([746b51a](https://github.com/sandovaldavid/portfolio/commit/746b51abe385d7e278b8df1794bbacc64a9f1e63))
+* **seo:** add per-page og images with satori ([56cd7e0](https://github.com/sandovaldavid/portfolio/commit/56cd7e0e588a56e05fd2a96c2d5c5ff35f3f1db4))
+
 ## [1.6.1-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.6.0-beta.0...v1.6.1-beta.0) (2026-06-29)
 
 
