@@ -180,3 +180,4 @@ See [SECURITY.md](./SECURITY.md) for more details.
 - [Angular Documentation](https://angular.io)
 - [Vite Documentation](https://vitejs.dev)
 
+<!-- CI/CD workflow validation test -->
