@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnInit,
+	computed,
+	inject,
+	signal,
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, injectContentFiles, MarkdownComponent } from '@analogjs/content';
