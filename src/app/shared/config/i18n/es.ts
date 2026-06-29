@@ -60,12 +60,12 @@ export const es: Record<TranslationKey, string> = {
 		'Angular,TypeScript,WordPress,E-commerce,Diseño Responsivo,Java,Spring Boot',
 
 	'experience.programador-ti.date': 'Jun 2024 – Oct 2024',
-	'experience.programador-ti.title': 'Desarrollador de Software y Especialista TI',
+	'experience.programador-ti.title': 'Ingeniero de Software — Modernización de Sistemas Legados',
 	'experience.programador-ti.company': 'Municipalidad Provincial de Piura',
 	'experience.programador-ti.description':
-		'Administré y mantuve infraestructura tecnológica que soporta operaciones municipales|Diagnostiqué y resolví incidentes de software, optimizando procesos institucionales de TI|Contribuí a la migración de sistemas FoxPro legados a frontend React, modernizando el stack tecnológico',
+		'Lideré la migración de sistemas FoxPro legados a React, modernizando el stack municipal y mejorando la mantenibilidad|Diseñé e implementé arquitectura frontend para sistemas institucionales, reduciendo deuda técnica|Apoyé operaciones críticas de infraestructura TI y resolví incidentes de software en equipos municipales',
 	'experience.programador-ti.technologies':
-		'React,FoxPro,Migración de Sistemas,Administración de Sistemas,Infraestructura',
+		'React,FoxPro,Migración de Sistemas,Arquitectura Frontend,Infraestructura',
 
 	// ── Projects ──────────────────────────────────────────────────────
 	'projects.code-button': 'Código',
