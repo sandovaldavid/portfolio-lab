@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.7.0-beta.0...v1.8.0-beta.0) (2026-06-29)
+
+
+### Features
+
+* **app:** add twitter:image, reading time, and cleanup dead code ([#126](https://github.com/sandovaldavid/portfolio/issues/126)) ([686eda7](https://github.com/sandovaldavid/portfolio/commit/686eda78bc4356b2a2c4cdc9ebafae75c80e5e75))
+
 ## [1.7.0-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.6.1-beta.0...v1.7.0-beta.0) (2026-06-29)
 
 
