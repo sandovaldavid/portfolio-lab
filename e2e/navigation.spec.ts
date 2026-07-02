@@ -27,7 +27,7 @@ test.describe('Navigation', () => {
 	test('should not have broken internal links', async ({ page }) => {
 		await page.goto('/');
 		const links = await page.locator('a[href^="/"]').all();
-		const hrefs = [...new Set(await Promise.all(links.map(l => l.getAttribute('href'))))];
+		const hrefs = [...new Set(await Promise.all(links.map((l) => l.getAttribute('href'))))];
 
 		for (const href of hrefs) {
 			if (!href || href === '#') continue;
@@ -51,17 +51,22 @@ test.describe('Accessibility per page', () => {
 			await page.goto(route.path);
 			const results = await new AxeBuilder({ page })
 				.withTags(['wcag2a', 'wcag2aa'])
-				// color-contrast: NES/pixel dark theme uses low-contrast as a design aesthetic.
+				// color-contrast: re-checked 2026-07 (Task 08) — still fails broadly (ratios as
+				//   low as ~1.05:1 vs the required 4.5:1) on project cards, metric pills, tech
+				//   pills, and CTAs across /projects, /skills, /experience. This is a real bug,
+				//   not a design choice; the previous comment claiming it was fixed in #97 was
+				//   stale. Tracked as its own follow-up rather than fixed here — re-enable once
+				//   the color tokens are corrected.
 				// nested-interactive: SVG skill-graph uses tabindex/role="button" on <g> elements
 				//   that contain focusable descendants — needs a proper redesign to fix.
 				.disableRules(['color-contrast', 'nested-interactive'])
 				.analyze();
 
 			const critical = results.violations.filter(
-				v => v.impact === 'critical' || v.impact === 'serious',
+				(v) => v.impact === 'critical' || v.impact === 'serious'
 			);
 			if (critical.length > 0) {
-				const details = critical.map(v => `${v.id}: ${v.description}`).join('\n  ');
+				const details = critical.map((v) => `${v.id}: ${v.description}`).join('\n  ');
 				console.error(`[fail] ${route.name} violations:\n  ${details}`);
 			}
 			expect(critical).toHaveLength(0);

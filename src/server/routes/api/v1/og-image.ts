@@ -10,7 +10,7 @@ interface OGProps {
 	type: string;
 }
 
-function loadFont(): Promise<
+export function loadFont(): Promise<
 	{ name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }[]
 > {
 	try {
@@ -35,11 +35,11 @@ function loadFont(): Promise<
 	}
 }
 
-function truncate(text: string, max: number): string {
+export function truncate(text: string, max: number): string {
 	return text.length > max ? text.slice(0, max) + '…' : text;
 }
 
-function buildElement({ title, description, type }: OGProps) {
+export function buildElement({ title, description, type }: OGProps) {
 	return {
 		type: 'div',
 		props: {
@@ -174,10 +174,10 @@ function buildElement({ title, description, type }: OGProps) {
 
 export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
-	const title = (query.title as string) || 'David Sandoval';
+	const title = (query['title'] as string) || 'David Sandoval';
 	const description =
-		(query.description as string) || 'Software Engineer · Angular & .NET Performance';
-	const type = (query.type as string) || 'website';
+		(query['description'] as string) || 'Software Engineer · Angular & .NET Performance';
+	const type = (query['type'] as string) || 'website';
 
 	const fonts = await loadFont();
 
