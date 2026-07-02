@@ -9,22 +9,7 @@ import { SkillsSectionComponent } from '@widgets/skills-section/skills-section.c
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [SkillsSectionComponent],
-	template: `
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-			<div class="mb-12 space-y-3">
-				<p class="font-pixel text-xs text-[--color-muted] tracking-widest uppercase">
-					// {{ i18n.t()('skills.page.subtitle') }}
-				</p>
-				<h1 class="font-pixel text-3xl md:text-4xl text-[--color-heading] font-bold">
-					{{ i18n.t()('skills.page.title') }}
-				</h1>
-				<p class="font-body text-base text-[--color-muted] max-w-2xl leading-relaxed">
-					{{ i18n.t()('skills.page.description') }}
-				</p>
-			</div>
-			<app-skills-section [compact]="false" />
-		</div>
-	`,
+	templateUrl: './skills.page.html',
 })
 export default class SkillsPage {
 	readonly i18n = inject(I18nService);

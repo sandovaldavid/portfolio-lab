@@ -17,33 +17,7 @@ import { ChaosPlaygroundComponent } from '@widgets/chaos-playground/chaos-playgr
 		StarLedgerComponent,
 		ChaosPlaygroundComponent,
 	],
-	template: `
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 py-20 space-y-20">
-			<!-- Work Timeline -->
-			<section>
-				<app-section-title>{{ i18n.t()('title.experience') }}</app-section-title>
-				<app-experience-timeline />
-			</section>
-
-			<!-- STAR Ledger -->
-			<section>
-				<app-section-title>{{ i18n.t()('title.star-ledger') }}</app-section-title>
-				<p class="font-mono text-sm text-[--color-muted] mb-6">
-					{{ i18n.t()('star.subtitle') }}
-				</p>
-				<app-star-ledger />
-			</section>
-
-			<!-- Chaos Playground -->
-			<section>
-				<app-section-title>{{ i18n.t()('title.chaos-playground') }}</app-section-title>
-				<p class="font-mono text-sm text-[--color-muted] mb-6">
-					{{ i18n.t()('chaos.subtitle') }}
-				</p>
-				<app-chaos-playground />
-			</section>
-		</div>
-	`,
+	templateUrl: './experience.page.html',
 })
 export default class ExperiencePage {
 	readonly i18n = inject(I18nService);

@@ -10,12 +10,7 @@ import { AboutSectionComponent } from '@widgets/about-section/about-section.comp
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [SectionTitleComponent, AboutSectionComponent],
-	template: `
-		<div class="max-w-4xl mx-auto px-4 sm:px-6 py-20">
-			<app-section-title>{{ i18n.t()('title.about-me') }}</app-section-title>
-			<app-about-section [compact]="false" />
-		</div>
-	`,
+	templateUrl: './about.page.html',
 })
 export default class AboutPage {
 	readonly i18n = inject(I18nService);
