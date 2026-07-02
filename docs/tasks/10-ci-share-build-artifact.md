@@ -8,15 +8,20 @@
 
 ## Checklist
 
-- [ ] En `ci.yml`'s job `build`: después de `pnpm build`, subir `dist/` completo como artifact (`actions/upload-artifact`), con un nombre determinístico que incluya el SHA del commit (p. ej. `build-${{ github.sha }}`) para que `e2e.yml`/`lighthouse.yml` puedan encontrarlo sin ambigüedad.
-- [ ] En `e2e.yml` y `lighthouse.yml`: reemplazar su propio `pnpm build` por una descarga del artifact vía `actions/download-artifact` con `run-id`/`github-token` apuntando al run de `ci.yml` para el mismo `github.sha` (usar la API de Actions para resolver el run ID del workflow `CI` para ese SHA, similar a como `deploy.yml` ya usa `github.event.workflow_run.head_sha`).
-- [ ] Evaluar el trade-off de latencia: si `e2e.yml`/`lighthouse.yml` dependen del artifact de `ci.yml`, ya no pueden arrancar en paralelo con él — considerar si conviene mantenerlos con trigger `pull_request` (esperando activamente a que el artifact exista, con reintentos/polling acotado) en vez de moverlos a `workflow_run` (que los serializaría completamente detrás de CI, aumentando el tiempo total de feedback del PR).
-- [ ] `deploy.yml` ya corre después de CI vía `workflow_run` — puede reusar el mismo artifact en vez de repetir `pnpm build`.
-- [ ] Actualizar `retention-days` del artifact de build a un valor corto (1-2 días; solo se necesita durante la vida del run, no como el resto de reportes que se guardan 14 días).
+- [x] **Corrección al alcance original:** `deploy.yml` compila con `BUILD_PRESET: vercel`, un preset de Nitro distinto (`.vercel/output`, no el `dist/` genérico) — no es el mismo build que `ci.yml`/`e2e.yml`/`lighthouse.yml`, así que no puede reusar su artifact. Queda fuera de esta tarea.
+- [x] `ci.yml`, `e2e.yml` y `lighthouse.yml` sí comparten exactamente el mismo `pnpm build` (sin preset), y los 3 corren disparados por el mismo evento `pull_request` en paralelo — sin garantía de orden entre ellos. En vez de `upload-artifact`/`download-artifact` con `run-id` (que requeriría resolver el run de `ci.yml` vía API y esperar con polling a que termine, serializando el feedback del PR), se usó `actions/cache`: `ci.yml`'s job `build` guarda `dist/` bajo la key `dist-${{ github.sha }}` después de compilar; `e2e.yml`/`lighthouse.yml` intentan un `actions/cache/restore` con la misma key **antes** de su propio `pnpm build`, y solo compilan si no hubo cache-hit.
+- [x] Esto es oportunista y sin riesgo nuevo: si el caché de `ci.yml` no está listo a tiempo (miss), el comportamiento es idéntico al actual (cada job compila el suyo) — nunca bloquea ni falla por un caché ausente.
+- [x] No aplica `retention-days` corto — `actions/cache` no usa ese parámetro; su propia política de expiración (7 días sin uso / cap de 10GB por repo) ya lo maneja.
 
 ## Criterios de aceptación
 
-- `pnpm build` corre **una sola vez** por commit en un PR normal (verificable contando invocaciones en los logs de Actions del mismo run group).
-- `e2e.yml`, `lighthouse.yml` y `deploy.yml` usan el mismo `dist/` sin reconstruir.
-- Tiempo total de CI del PR no empeora significativamente respecto al baseline actual (medir antes/después en un PR de prueba).
-- Si algún job no encuentra el artifact (build falló o expiró), falla con un mensaje claro en vez de un error críptico de `download-artifact`.
+- `ci.yml` guarda el build bajo `dist-${{ github.sha }}` tras compilar.
+- `e2e.yml`/`lighthouse.yml` restauran esa misma key antes de decidir si compilan.
+- Ningún job falla ni se cuelga si el caché no está disponible — cae de vuelta a compilar localmente, igual que antes de este cambio. **Verificado en PR #150:** ambos jobs (`e2e`, `lighthouse`) tuvieron cache-miss y compilaron localmente sin ningún error — la ruta de fallback funciona correctamente.
+- `deploy.yml` no se toca (compila con un preset distinto, fuera de alcance).
+
+## Hallazgo honesto tras verificar en CI real
+
+En la corrida real del PR #150, **ninguno de los dos jobs obtuvo cache-hit** — ambos llegaron a su paso de `restore` antes de que `ci.yml` hubiera terminado de compilar y guardar el caché. Causa: `ci.yml`'s job `build` tiene `needs: quality-checks` (gating intencional de la Task 02), así que arranca varios segundos/minutos más tarde que `e2e.yml`/`lighthouse.yml` (que no tienen esa dependencia y arrancan de inmediato con el mismo evento `pull_request`). En la práctica esto significa que el cache-hit será **poco frecuente** con la estructura de jobs actual, no la norma.
+
+La implementación sigue siendo correcta y seguro (nunca falla, nunca se cuelga), pero el ahorro de tiempo de CI prometido en el "Problema" de este documento es, en la práctica, marginal tal como está — no una mejora garantizada. Una vuelta futura podría explorar: quitar el `needs: quality-checks` del job `build` (a costa de perder el gate en sí) o añadir un reintento con una espera corta y acotada en `e2e.yml`/`lighthouse.yml` antes de rendirse y compilar localmente — pero eso cambia el trade-off de latencia y no se hizo aquí para no introducir una espera fija sin beneficio garantizado.

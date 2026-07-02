@@ -28,7 +28,15 @@ jobs:
         env:
           HUSKY: 0
 
+      - name: Restore shared build from CI
+        id: dist-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
+
       - name: Build project
+        if: steps.dist-cache.outputs.cache-hit != 'true'
         run: pnpm build
 
       - name: Run Lighthouse CI
