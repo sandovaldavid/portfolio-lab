@@ -215,17 +215,14 @@ test('should work on mobile', async ({ page }) => {
 
 [info] Tests run automatically on:
 
-- **Pull Requests**: on main/develop branches
-- **Pushes**: to main/develop branches
+- **Pull Requests**: to main/develop branches
 - **Schedule**: Weekly (Sunday 2 AM UTC)
 
 ### Viewing Results
 
 1. **Locally**: Reports open automatically after test run
-2. **GitHub**: Artifacts uploaded to workflow runs
+2. **GitHub**: Artifacts uploaded to workflow runs (`playwright-report`)
    - https://github.com/sandovaldavid/portfolio/actions
-3. **GitHub Pages**: Results published to dashboard
-   - https://sandovaldavid.github.io/portfolio/
 
 ## Debugging
 

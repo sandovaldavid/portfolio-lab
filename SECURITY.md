@@ -30,7 +30,7 @@ Security updates are provided for the latest version only.
 [info] Dependencies are automatically scanned for vulnerabilities:
 
 - Weekly dependency updates via Dependabot
-- Automatic security audits in CI/CD (`pnpm audit --audit-level=moderate`)
+- Automatic security audits in CI/CD (`pnpm audit --audit-level=critical`; `--audit-level=high` locally — unification pending, see `docs/tasks/05-chore-release-and-deps.md`)
 - Lockfile integrity validation (`pnpm install --frozen-lockfile`)
 
 ### Code Quality
@@ -38,7 +38,7 @@ Security updates are provided for the latest version only.
 [info] Security-focused code quality checks:
 
 - TypeScript strict mode enabled
-- ESLint with security plugins
+- ESLint + angular-eslint (including template accessibility rules)
 - No hardcoded secrets (pre-commit hooks)
 - Code review required for all changes
 
@@ -84,10 +84,9 @@ The following tools are integrated:
 
 [warning] Production deployments:
 
-- Require all security checks to pass
-- Manual approval from maintainer
-- Health checks post-deployment
-- Automatic rollback on critical errors
+- Automated via GitHub Actions + Vercel on push to `main` (only `develop` → `main` PRs are allowed, so changes pass PR checks first)
+- Security headers (CSP, HSTS, Permissions-Policy) enforced via `vercel.json`
+- Known gap: the deploy workflow does not yet block on CI status — hardening tracked in `docs/tasks/02-ci-deploy-gating.md`
 
 ---
 
