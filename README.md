@@ -2,12 +2,11 @@
 
 [![CI](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/ci.yml)
 [![Deploy](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/deploy.yml)
-[![CodeQL](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml/badge.svg)](https://github.com/sandovaldavid/portfolio/actions/workflows/codeql.yml)
 [![Angular](https://img.shields.io/badge/Angular-22-red?logo=angular)](https://angular.io)
 [![Built with Analog](https://img.shields.io/badge/Built%20with-Analog-blue)](https://analogjs.org)
 [![License](https://img.shields.io/github/license/sandovaldavid/portfolio)](LICENSE)
 
-Portfolio website built with [Analog](https://analogjs.org), the fullstack meta-framework for Angular 22+. Features include bilingual content (ES/EN), feature-sliced design architecture, and pixel NES aesthetics.
+Portfolio website built with [Analog](https://analogjs.org), the fullstack meta-framework for Angular 22+. Features include bilingual content (ES/EN), Feature-Sliced Design architecture, a dual Architect/Research mode, and interactive playgrounds (chaos engineering, LSTM).
 
 ## Prerequisites
 
@@ -151,12 +150,12 @@ See [E2E_TESTING.md](./E2E_TESTING.md) for detailed guide.
 
 ### Performance Audits
 
-Automatic Lighthouse CI audits on every push:
+Automatic Lighthouse CI audits on every PR (thresholds from `lighthouserc.json`):
 
-- Performance (target: 90+)
-- Accessibility (target: 95+)
-- Best Practices (target: 90+)
-- SEO (target: 95+)
+- Performance ≥ 80%
+- Accessibility ≥ 90%
+- Best Practices ≥ 85%
+- SEO ≥ 90%
 
 See [LIGHTHOUSE_CI.md](./LIGHTHOUSE_CI.md) for details.
 

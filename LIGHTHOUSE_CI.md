@@ -10,7 +10,6 @@
 - **Accessibility**: ARIA, semantic HTML, color contrast
 - **Best Practices**: Security, code quality, browser features
 - **SEO**: Mobile-friendly, structured data, indexing
-- **PWA**: Offline support, installability
 
 ## Configuration
 
@@ -20,23 +19,32 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:5173/"],
-      "numberOfRuns": 3,
+      "startServerCommand": "node dist/analog/server/index.mjs",
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/about",
+        "http://localhost:3000/projects"
+      ],
+      "numberOfRuns": 2,
       "settings": {
-        "chromeFlags": "--no-sandbox",
+        "chromeFlags": "--no-sandbox --disable-dev-shm-usage",
+        "preset": "desktop",
         "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
       }
     },
     "assert": {
-      "preset": "lighthouse:recommended",
       "assertions": {
         "categories:performance": ["error", { "minScore": 0.8 }],
-        "categories:accessibility": ["error", { "minScore": 0.9 }]
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["error", { "minScore": 0.85 }],
+        "categories:seo": ["error", { "minScore": 0.9 }]
       }
     }
   }
 }
 ```
+
+The audit runs against the **production build** served on `:3000` (started automatically via `startServerCommand`), auditing 3 URLs with 2 runs each.
 
 ### Thresholds
 
@@ -48,9 +56,8 @@ Current minimum scores:
 | Accessibility | 90% | Error |
 | Best Practices | 85% | Error |
 | SEO | 90% | Error |
-| PWA | 70% | Warning |
 
-[warning] Failed thresholds block PRs. Warnings are informational.
+[warning] Failed thresholds block PRs.
 
 ## Running Locally
 
@@ -82,19 +89,16 @@ xdg-open lighthouse-results/index.html
 
 [info] Lighthouse CI runs automatically on:
 
-- **Pull Requests**: to main/develop branches
-- **Pushes**: to main/develop branches
-- **Schedule**: Weekly (Sunday 2 AM UTC)
+- **Pull Requests**: to main/develop branches (`.github/workflows/lighthouse.yml`)
 
 ### Viewing Results
 
 1. **In Pull Request**: Comment shows score summary
-2. **In Workflow Artifacts**: Full reports uploaded to GitHub Actions
-3. **GitHub Pages**: Historical results published to dashboard
+2. **In Workflow Artifacts**: Full reports uploaded to GitHub Actions (`lighthouse-reports`)
 
 ## Understanding Scores
 
-### Performance (Target: 90+)
+### Performance (Threshold: 80+)
 
 Focus areas:
 
@@ -102,7 +106,7 @@ Focus areas:
 - First Input Delay (FID) < 100ms
 - Cumulative Layout Shift (CLS) < 0.1
 
-### Accessibility (Target: 95+)
+### Accessibility (Threshold: 90+)
 
 Focus areas:
 
@@ -111,7 +115,7 @@ Focus areas:
 - Form labels and descriptions
 - ARIA attributes
 
-### Best Practices (Target: 90+)
+### Best Practices (Threshold: 85+)
 
 Focus areas:
 
@@ -120,7 +124,7 @@ Focus areas:
 - No console errors
 - Modern browser APIs
 
-### SEO (Target: 95+)
+### SEO (Threshold: 90+)
 
 Focus areas:
 
@@ -240,21 +244,15 @@ Tests use "Slow 4G" network simulation. To test fast:
 }
 ```
 
-## GitHub Pages Dashboard
+## Reports as Artifacts
 
-[info] All reports are published to GitHub Pages at:
+[info] All reports are uploaded as GitHub Actions artifacts (the old GitHub Pages dashboard was removed in #120):
 
-```
-https://sandovaldavid.github.io/portfolio/
-```
+- [success] Bundle analysis (`bundle-stats`, Rollup visualizer)
+- [success] Lighthouse audit scores (`lighthouse-reports`)
+- [success] Test coverage reports (`coverage-report`)
 
-Includes:
-
-- [success] Bundle analysis (Rollup visualizer)
-- [success] Lighthouse audit scores
-- [success] Test coverage reports
-
-Access from the README or actions artifacts.
+Access: Actions tab → select a run → Artifacts section.
 
 ## Best Practices
 
