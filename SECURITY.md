@@ -47,9 +47,14 @@ Security updates are provided for the latest version only.
 [info] GitHub Actions security practices:
 
 - Minimal workflow permissions (least privilege principle)
+- Third-party Actions pinned to a commit SHA (not a mutable tag), with the tag kept as a comment for readability
 - Secrets encrypted and scoped to environments
 - No shell injection risks (proper input handling)
 - Build artifacts scanned before deployment
+
+### Static Analysis (CodeQL)
+
+[info] CodeQL was removed from CI (commit `c8fc00f5`) and is intentionally **not** restored. This is a private, single-maintainer repo with no third-party contributors and no secrets processed by the analyzed code paths — the CI-minutes cost of a full CodeQL scan on every push/PR outweighs its marginal benefit here. `pnpm audit`, ESLint, and TypeScript strict mode remain as the static-analysis layer. Revisit if the repo gains outside contributors or a larger attack surface.
 
 ### Best Practices for Contributors
 
@@ -86,7 +91,7 @@ The following tools are integrated:
 
 - Automated via GitHub Actions + Vercel on push to `main` (only `develop` → `main` PRs are allowed, so changes pass PR checks first)
 - Security headers (CSP, HSTS, Permissions-Policy) enforced via `vercel.json`
-- Known gap: the deploy workflow does not yet block on CI status — hardening tracked in `docs/tasks/02-ci-deploy-gating.md`
+- Deploy is gated on CI success (`deploy.yml` triggers on `workflow_run` of `CI`, not directly on push)
 
 ---
 
