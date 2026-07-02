@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, injectContentFiles, MarkdownComponent } from '@analogjs/content';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, map } from 'rxjs';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
-import { SeoService } from '@shared/lib/seo/seo.service';
+import { setupPageSeo } from '@shared/lib/seo/page-seo';
 import { ogImageUrl } from '@shared/config/contact.config';
 import { NoteAttributes } from './index.page';
 
@@ -19,7 +19,6 @@ import { NoteAttributes } from './index.page';
 })
 export default class NoteDetailPage {
 	readonly i18n = inject(I18nService);
-	private readonly seo = inject(SeoService);
 
 	// Notes live under src/content/{algorithms,systems}/ — injectContent() needs an explicit
 	// subdirectory to build the right file path, and a bare slug doesn't say which one it's
@@ -66,25 +65,17 @@ export default class NoteDetailPage {
 	});
 
 	constructor() {
-		effect(() => {
+		setupPageSeo((t) => {
 			const note = this.note();
-			if (note === null) return;
+			if (note === null) return null;
 
 			if (!note.attributes?.title) {
-				this.seo.updatePage({
-					title: this.i18n.t()('seo.404.title'),
-					description: this.i18n.t()('seo.404.description'),
-				});
-				return;
+				return { title: t('seo.404.title'), description: t('seo.404.description') };
 			}
 
 			const title = `${note.attributes.title} | TIL Vault`;
 			const description = note.attributes.description;
-			this.seo.updatePage({
-				title,
-				description,
-				ogImage: ogImageUrl(title, description, 'note'),
-			});
+			return { title, description, ogImage: ogImageUrl(title, description, 'note') };
 		});
 	}
 }
