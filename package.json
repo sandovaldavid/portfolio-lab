@@ -9,7 +9,7 @@
     "ng": "ng",
     "dev": "vite",
     "start": "npm run dev",
-    "build": "vite build && node scripts/inject-csp-hashes.mjs",
+    "build": "vite build",
     "watch": "vite build --watch",
     "test": "vitest",
     "test:ui": "vitest --ui",

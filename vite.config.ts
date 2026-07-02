@@ -6,7 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
-import { readdirSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
+import { createHash } from 'crypto';
+import { globSync } from 'tinyglobby';
 import katex from 'katex';
 
 // Reads content slugs directly from src/content/ so new notes/case studies
@@ -71,6 +73,28 @@ function markedKatexExtension() {
   };
 }
 
+const INLINE_SCRIPT = /<script(?![^>]*\ssrc=)[^>]*>([\s\S]*?)<\/script>/gi;
+
+// Must run via the rollup:before hook, before Nitro bakes a static-asset
+// manifest with stale sizes into the server bundle if run any later.
+function injectCspHashes(publicDir: string): void {
+  const files = globSync(`${publicDir}/**/index.html`);
+  for (const file of files) {
+    const html = readFileSync(file, 'utf-8');
+    const hashes = new Set<string>();
+    for (const match of html.matchAll(INLINE_SCRIPT)) {
+      const content = match[1];
+      if (!content.trim()) continue;
+      const hash = createHash('sha256').update(content, 'utf-8').digest('base64');
+      hashes.add(`'sha256-${hash}'`);
+    }
+    if (hashes.size === 0) continue;
+    const meta = `<meta http-equiv="Content-Security-Policy" content="script-src 'self' ${[...hashes].join(' ')}">`;
+    writeFileSync(file, html.replace('<head>', `<head>\n  ${meta}`), 'utf-8');
+  }
+  console.warn(`[csp] injected script-src hashes into ${files.length} prerendered pages`);
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
   build: {
@@ -100,6 +124,13 @@ export default defineConfig(() => ({
   },
   plugins: [
     analog({
+      nitro: {
+        hooks: {
+          'rollup:before': (nitro: { options: { output: { publicDir: string } } }) => {
+            injectCspHashes(nitro.options.output.publicDir);
+          },
+        },
+      },
       content: {
         highlighter: 'prism',
         prismOptions: {
