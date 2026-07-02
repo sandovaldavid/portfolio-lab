@@ -6,7 +6,16 @@ import tailwindcss from '@tailwindcss/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
+import { readdirSync } from 'fs';
 import katex from 'katex';
+
+// Reads content slugs directly from src/content/ so new notes/case studies
+// are automatically prerendered (and land in the sitemap) without a manual step.
+function contentSlugs(dir: string, prefix: string): string[] {
+  return readdirSync(resolve(__dirname, `src/content/${dir}`))
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => `${prefix}/${f.replace(/\.md$/, '')}`);
+}
 
 // Custom marked extension for KaTeX math rendering
 function markedKatexExtension() {
@@ -108,14 +117,11 @@ export default defineConfig(({ mode }) => ({
           '/experience',
           '/skills',
           '/notes',
-          '/notes/binary-search',
-          '/notes/circuit-breaker',
-          '/notes/quicksort-mergesort',
-          '/notes/dynamic-programming',
-          '/notes/graph-traversal',
-          '/notes/caching-strategies',
-          '/notes/database-indexing',
-          '/notes/cap-theorem',
+          '/research',
+          '/resume',
+          ...contentSlugs('algorithms', '/notes'),
+          ...contentSlugs('systems', '/notes'),
+          ...contentSlugs('case-studies', '/projects'),
         ],
         sitemap: {
           host: 'https://devsandoval.me',

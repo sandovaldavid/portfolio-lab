@@ -270,6 +270,8 @@ Note: the CodeQL workflow was removed (commit `c8fc00f5`); there is currently no
 Content lives in `src/content/` as markdown files.
 The site is bilingual (ES/EN). When adding text content, always add both language versions.
 
+Routes for `algorithms/`, `systems/`, and `case-studies/` markdown files are prerendered automatically: `vite.config.ts` reads `src/content/{dir}` at build time and generates the matching `/notes/*` or `/projects/*` prerender route, so a new note or case study lands in the static build and sitemap without touching `vite.config.ts`. Static routes (`/research`, `/resume`, etc.) still need to be added to `vite.config.ts`'s `prerender.routes` manually, plus `e2e/navigation.spec.ts` and `lighthouserc.json`.
+
 ## Performance Budgets
 
 Vite is configured with `chunkSizeWarningLimit: 500` (KB).

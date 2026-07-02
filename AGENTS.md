@@ -113,7 +113,7 @@ Every new piece of code needs a spec:
 This is the most common regression source in this repo. When adding a page:
 
 1. Create `src/app/pages/<name>.page.ts` (+ spec).
-2. Add the route to `prerender.routes` in `vite.config.ts` (otherwise it is missing from the sitemap).
+2. Add the route to `prerender.routes` in `vite.config.ts` (otherwise it is missing from the sitemap). Routes backed by `src/content/{algorithms,systems,case-studies}/*.md` are generated automatically from the filesystem — only static, non-content routes need a manual entry.
 3. Add the route to `e2e/navigation.spec.ts` (otherwise it skips a11y/navigation CI checks).
 4. Add UI texts to **both** i18n dictionaries: `src/app/shared/config/i18n/en.ts` and `es.ts` (the site is bilingual — never hardcode user-facing strings).
 5. Set page metadata via `SeoService.updatePage(...)` (`src/app/shared/lib/seo/`).
