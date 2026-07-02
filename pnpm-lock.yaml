@@ -173,8 +173,8 @@ importers:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.39.2(jiti@2.6.1))
       h3:
-        specifier: ^1.15.5
-        version: 1.15.5
+        specifier: ^1.15.6
+        version: 1.15.11
       husky:
         specifier: ^9.1.7
         version: 9.1.7
