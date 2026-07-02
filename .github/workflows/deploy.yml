@@ -1,7 +1,9 @@
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches:
       - main
       - develop
@@ -18,13 +20,15 @@ jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event.workflow_run.conclusion == 'success'
     permissions:
       contents: read
       deployments: write
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v6
         with:
@@ -46,22 +50,24 @@ jobs:
         id: deployment
         with:
           script: |
+            const isProd = '${{ github.event.workflow_run.head_branch }}' === 'main';
             const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: context.ref,
-              environment: "${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}",
+              ref: '${{ github.event.workflow_run.head_sha }}',
+              environment: isProd ? 'production' : 'preview',
               auto_merge: false,
               required_contexts: [],
-              production_environment: ${{ github.ref == 'refs/heads/main' }}
+              production_environment: isProd
             });
             core.setOutput('deployment_id', deployment.data.id);
+            core.setOutput('is_prod', isProd);
 
       - name: Deploy to Vercel
         id: vercel
         run: |
           set -o pipefail
-          npx vercel deploy --prebuilt --yes ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee deploy_output.txt
+          npx vercel deploy --prebuilt --yes ${{ steps.deployment.outputs.is_prod == 'true' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }} 2>&1 | tee deploy_output.txt
           DEPLOY_URL=$(grep -oP 'https://[a-z0-9-]+\.vercel\.app' deploy_output.txt | head -1)
           echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
           echo "[success] Deployed to: $DEPLOY_URL"
@@ -75,13 +81,15 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
+            const isProd = ${{ steps.deployment.outputs.is_prod }};
+            const environmentUrl = isProd ? 'https://devsandoval.me' : '${{ steps.vercel.outputs.deploy_url }}';
             github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               deployment_id: ${{ steps.deployment.outputs.deployment_id }},
               state: 'success',
               description: 'Deployment successful',
-              environment_url: '${{ steps.vercel.outputs.deploy_url }}'
+              environment_url: environmentUrl
             });
 
       - name: Update deployment status (failure)
@@ -98,7 +106,7 @@ jobs:
             });
 
       - name: Comment preview URL on open PR
-        if: success() && github.ref == 'refs/heads/develop'
+        if: success() && github.event.workflow_run.head_branch == 'develop'
         uses: actions/github-script@v9
         with:
           script: |
@@ -124,7 +132,8 @@ jobs:
             });
             const existing = comments.find(c => c.body.includes(marker));
 
-            const body = `${marker}\n[info] **Preview deployment ready**\n\n| | |\n|---|---|\n| **URL** | ${deployUrl} |\n| **Commit** | ${context.sha.slice(0, 7)} |\n\nFull report: [Actions run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+            const headSha = '${{ github.event.workflow_run.head_sha }}';
+            const body = `${marker}\n[info] **Preview deployment ready**\n\n| | |\n|---|---|\n| **URL** | ${deployUrl} |\n| **Commit** | ${headSha.slice(0, 7)} |\n\nFull report: [Actions run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
 
             if (existing) {
               await github.rest.issues.updateComment({

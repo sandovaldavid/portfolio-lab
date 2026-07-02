@@ -9,7 +9,7 @@ on:
     - cron: '0 2 * * 0'
 
 permissions:
-  contents: write
+  contents: read
   checks: write
   pull-requests: write
 
@@ -81,17 +81,35 @@ jobs:
           script: |
             const fs = require('fs');
             const reportPath = 'test-results/playwright.json';
-            if (fs.existsSync(reportPath)) {
-              const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
-              const stats = report.stats || {};
-              const passed = stats.unexpected ? stats.expected - stats.unexpected : 0;
-              const prNumber = context.issue.number;
-              const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-              const body = `### 🎭 Playwright E2E Test Results\n\n- **Total Tests**: ${stats.expected || 0}\n- **Passed**: ${passed}\n- **Failed**: ${stats.unexpected || 0}\n\n📦 **Download Artifact:** Puedes descargar el reporte desde la página de [GitHub Actions Run](${runUrl}).\n\n💻 **View Locally:** Para descargar y levantar este reporte interactivo localmente, ejecuta:\n\`\`\`bash\ngh run download ${context.runId} -n playwright-report && npx serve playwright-report\n\`\`\``;
-              github.rest.issues.createComment({
-                issue_number: prNumber,
+            if (!fs.existsSync(reportPath)) return;
+
+            const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+            const stats = report.stats || {};
+            const passed = stats.expected || 0;
+            const prNumber = context.issue.number;
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const marker = '<!-- e2e-report -->';
+            const body = `${marker}\n### 🎭 Playwright E2E Test Results\n\n- **Total Tests**: ${stats.expected || 0}\n- **Passed**: ${passed}\n- **Failed**: ${stats.unexpected || 0}\n\n📦 **Download Artifact:** Puedes descargar el reporte desde la página de [GitHub Actions Run](${runUrl}).\n\n💻 **View Locally:** Para descargar y levantar este reporte interactivo localmente, ejecuta:\n\`\`\`bash\ngh run download ${context.runId} -n playwright-report && npx serve playwright-report\n\`\`\``;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: body
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
               });
             }
