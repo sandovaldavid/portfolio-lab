@@ -26,11 +26,11 @@ jobs:
       deployments: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: pnpm/action-setup@b0f76dfb45f55f8421693e4803ac7bb65143bd34 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
@@ -46,7 +46,7 @@ jobs:
           BUILD_PRESET: vercel
 
       - name: Create deployment
-        uses: actions/github-script@v9
+        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
         id: deployment
         with:
           script: |
@@ -78,7 +78,7 @@ jobs:
 
       - name: Update deployment status (success)
         if: success()
-        uses: actions/github-script@v9
+        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
         with:
           script: |
             const isProd = ${{ steps.deployment.outputs.is_prod }};
@@ -94,7 +94,7 @@ jobs:
 
       - name: Update deployment status (failure)
         if: failure()
-        uses: actions/github-script@v9
+        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
         with:
           script: |
             github.rest.repos.createDeploymentStatus({
@@ -107,7 +107,7 @@ jobs:
 
       - name: Comment preview URL on open PR
         if: success() && github.event.workflow_run.head_branch == 'develop'
-        uses: actions/github-script@v9
+        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
         with:
           script: |
             const deployUrl = '${{ steps.vercel.outputs.deploy_url }}';
