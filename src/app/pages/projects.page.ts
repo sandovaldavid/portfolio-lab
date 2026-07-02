@@ -1,12 +1,5 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	OnInit,
-	computed,
-	inject,
-	signal,
-} from '@angular/core';
-import { SeoService } from '@shared/lib/seo/seo.service';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { setupPageSeo } from '@shared/lib/seo/page-seo';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { ogImageUrl } from '@shared/config/contact.config';
 import { SectionTitleComponent } from '@shared/ui/section-title/section-title.component';
@@ -71,9 +64,8 @@ import { getProjectsData } from '@entities/project/model/project.data';
 		</div>
 	`,
 })
-export default class ProjectsPage implements OnInit {
+export default class ProjectsPage {
 	readonly i18n = inject(I18nService);
-	private readonly seo = inject(SeoService);
 
 	readonly activeFilter = signal<string>('all');
 
@@ -94,13 +86,12 @@ export default class ProjectsPage implements OnInit {
 			: this.allProjects().filter((p) => p.category === filter);
 	});
 
-	ngOnInit(): void {
-		const t = this.i18n.t();
-		this.seo.updatePage({
+	constructor() {
+		setupPageSeo((t) => ({
 			title: t('seo.projects.title'),
 			description: t('seo.projects.description'),
 			ogImage: ogImageUrl(t('seo.projects.title'), t('seo.projects.description'), 'projects'),
 			canonical: 'https://devsandoval.me/projects',
-		});
+		}));
 	}
 }

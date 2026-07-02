@@ -13,19 +13,19 @@ describe('ResumePage', () => {
 			imports: [ResumePage],
 			providers: [I18nService, SeoService, Title, Meta],
 		}).compileComponents();
-		fixture = TestBed.createComponent(ResumePage);
-		fixture.detectChanges();
 	});
 
 	it('should render a placeholder while resume is deferred', () => {
+		fixture = TestBed.createComponent(ResumePage);
+		fixture.detectChanges();
 		const placeholder = fixture.nativeElement.querySelector('.min-h-screen');
 		expect(placeholder).toBeTruthy();
 	});
 
 	it('should call seo.updatePage with canonical resume URL on init', () => {
-		const seo = TestBed.inject(SeoService);
-		const spy = vi.spyOn(seo, 'updatePage');
-		fixture.componentInstance.ngOnInit();
+		const spy = vi.spyOn(TestBed.inject(SeoService), 'updatePage');
+		fixture = TestBed.createComponent(ResumePage);
+		fixture.detectChanges();
 		expect(spy).toHaveBeenCalledWith(
 			expect.objectContaining({ canonical: 'https://devsandoval.me/resume' })
 		);

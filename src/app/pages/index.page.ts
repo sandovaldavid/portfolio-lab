@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SeoService } from '@shared/lib/seo/seo.service';
+import { setupPageSeo } from '@shared/lib/seo/page-seo';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { ModeStateService } from '@shared/lib/mode/mode-state.service';
 import { OWNER, ogImageUrl } from '@shared/config/contact.config';
@@ -237,15 +237,13 @@ import { MextThesisPitchComponent } from '@widgets/mext-thesis-pitch/mext-thesis
 		</div>
 	`,
 })
-export default class HomePage implements OnInit {
+export default class HomePage {
 	readonly i18n = inject(I18nService);
 	readonly state = inject(ModeStateService);
 	readonly emailHref = `mailto:${OWNER.email}`;
-	private readonly seo = inject(SeoService);
 
-	ngOnInit(): void {
-		const t = this.i18n.t();
-		this.seo.updatePage({
+	constructor() {
+		setupPageSeo((t) => ({
 			title: t('seo.home.title'),
 			description: t('seo.home.description'),
 			ogImage: ogImageUrl(t('seo.home.title'), t('seo.home.description'), 'home'),
@@ -264,6 +262,6 @@ export default class HomePage implements OnInit {
 					url: 'https://atena.la',
 				},
 			},
-		});
+		}));
 	}
 }

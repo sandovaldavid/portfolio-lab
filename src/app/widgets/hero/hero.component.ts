@@ -1,8 +1,9 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	OnDestroy,
-	OnInit,
+	DestroyRef,
+	computed,
+	effect,
 	inject,
 	signal,
 } from '@angular/core';
@@ -18,7 +19,7 @@ import { OWNER } from '@shared/config/contact.config';
 	templateUrl: './hero.component.html',
 	styleUrl: './hero.component.css',
 })
-export class HeroComponent implements OnInit, OnDestroy {
+export class HeroComponent {
 	readonly i18n = inject(I18nService);
 	readonly displayedText = signal('');
 	readonly emailHref = `mailto:${OWNER.email}`;
@@ -26,23 +27,28 @@ export class HeroComponent implements OnInit, OnDestroy {
 	readonly linkedinHref = OWNER.linkedin;
 	readonly githubHref = OWNER.github;
 
-	private phrases: string[] = [];
+	private readonly phrases = computed(() => this.i18n.t()('hero.typewriter.phrases').split(','));
 	private phraseIdx = 0;
 	private charIdx = 0;
 	private deleting = false;
 	private timer?: ReturnType<typeof setTimeout>;
 
-	ngOnInit(): void {
-		this.phrases = this.i18n.t()('hero.typewriter.phrases').split(',');
-		this._tick();
-	}
+	constructor() {
+		effect(() => {
+			this.phrases();
+			this.phraseIdx = 0;
+			this.charIdx = 0;
+			this.deleting = false;
+			clearTimeout(this.timer);
+			this._tick();
+		});
 
-	ngOnDestroy(): void {
-		clearTimeout(this.timer);
+		inject(DestroyRef).onDestroy(() => clearTimeout(this.timer));
 	}
 
 	private _tick(): void {
-		const phrase = this.phrases[this.phraseIdx % this.phrases.length];
+		const phrases = this.phrases();
+		const phrase = phrases[this.phraseIdx % phrases.length];
 
 		if (!this.deleting) {
 			this.charIdx++;

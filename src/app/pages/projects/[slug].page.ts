@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, MarkdownComponent } from '@analogjs/content';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
-import { SeoService } from '@shared/lib/seo/seo.service';
+import { setupPageSeo } from '@shared/lib/seo/page-seo';
 import { ogImageUrl } from '@shared/config/contact.config';
 
 export interface CaseStudyAttributes {
@@ -25,31 +25,31 @@ export interface CaseStudyAttributes {
 	styleUrl: './[slug].page.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CaseStudyPage implements OnInit {
+export default class CaseStudyPage {
 	readonly i18n = inject(I18nService);
-	private readonly seo = inject(SeoService);
 
+	// injectContent() resolves via a Promise even when the file exists, so caseStudy()
+	// stays null for at least one tick — isNotFound must react to that, not read it once.
 	readonly caseStudy = toSignal(injectContent<CaseStudyAttributes>(), {
 		initialValue: null,
 	});
-	readonly isNotFound = signal(false);
-
-	ngOnInit(): void {
+	readonly isNotFound = computed(() => {
 		const study = this.caseStudy();
-		if (!study || !study.attributes?.title) {
-			this.isNotFound.set(true);
-			this.seo.updatePage({
-				title: this.i18n.t()('seo.404.title'),
-				description: this.i18n.t()('seo.404.description'),
-			});
-		} else {
+		return study !== null && !study.attributes?.title;
+	});
+
+	constructor() {
+		setupPageSeo((t) => {
+			const study = this.caseStudy();
+			if (study === null) return null;
+
+			if (!study.attributes?.title) {
+				return { title: t('seo.404.title'), description: t('seo.404.description') };
+			}
+
 			const title = `${study.attributes.title} | Case Study | David Sandoval`;
 			const description = study.attributes.description;
-			this.seo.updatePage({
-				title,
-				description,
-				ogImage: ogImageUrl(title, description, 'case-study'),
-			});
-		}
+			return { title, description, ogImage: ogImageUrl(title, description, 'case-study') };
+		});
 	}
 }
