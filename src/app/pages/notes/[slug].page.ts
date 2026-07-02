@@ -1,10 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	effect,
-	inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, injectContentFiles, MarkdownComponent } from '@analogjs/content';
@@ -41,7 +35,7 @@ export default class NoteDetailPage {
 			injectContent<NoteAttributes>({ param: 'slug', subdirectory: 'algorithms' }),
 			injectContent<NoteAttributes>({ param: 'slug', subdirectory: 'systems' }),
 		]).pipe(map(([algorithms, systems]) => (algorithms.attributes?.title ? algorithms : systems))),
-		{ initialValue: null },
+		{ initialValue: null }
 	);
 	readonly isNotFound = computed(() => {
 		const note = this.note();
