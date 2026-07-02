@@ -49,7 +49,15 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm exec playwright install-deps chromium
 
+      - name: Restore shared build from CI
+        id: dist-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
+
       - name: Build project
+        if: steps.dist-cache.outputs.cache-hit != 'true'
         run: pnpm build
 
       - name: Start production server
