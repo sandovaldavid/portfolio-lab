@@ -40,14 +40,17 @@ export class KeyboardShortcutsService {
 			const timing = perf ? perf.timing : null;
 			const loadTime = timing ? timing.loadEventEnd - timing.navigationStart + 'ms' : 'unknown';
 
-			const nav = perf?.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-			const serverResponseTime = nav ? `${Math.round(nav.responseEnd - nav.requestStart)}ms` : 'unknown';
+			const nav = perf?.getEntriesByType('navigation')[0] as
+				| PerformanceNavigationTiming
+				| undefined;
+			const serverResponseTime = nav
+				? `${Math.round(nav.responseEnd - nav.requestStart)}ms`
+				: 'unknown';
 
 			const jsBytes = perf
 				?.getEntriesByType('resource')
 				.filter(
-					(r): r is PerformanceResourceTiming =>
-						r.name.endsWith('.js') && 'transferSize' in r
+					(r): r is PerformanceResourceTiming => r.name.endsWith('.js') && 'transferSize' in r
 				)
 				.reduce((sum, r) => sum + r.transferSize, 0);
 			const estimatedBundleSize = jsBytes ? `${(jsBytes / 1024).toFixed(1)} KB` : 'unknown';
