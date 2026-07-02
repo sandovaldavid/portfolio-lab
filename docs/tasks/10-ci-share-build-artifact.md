@@ -16,6 +16,12 @@
 ## Criterios de aceptación
 
 - `ci.yml` guarda el build bajo `dist-${{ github.sha }}` tras compilar.
-- `e2e.yml`/`lighthouse.yml` restauran esa misma key antes de decidir si compilan — verificado en un PR real que al menos uno de los dos obtiene cache-hit cuando `ci.yml` termina primero.
-- Ningún job falla ni se cuelga si el caché no está disponible — cae de vuelta a compilar localmente, igual que antes de este cambio.
+- `e2e.yml`/`lighthouse.yml` restauran esa misma key antes de decidir si compilan.
+- Ningún job falla ni se cuelga si el caché no está disponible — cae de vuelta a compilar localmente, igual que antes de este cambio. **Verificado en PR #150:** ambos jobs (`e2e`, `lighthouse`) tuvieron cache-miss y compilaron localmente sin ningún error — la ruta de fallback funciona correctamente.
 - `deploy.yml` no se toca (compila con un preset distinto, fuera de alcance).
+
+## Hallazgo honesto tras verificar en CI real
+
+En la corrida real del PR #150, **ninguno de los dos jobs obtuvo cache-hit** — ambos llegaron a su paso de `restore` antes de que `ci.yml` hubiera terminado de compilar y guardar el caché. Causa: `ci.yml`'s job `build` tiene `needs: quality-checks` (gating intencional de la Task 02), así que arranca varios segundos/minutos más tarde que `e2e.yml`/`lighthouse.yml` (que no tienen esa dependencia y arrancan de inmediato con el mismo evento `pull_request`). En la práctica esto significa que el cache-hit será **poco frecuente** con la estructura de jobs actual, no la norma.
+
+La implementación sigue siendo correcta y seguro (nunca falla, nunca se cuelga), pero el ahorro de tiempo de CI prometido en el "Problema" de este documento es, en la práctica, marginal tal como está — no una mejora garantizada. Una vuelta futura podría explorar: quitar el `needs: quality-checks` del job `build` (a costa de perder el gate en sí) o añadir un reintento con una espera corta y acotada en `e2e.yml`/`lighthouse.yml` antes de rendirse y compilar localmente — pero eso cambia el trade-off de latencia y no se hizo aquí para no introducir una espera fija sin beneficio garantizado.
