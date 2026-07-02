@@ -258,6 +258,7 @@ Note: the CodeQL workflow was removed (commit `c8fc00f5`); there is currently no
 
 ## Documentation
 
+- `AGENTS.md` — equivalent agent-agnostic guide (agents.md standard) for other AI tools; **keep it in sync with this file when conventions change**.
 - `docs/README.md` — index of all docs and folder conventions.
 - `docs/arquitectura_actual.md` — **living reference** of the implemented system; update it in the same PR that adds/removes pages, widgets, or server routes.
 - `docs/review-2026-07/` — latest full review (findings per characteristic + feature feedback).
