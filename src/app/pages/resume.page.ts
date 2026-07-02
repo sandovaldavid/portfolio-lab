@@ -9,11 +9,7 @@ import { ResumeComponent } from '@widgets/resume/resume.component';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ResumeComponent],
-	template: `@defer (on viewport) {
-			<app-resume />
-		} @placeholder {
-			<div class="min-h-screen"></div>
-		}`,
+	templateUrl: './resume.page.html',
 })
 export default class ResumePage {
 	readonly i18n = inject(I18nService);
