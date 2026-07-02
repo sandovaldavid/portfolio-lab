@@ -30,6 +30,63 @@ export default tseslint.config(
 					style: 'kebab-case',
 				},
 			],
+			'no-console': ['error', { allow: ['warn', 'error'] }],
+			'@typescript-eslint/no-explicit-any': 'error',
+		},
+	},
+	{
+		files: ['src/app/shared/**/*.ts'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['@entities/*', '@features/*', '@widgets/*'],
+							message:
+								'shared cannot import from entities, features, or widgets (FSD boundary).',
+						},
+					],
+				},
+			],
+		},
+	},
+	{
+		files: ['src/app/entities/**/*.ts'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['@features/*', '@widgets/*'],
+							message: 'entities cannot import from features or widgets (FSD boundary).',
+						},
+					],
+				},
+			],
+		},
+	},
+	{
+		files: ['src/app/features/**/*.ts'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['@widgets/*'],
+							message: 'features cannot import from widgets (FSD boundary).',
+						},
+					],
+				},
+			],
+		},
+	},
+	{
+		files: ['src/app/shared/lib/keyboard-shortcuts/keyboard-shortcuts.ts'],
+		rules: {
+			'no-console': 'off',
 		},
 	},
 	{
