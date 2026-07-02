@@ -30,7 +30,7 @@ Security updates are provided for the latest version only.
 [info] Dependencies are automatically scanned for vulnerabilities:
 
 - Weekly dependency updates via Dependabot
-- Automatic security audits in CI/CD (`pnpm audit --audit-level=critical`; `--audit-level=high` locally — unification pending, see `docs/tasks/05-chore-release-and-deps.md`)
+- Automatic security audits in CI/CD and locally, both at `pnpm audit --audit-level=high`
 - Lockfile integrity validation (`pnpm install --frozen-lockfile`)
 
 ### Code Quality

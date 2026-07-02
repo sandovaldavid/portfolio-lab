@@ -18,15 +18,21 @@
 
 ## Checklist
 
-- [ ] Eliminar `.release-it.json`, los scripts `release`/`release:dry` y la devDependency `release-it` (+ plugins asociados si los hay).
-- [ ] Documentar en CLAUDE.md que el versionado es 100% release-please (beta en develop, stable en main).
-- [ ] Mover `katex` a `dependencies`.
-- [ ] Mover `tailwindcss`, `@tailwindcss/vite`, `postcss` a `devDependencies`.
-- [ ] Unificar audit level a `high` en `package.json` y `quality-checks.yml:88` (y verificar que SECURITY.md diga lo mismo).
-- [ ] `pnpm install` para regenerar lockfile; verificar `pnpm build` y `pnpm dev`.
+- [x] Eliminar `.release-it.json`, los scripts `release`/`release:dry` y la devDependency `release-it` (+ plugins asociados si los hay). También se actualizó el skill `/release` (`.claude/commands/release.md`, corría `pnpm release`/`pnpm release:dry`) y `.vscode/settings.json` (referenciaba `.release-it.json` en file nesting).
+- [x] Documentar en CLAUDE.md que el versionado es 100% release-please (beta en develop, stable en main).
+- [x] Mover `katex` a `dependencies`.
+- [x] Mover `tailwindcss`, `@tailwindcss/vite`, `postcss` a `devDependencies`.
+- [x] Unificar audit level a `high` en `package.json` y `quality-checks.yml:88` (y verificar que SECURITY.md diga lo mismo).
+- [x] `pnpm install` para regenerar lockfile; verificar `pnpm build` y `pnpm dev`. (Hallazgo no planeado: quitar `release-it` rompió `pnpm build` — `@analogjs/vite-plugin-nitro` usa `tinyglobby` sin declararlo como dependencia propia y dependía de que quedara hoisted por casualidad vía el árbol de `release-it`. Fix: `tinyglobby` como devDependency explícita, mismo patrón que `h3` en la task 01.)
 
 ## Criterios de aceptación
 
-- `pnpm build` en verde con las deps reclasificadas (KaTeX renderiza en las notas prerenderizadas).
-- `grep -r release-it` → 0 resultados (fuera del CHANGELOG histórico).
-- `pnpm audit --audit-level=high` es el único umbral en repo y CI.
+- [x] `pnpm build` en verde con las deps reclasificadas.
+- [x] `grep -r release-it` → 0 resultados (fuera del CHANGELOG histórico y de esta misma carpeta `docs/`).
+- [x] `pnpm audit --audit-level=high` es el único umbral en repo y CI.
+
+## Hallazgo no relacionado (reportado aparte, no arreglado en este PR)
+
+Al verificar "KaTeX renderiza en las notas prerenderizadas" se descubrió que **las páginas de detalle de notas (`/notes/:slug`) renderizan un estado 404** en vez del contenido real, tanto en el HTML prerenderizado estático como en el servidor SSR en vivo (reproducido también con `BUILD_PRESET=vercel`, igual que producción). Es preexistente en `develop` (verificado con un checkout limpio antes de los cambios de este PR) y no tiene relación con el alcance de esta tarea. Causa probable: `notes/[slug].page.ts` lee `toSignal(injectContent(...), { initialValue: null })` en `ngOnInit()` antes de que el contenido asíncrono resuelva, dejando `isNotFound` en `true` permanentemente. Pendiente de triage como tarea propia.
+
+**PR:** [#138](https://github.com/sandovaldavid/portfolio/pull/138)

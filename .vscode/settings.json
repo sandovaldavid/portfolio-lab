@@ -30,7 +30,7 @@
     "*.ts": "${capture}.component.html, ${capture}.component.css, ${capture}.component.scss, ${capture}.component.spec.ts, ${capture}.spec.ts, ${capture}.model.ts, ${capture}.service.ts",
     "package.json": "package-lock.json, pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc, yarn.lock, bun.lockb",
     "tsconfig.json": "tsconfig.*.json",
-    "vite.config.ts": "vite.config.*, playwright.config.ts, lighthouserc.json, eslint.config.js, .prettierrc, .prettierignore, .release-it.json, release-please-config.*, .release-please-manifest.*, vercel.json, .vercelignore"
+    "vite.config.ts": "vite.config.*, playwright.config.ts, lighthouserc.json, eslint.config.js, .prettierrc, .prettierignore, release-please-config.*, .release-please-manifest.*, vercel.json, .vercelignore"
   },
   "search.exclude": {
     "**/node_modules": true,

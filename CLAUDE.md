@@ -256,6 +256,14 @@ Note: the CodeQL workflow was removed (commit `c8fc00f5`); there is currently no
 - PR from `develop` → `main` only
 - Push to `main` → Vercel production (automated via deploy.yml)
 
+### Releases
+
+Versioning is 100% [release-please](https://github.com/googleapis/release-please) — there is no other release tool in this repo (`release-it` was removed, see `docs/tasks/05-chore-release-and-deps.md`). Never bump `version` in `package.json`, edit `CHANGELOG.md`, or create `v*` tags by hand.
+
+- `develop` → beta releases (`release-please-config.beta.json` / `.release-please-manifest.beta.json`)
+- `main` → stable releases (`release-please-config.stable.json` / `.release-please-manifest.stable.json`)
+- Conventional commits on push drive the changelog; release-please keeps an up-to-date release PR open per branch — merge it to cut the release (tag + GitHub release + `CHANGELOG.md`).
+
 ## Documentation
 
 - `AGENTS.md` — equivalent agent-agnostic guide (agents.md standard) for other AI tools; **keep it in sync with this file when conventions change**.
