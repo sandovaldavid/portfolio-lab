@@ -15,7 +15,8 @@ export default defineEventHandler(async (event) => {
 
 	const secret = process.env['OBSIDIAN_SYNC_SECRET'] || '';
 	const query = getQuery(event);
-	const token = (query['secret'] as string) || (event.node.req.headers['x-obsidian-secret'] as string);
+	const token =
+		(query['secret'] as string) || (event.node.req.headers['x-obsidian-secret'] as string);
 
 	if (!secret) {
 		event.node.res.statusCode = 503;

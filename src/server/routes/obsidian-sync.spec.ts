@@ -85,7 +85,10 @@ describe('obsidian-sync route', () => {
 		const result = await handler(event);
 
 		expect(event.node.res.statusCode).toBe(400);
-		expect(result).toEqual({ status: 'error', message: 'Slug must start with algorithms/ or systems/.' });
+		expect(result).toEqual({
+			status: 'error',
+			message: 'Slug must start with algorithms/ or systems/.',
+		});
 		expect(writeFileSync).not.toHaveBeenCalled();
 	});
 
@@ -115,7 +118,7 @@ describe('obsidian-sync route', () => {
 		expect(writeFileSync).toHaveBeenCalledWith(
 			expect.stringContaining(`algorithms${sep}binary-search.md`),
 			'# Binary Search',
-			'utf-8',
+			'utf-8'
 		);
 		expect(result).toEqual({
 			status: 'success',
