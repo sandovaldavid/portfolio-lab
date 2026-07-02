@@ -16,6 +16,11 @@ Origen: hallazgos de [`docs/review-2026-07/`](../review-2026-07/00-resumen.md), 
 | 06 | [Dead code y diagnostics](06-refactor-dead-code.md) | `refactor/cleanup-dead-code` | P1 | S | — |
 | 07 | [SEO reactivo + helper i18n](07-refactor-seo-i18n.md) | `refactor/seo-effect-helper` | P2 | M | — |
 | 08 | [Tests de server routes + cobertura](08-test-server-routes.md) | `test/server-routes-coverage` | P2 | M | 01 (spec de obsidian-sync valida el fix) |
+| 09 | Fix notes/:slug 404 (hallazgo no planeado, ver historial de PRs) | `fix/notes-detail-not-found` | P0 | S | — |
+| 10 | [Compartir build entre workflows](10-ci-share-build-artifact.md) | `ci/share-build-artifact` | P2 | M | — |
+| 11 | [CSP: nonces en vez de 'unsafe-inline'](11-security-csp-nonces.md) | `security/csp-nonces` | P2 | M | — |
+| 12 | [Pin de Actions por SHA + decisión CodeQL](12-ci-pin-actions-and-codeql.md) | `ci/pin-actions-sha` | P2 | S | — |
+| 13 | [Convención de páginas: extraer template inline](13-chore-page-template-convention.md) | `chore/page-template-convention` | P2 | XS | — |
 
 ## Reglas al ejecutar (recordatorio de CLAUDE.md)
 
