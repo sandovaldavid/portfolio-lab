@@ -36,12 +36,32 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const marker = '<!-- static-analysis-report -->';
+            const body = `${marker}\n❌ **Static Analysis Failed!** Please run \`pnpm lint:fix\` and \`pnpm format\` locally to fix styles and check typescript errors.`;
+            const prNumber = context.issue.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ **Static Analysis Failed!** Please run `pnpm lint:fix` and `pnpm format` locally to fix styles and check typescript errors.'
-            })
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
 
   test:
     runs-on: ubuntu-latest
@@ -91,9 +111,29 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const marker = '<!-- security-audit-report -->';
+            const body = `${marker}\n[warning] Security audit found vulnerabilities. Run \`pnpm audit\` locally to review.`;
+            const prNumber = context.issue.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '[warning] Security audit found vulnerabilities. Run `pnpm audit` locally to review.'
-            })
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

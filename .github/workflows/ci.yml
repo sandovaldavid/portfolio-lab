@@ -40,10 +40,17 @@ jobs:
       - run: pnpm build
       - name: Check bundle size
         run: |
-          BUILD_SIZE=$(du -sh dist | cut -f1)
-          echo "[info] Build size: $BUILD_SIZE"
-          if [ $(du -s dist | cut -f1) -gt 700 ]; then
-            echo "[warning] Bundle size warning: exceeds 700KB"
+          BUDGET_KB=500
+          CLIENT_DIR="dist/analog/public/assets"
+          TOTAL_KB=$(du -ck "$CLIENT_DIR"/*.js | tail -1 | cut -f1)
+          LARGEST=$(du -k "$CLIENT_DIR"/*.js | sort -rn | head -1)
+          LARGEST_KB=$(echo "$LARGEST" | cut -f1)
+          LARGEST_FILE=$(echo "$LARGEST" | cut -f2)
+          echo "[info] Total client JS: ${TOTAL_KB} KB"
+          echo "[info] Largest chunk: ${LARGEST_FILE} (${LARGEST_KB} KB, budget ${BUDGET_KB} KB)"
+          if [ "$LARGEST_KB" -gt "$BUDGET_KB" ]; then
+            echo "[error] A JS chunk exceeds the ${BUDGET_KB}KB budget (chunkSizeWarningLimit in vite.config.ts)"
+            exit 1
           fi
       - name: Upload bundle stats
         uses: actions/upload-artifact@v7
