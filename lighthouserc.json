@@ -7,7 +7,10 @@
 			"url": [
 				"http://localhost:3000/",
 				"http://localhost:3000/about",
-				"http://localhost:3000/projects"
+				"http://localhost:3000/projects",
+				"http://localhost:3000/research",
+				"http://localhost:3000/resume",
+				"http://localhost:3000/projects/auctions"
 			],
 			"numberOfRuns": 2,
 			"settings": {

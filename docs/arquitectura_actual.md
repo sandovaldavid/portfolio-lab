@@ -33,12 +33,12 @@ Regla de dependencias `pages → widgets → features → entities → shared`, 
 | `/about` | `about.page.ts` | ✅ | |
 | `/experience` | `experience.page.ts` | ✅ | Timeline con tabs ARIA |
 | `/projects` | `projects.page.ts` | ✅ | Cards con métricas y scores Lighthouse |
-| `/projects/:slug` | `projects/[slug].page.ts` | ❌ (gap R1) | 4 case studies desde `content/case-studies/` |
+| `/projects/:slug` | `projects/[slug].page.ts` | ✅ (4 slugs, generados desde `content/case-studies/`) | 4 case studies desde `content/case-studies/` |
 | `/skills` | `skills.page.ts` | ✅ | |
-| `/resume` | `resume.page.ts` | ❌ (gap R1) | Resume builder: 3 estilos (Modern/Harvard/ATS), toggles con signals, localStorage, `@media print` A4 |
-| `/research` | `research.page.ts` | ❌ (gap R1) | LSTM playground + MEXT thesis pitch (track académico) |
+| `/resume` | `resume.page.ts` | ✅ | Resume builder: 3 estilos (Modern/Harvard/ATS), toggles con signals, localStorage, `@media print` A4 |
+| `/research` | `research.page.ts` | ✅ | LSTM playground + MEXT thesis pitch (track académico) |
 | `/notes` | `notes/index.page.ts` | ✅ | Búsqueda + filtro por categoría |
-| `/notes/:slug` | `notes/[slug].page.ts` | ✅ (8 slugs) | KaTeX + prism (csharp extra); estado 404 propio |
+| `/notes/:slug` | `notes/[slug].page.ts` | ✅ (8 slugs, generados desde `content/{algorithms,systems}/`) | KaTeX + prism (csharp extra); estado 404 propio |
 | `*` (404) | `[...].page.ts` | — | Catch-all con SEO propio |
 
 ## Contenido (`src/content/`, vía `@analogjs/content`)
@@ -85,7 +85,7 @@ Bilingüe ES/EN: diccionarios en `shared/config/i18n/{es,en}.ts` (~280 líneas c
 ## Build & deploy
 
 - Vite: `chunkSizeWarningLimit: 500`, manualChunks `vendor`/`fonts`, visualizer → `dist/stats.html`, target es2020.
-- Prerender + sitemap en `vite.config.ts:103-123`.
+- Prerender + sitemap en `vite.config.ts` (`prerender.routes`): rutas estáticas hardcodeadas + slugs de `notes/`/`projects/` generados dinámicamente leyendo `src/content/{algorithms,systems,case-studies}/` en build time.
 - CI: 6 workflows (ci, quality-checks reusable, e2e con axe-core, lighthouse, deploy Vercel, release-please beta/stable). Reportes como artifacts de Actions.
 - Flujo git: `feat/* → develop (preview) → main (producción)`, releases automatizados con release-please.
 
@@ -95,4 +95,4 @@ Componentes standalone OnPush con 4 archivos (`entities/features/widgets/shared`
 
 ## Deudas conocidas
 
-Ver [`review-2026-07/00-resumen.md`](review-2026-07/00-resumen.md) — en particular: fail-open de obsidian-sync, deploy sin gate de CI, rutas nuevas fuera de prerender/E2E/Lighthouse, convenciones sin enforcement en ESLint.
+Ver [`review-2026-07/00-resumen.md`](review-2026-07/00-resumen.md) — en particular: fail-open de obsidian-sync, deploy sin gate de CI, convenciones sin enforcement en ESLint. (Rutas nuevas fuera de prerender/E2E/Lighthouse: resuelto, ver `docs/tasks/03-fix-prerender-routes.md`.)

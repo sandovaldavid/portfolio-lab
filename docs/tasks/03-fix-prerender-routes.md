@@ -14,8 +14,8 @@ Este desfase ya ocurrió dos veces (notas primero, case studies después): la li
 
 ## Checklist
 
-- [ ] `vite.config.ts`: añadir `/research`, `/resume`, `/projects/auctions`, `/projects/fluentreads`, `/projects/mad-ai`, `/projects/unp-campus-map` al array `prerender.routes`.
-- [ ] Mejor aún (previene la recurrencia): generar los slugs dinámicamente leyendo `src/content/`:
+- [x] `vite.config.ts`: añadir `/research`, `/resume`, `/projects/auctions`, `/projects/fluentreads`, `/projects/mad-ai`, `/projects/unp-campus-map` al array `prerender.routes`.
+- [x] Mejor aún (previene la recurrencia): generar los slugs dinámicamente leyendo `src/content/`:
   ```ts
   import { readdirSync } from 'fs';
   const contentSlugs = (dir: string, prefix: string) =>
@@ -24,13 +24,15 @@ Este desfase ya ocurrió dos veces (notas primero, case studies después): la li
       .map(f => `${prefix}/${f.replace('.md', '')}`);
   // ...routes: [...static, ...contentSlugs('algorithms', '/notes'), ...contentSlugs('systems', '/notes'), ...contentSlugs('case-studies', '/projects')]
   ```
-- [ ] `e2e/navigation.spec.ts`: añadir a `routes`: `/research`, `/resume`, `/projects/auctions` (1 case study), `/notes/binary-search` (1 nota — valida KaTeX/prism renderizados).
-- [ ] `lighthouserc.json`: añadir `/research`, `/resume` y un case study a las URLs auditadas.
-- [ ] Considerar iterar el check de responsividad E2E sobre todas las rutas (hoy solo `/`).
+- [x] `e2e/navigation.spec.ts`: añadir a `routes`: `/research`, `/resume`, `/projects/auctions` (1 case study), `/notes/binary-search` (1 nota — valida KaTeX/prism renderizados).
+- [x] `lighthouserc.json`: añadir `/research`, `/resume` y un case study a las URLs auditadas.
+- [ ] Considerar iterar el check de responsividad E2E sobre todas las rutas (hoy solo `/`) — diferido, fuera de alcance de este PR.
 
 ## Criterios de aceptación
 
-- `pnpm build` → `dist/analog/public/sitemap.xml` contiene las 6 rutas nuevas.
-- `dist/analog/public/research/index.html` y `projects/auctions/index.html` existen (prerenderizados).
-- `pnpm test:e2e` en verde con las rutas nuevas (atención a violaciones axe nuevas en research/resume — arreglarlas si salen).
-- Añadir una nota en CLAUDE.md si se adopta la generación dinámica de slugs ("las rutas de contenido se prerenderizan automáticamente").
+- [x] `pnpm build` → `dist/analog/public/sitemap.xml` contiene las 6 rutas nuevas.
+- [x] `dist/analog/public/research/index.html` y `projects/auctions/index.html` existen (prerenderizados).
+- [x] `pnpm test:e2e` en verde con las rutas nuevas (verificado: 16/16, sin violaciones axe nuevas en research/resume).
+- [x] Añadir una nota en CLAUDE.md si se adopta la generación dinámica de slugs ("las rutas de contenido se prerenderizan automáticamente").
+
+**PR:** [#136](https://github.com/sandovaldavid/portfolio/pull/136)

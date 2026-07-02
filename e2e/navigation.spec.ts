@@ -8,6 +8,10 @@ const routes = [
 	{ path: '/experience', name: 'Experience' },
 	{ path: '/skills', name: 'Skills' },
 	{ path: '/notes', name: 'Notes' },
+	{ path: '/research', name: 'Research' },
+	{ path: '/resume', name: 'Resume' },
+	{ path: '/projects/auctions', name: 'Case Study: Auctions' },
+	{ path: '/notes/binary-search', name: 'Note: Binary Search' },
 ];
 
 test.describe('Navigation', () => {

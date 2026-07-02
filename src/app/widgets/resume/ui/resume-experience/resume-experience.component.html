@@ -14,30 +14,34 @@
 				<ul class="exp-bullets">
 					@for (bullet of item.description; track $index) {
 						@if (isBulletVisible(item.company, $index)) {
-							<li
-								class="exp-bullet"
-								role="button"
-								tabindex="0"
-								[attr.aria-pressed]="isBulletVisible(item.company, $index)"
-								(click)="toggleBullet.emit({ company: item.company, index: $index })"
-								(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
-								(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
-								title="Click to hide"
-							>
-								{{ bullet }}
+							<li class="exp-bullet">
+								<span
+									class="exp-bullet-toggle"
+									role="button"
+									tabindex="0"
+									[attr.aria-pressed]="isBulletVisible(item.company, $index)"
+									(click)="toggleBullet.emit({ company: item.company, index: $index })"
+									(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
+									(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
+									title="Click to hide"
+								>
+									{{ bullet }}
+								</span>
 							</li>
 						} @else {
-							<li
-								class="exp-bullet bullet-hidden"
-								role="button"
-								tabindex="0"
-								[attr.aria-pressed]="isBulletVisible(item.company, $index)"
-								(click)="toggleBullet.emit({ company: item.company, index: $index })"
-								(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
-								(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
-								title="Click to show"
-							>
-								<span class="bullet-restore">+ show hidden bullet</span>
+							<li class="exp-bullet">
+								<span
+									class="exp-bullet-toggle bullet-hidden"
+									role="button"
+									tabindex="0"
+									[attr.aria-pressed]="isBulletVisible(item.company, $index)"
+									(click)="toggleBullet.emit({ company: item.company, index: $index })"
+									(keyup.enter)="toggleBullet.emit({ company: item.company, index: $index })"
+									(keyup.space)="toggleBullet.emit({ company: item.company, index: $index })"
+									title="Click to show"
+								>
+									<span class="bullet-restore">+ show hidden bullet</span>
+								</span>
 							</li>
 						}
 					}
