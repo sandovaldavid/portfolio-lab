@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.8.4-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.3-beta.0...v1.8.4-beta.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* **deps:** resolve h3 lockfile/manifest drift on develop ([#141](https://github.com/sandovaldavid/portfolio/issues/141)) ([440227e](https://github.com/sandovaldavid/portfolio/commit/440227e604553f0be936f61c87ebef959d53eebb))
+* **notes:** render real content instead of 404 on note pages ([#139](https://github.com/sandovaldavid/portfolio/issues/139)) ([4bc8bf0](https://github.com/sandovaldavid/portfolio/commit/4bc8bf015accd549511bf974da050ff4d340b414))
+* **obsidian-sync:** reject sync when secret is unset ([#134](https://github.com/sandovaldavid/portfolio/issues/134)) ([69647e2](https://github.com/sandovaldavid/portfolio/commit/69647e25e4274f6dd0d9e10c68e147e51cfa7edd))
+* **prerender:** add research, resume, case studies to build ([#136](https://github.com/sandovaldavid/portfolio/issues/136)) ([c532ae4](https://github.com/sandovaldavid/portfolio/commit/c532ae48f0ce382cbb788562666f0dcab41a6eb5))
+
+
+### Refactoring
+
+* **dead-code:** remove analog-welcome, fix fake diagnostics ([#137](https://github.com/sandovaldavid/portfolio/issues/137)) ([42b9319](https://github.com/sandovaldavid/portfolio/commit/42b9319cafea92934f8602b61a96c9dbce4c3783))
+
 ## [1.8.3-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.2-beta.0...v1.8.3-beta.0) (2026-07-02)
 
 
