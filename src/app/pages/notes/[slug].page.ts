@@ -1,15 +1,15 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	OnInit,
 	computed,
+	effect,
 	inject,
-	signal,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { injectContent, injectContentFiles, MarkdownComponent } from '@analogjs/content';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { combineLatest, map } from 'rxjs';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
 import { SeoService } from '@shared/lib/seo/seo.service';
 import { ogImageUrl } from '@shared/config/contact.config';
@@ -23,12 +23,30 @@ import { NoteAttributes } from './index.page';
 	styleUrl: './[slug].page.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class NoteDetailPage implements OnInit {
+export default class NoteDetailPage {
 	readonly i18n = inject(I18nService);
 	private readonly seo = inject(SeoService);
 
-	readonly note = toSignal(injectContent<NoteAttributes>(), { initialValue: null });
-	readonly isNotFound = signal(false);
+	// Notes live under src/content/{algorithms,systems}/ — injectContent() needs an explicit
+	// subdirectory to build the right file path, and a bare slug doesn't say which one it's
+	// in. Querying both and keeping whichever one actually resolves handles either category
+	// without the caller needing to know it upfront.
+	//
+	// injectContent() also resolves asynchronously (content is loaded via a Promise even when
+	// the file exists), so `note` stays null for at least one tick after construction.
+	// isNotFound and the SEO update must react to that resolution — not read it once —
+	// or a real note ends up permanently stuck on the not-found state.
+	readonly note = toSignal(
+		combineLatest([
+			injectContent<NoteAttributes>({ param: 'slug', subdirectory: 'algorithms' }),
+			injectContent<NoteAttributes>({ param: 'slug', subdirectory: 'systems' }),
+		]).pipe(map(([algorithms, systems]) => (algorithms.attributes?.title ? algorithms : systems))),
+		{ initialValue: null },
+	);
+	readonly isNotFound = computed(() => {
+		const note = this.note();
+		return note !== null && !note.attributes?.title;
+	});
 	private readonly allNotes = injectContentFiles<NoteAttributes>();
 
 	readonly readingTime = computed(() => {
@@ -53,15 +71,19 @@ export default class NoteDetailPage implements OnInit {
 			.slice(0, 3);
 	});
 
-	ngOnInit(): void {
-		const note = this.note();
-		if (!note || !note.attributes?.title) {
-			this.isNotFound.set(true);
-			this.seo.updatePage({
-				title: this.i18n.t()('seo.404.title'),
-				description: this.i18n.t()('seo.404.description'),
-			});
-		} else {
+	constructor() {
+		effect(() => {
+			const note = this.note();
+			if (note === null) return;
+
+			if (!note.attributes?.title) {
+				this.seo.updatePage({
+					title: this.i18n.t()('seo.404.title'),
+					description: this.i18n.t()('seo.404.description'),
+				});
+				return;
+			}
+
 			const title = `${note.attributes.title} | TIL Vault`;
 			const description = note.attributes.description;
 			this.seo.updatePage({
@@ -69,6 +91,6 @@ export default class NoteDetailPage implements OnInit {
 				description,
 				ogImage: ogImageUrl(title, description, 'note'),
 			});
-		}
+		});
 	}
 }
