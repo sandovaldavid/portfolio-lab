@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.3-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.2-beta.0...v1.8.3-beta.0) (2026-07-02)
+
+
+### Documentation
+
+* **review:** 2026-07 audit, task breakdown and docs cleanup ([#131](https://github.com/sandovaldavid/portfolio/issues/131)) ([d009d56](https://github.com/sandovaldavid/portfolio/commit/d009d5630387889a90e0e3c2ef61b961b0a3edc0))
+* **review:** add 2026-07 audit, cleanup, and agents guide ([#133](https://github.com/sandovaldavid/portfolio/issues/133)) ([3f86059](https://github.com/sandovaldavid/portfolio/commit/3f86059e813b34cf453c43426b108e7c48bbb7f6))
+
 ## [1.8.2-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.1-beta.0...v1.8.2-beta.0) (2026-06-29)
 
 
