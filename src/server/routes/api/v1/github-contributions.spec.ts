@@ -14,9 +14,11 @@ const SAMPLE_HTML = `
 	</table>
 `;
 
+// Cache-busted specifier gives a fresh module instance without vi.resetModules() (which corrupts Angular's JIT state in other spec files sharing this worker).
 async function loadHandler() {
-	vi.resetModules();
-	const mod = await import('./github-contributions');
+	const mod = (await import(
+		/* @vite-ignore */ `./github-contributions?t=${Math.random()}`
+	)) as typeof import('./github-contributions');
 	return mod.default;
 }
 
