@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] En `obsidian-sync.ts`, rechazar cuando el secret no esté configurado:
+- [x] En `obsidian-sync.ts`, rechazar cuando el secret no esté configurado:
   ```ts
   if (!secret) {
     event.node.res.statusCode = 503;
@@ -19,19 +19,21 @@
     return { status: 'error', message: 'Unauthorized. Invalid secret.' };
   }
   ```
-- [ ] Crear `src/server/routes/obsidian-sync.spec.ts` con al menos:
+- [x] Crear `src/server/routes/obsidian-sync.spec.ts` con al menos:
   - rechaza (503) cuando `OBSIDIAN_SYNC_SECRET` no está definido
   - rechaza (401) con token incorrecto
   - rechaza (400) slug fuera de `algorithms/`/`systems/` y path traversal (`../`)
   - happy path: escribe el archivo con secret válido
-- [ ] Verificar que `OBSIDIAN_SYNC_SECRET` está configurado en Vercel (env de producción y preview).
+- [ ] Verificar que `OBSIDIAN_SYNC_SECRET` está configurado en Vercel (env de producción y preview) — pendiente, requiere acceso al dashboard de Vercel (no verificable desde el repo).
 
 ## Criterios de aceptación
 
-- `curl -X POST /obsidian-sync -d '{"slug":"algorithms/x","content":"y"}'` sin secret configurado → 503; con secret configurado y token inválido → 401.
-- Specs en verde en `pnpm test -- --run`.
+- [x] `curl -X POST /obsidian-sync -d '{"slug":"algorithms/x","content":"y"}'` sin secret configurado → 503; con secret configurado y token inválido → 401 (verificado vía specs, ver abajo).
+- [x] Specs en verde en `pnpm test -- --run`.
 
 ## Notas
 
 - Mantener el guard de path traversal existente (`:34-46`) — está correcto.
 - Opcional (no bloqueante): rate limiting básico por IP si algún día se expone fuera de uso personal.
+
+**PR:** [#134](https://github.com/sandovaldavid/portfolio/pull/134)
