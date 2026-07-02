@@ -8,7 +8,7 @@ Personal portfolio of David Sandoval (sandovaldavid), Software Engineer.
 
 - **URL**: https://devsandoval.me
 - **Repo**: https://github.com/sandovaldavid/portfolio
-- **Framework**: Angular 21 + Analog (SSR/SSG meta-framework)
+- **Framework**: Angular 22 + Analog (SSR/SSG meta-framework)
 - **Build**: Vite 7
 - **Deployment**: Vercel (preview on develop, production on main)
 
@@ -34,11 +34,11 @@ Never import "upward" (e.g. shared must not import from features).
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Angular | 21 | Framework |
+| Angular | 22 | Framework |
 | Analog | 2.x | SSR/SSG + file-based routing |
 | Vite | 7 | Build tool |
 | Tailwind CSS | 4 | Styling |
-| TypeScript | ~5.9 | Language |
+| TypeScript | ~6.0 | Language |
 | Vitest | 4 | Unit tests |
 | Playwright | 1.x | E2E tests |
 | Lighthouse CI | 1.x | Performance audits |
@@ -238,7 +238,7 @@ pnpm format       # Prettier
 1. `pnpm lint` — must pass
 2. `pnpm test -- --run` — all unit tests must pass
 
-### CI pipeline on PR to develop
+### CI pipeline on PR (develop and main)
 
 1. quality-checks (lint, format, typecheck, unit tests, security audit)
 2. build check + bundle size report
@@ -246,17 +246,23 @@ pnpm format       # Prettier
    - Navigation: all routes load without errors
    - Accessibility: axe-core WCAG 2AA on every page
    - Responsiveness: no horizontal overflow at 375/768/1280px
-
-### CI pipeline on PR to main (additional)
-
 4. Lighthouse audit (Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥ 85%)
-5. CodeQL security scan
+
+Note: the CodeQL workflow was removed (commit `c8fc00f5`); there is currently no static security scan in CI.
 
 ### Deploying
 
 - Push to `develop` → Vercel preview URL (automated via deploy.yml)
 - PR from `develop` → `main` only
 - Push to `main` → Vercel production (automated via deploy.yml)
+
+## Documentation
+
+- `docs/README.md` — index of all docs and folder conventions.
+- `docs/arquitectura_actual.md` — **living reference** of the implemented system; update it in the same PR that adds/removes pages, widgets, or server routes.
+- `docs/review-2026-07/` — latest full review (findings per characteristic + feature feedback).
+- `docs/tasks/` — actionable task breakdown from the review: 1 file = 1 branch = 1 PR to develop; check off items and note the PR number when done.
+- Obsolete docs get deleted (git history is the archive), not kept with banners.
 
 ## Content & i18n
 
@@ -271,9 +277,9 @@ Lighthouse CI thresholds: Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥
 
 ## Reports Dashboard
 
-Reports are stored as GitHub Actions artifacts (private repo — Pages not available on free plan).
+Reports (coverage, E2E, Lighthouse) are stored as GitHub Actions artifacts.
 Access: Actions tab → select any run → Artifacts → download `reports-<branch>-<run>`.
-If the repo is made public in the future, re-enable GitHub Pages in `publish-reports.yml`.
+(The old `publish-reports.yml` GitHub Pages workflow was removed in #120.)
 
 ## Secrets Required (GitHub)
 
