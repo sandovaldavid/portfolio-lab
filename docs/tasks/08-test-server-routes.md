@@ -10,21 +10,25 @@ Los 5 handlers de `src/server/routes/` tienen **cero cobertura** — incluido `o
 ## Checklist
 
 ### Specs de server routes (h3 handlers — testear con `unenv`/mocks de `defineEventHandler` o extrayendo la lógica pura)
-- [ ] `api/v1/og-image.ts`: genera SVG/PNG con params válidos; maneja params faltantes; escapa contenido del título.
-- [ ] `api/v1/github-contributions.ts`: happy path (mock del fetch); upstream caído → respuesta de error controlada (no 500 crudo); shape del payload.
-- [ ] `obsidian-sync.ts`: ver Task 01 (si ya se hizo allí, solo verificar).
-- [ ] `diagnostics.ts`: shape del reporte; el delay artificial solo aplica con el query param.
-- [ ] `api/v1/hello.ts`: smoke test (o eliminar la ruta si es scaffolding sin uso — decidir).
-
-> Tip: si el handler mezcla I/O y lógica, extraer la lógica a funciones puras exportadas y testear esas — mismo patrón que el resto del codebase.
+- [x] `api/v1/og-image.ts`: `truncate`/`buildElement`/`loadFont` exportados como funciones puras y testeados directo; handler completo con `satori`/`@resvg/resvg-js`/`fs` mockeados (params válidos, params faltantes, headers). También corrigió `noPropertyAccessFromIndexSignature` en el objeto `query` (mismo patrón que Task 01).
+- [x] `api/v1/github-contributions.ts`: happy path (mock del fetch), cache-hit sin re-fetch, upstream caído → error controlado. Requirió agregar el import explícito de `createError` desde `h3` — el archivo dependía del auto-import de Nitro en build, que no existe al cargar el módulo directo en Vitest.
+- [x] `obsidian-sync.ts`: ya cubierto por Task 01, verificado en verde.
+- [x] `diagnostics.ts`: shape del reporte; delay solo con el query param (fake timers, sin esperar 1.5s reales).
+- [x] `api/v1/hello.ts`: eliminado — scaffolding sin ninguna referencia en el resto de la app.
 
 ### Cobertura y axe
-- [ ] Medir cobertura real: `pnpm test:coverage` — anotar el número.
-- [ ] Subir thresholds en `vite.config.ts:152-155` de 50 → 70 (o al número real menos margen).
-- [ ] `e2e/navigation.spec.ts:50-53`: re-habilitar la regla `color-contrast` de axe — la justificación del comentario ("NES/pixel dark theme uses low-contrast as a design aesthetic") describe un diseño **que ya no existe** y el contraste se corrigió en #97. Si pasa, eliminar el disable; mantener solo `nested-interactive` (skill-graph SVG) con comentario actualizado.
+- [x] Cobertura medida: 81.35% statements / 62.67% branches / 82.88% functions / 81.76% lines.
+- [x] Thresholds subidos en `vite.config.ts` a 75/60/75/75 (branches quedó en 60, no 70, porque el número real medido es 62.67% — el resto sí superan 70 con margen).
+- [x] `color-contrast` re-evaluado: sigue fallando de forma amplia (ratios ~1.05:1 en varias tarjetas/CTAs de `/projects`, `/skills`, `/experience`) — el comentario que decía que se arregló en #97 estaba desactualizado. Se mantiene el disable, con el comentario reescrito para documentar el estado real en vez de un falso "ya arreglado".
 
 ## Criterios de aceptación
 
-- 5 specs de server routes en verde (o 4 + `hello.ts` eliminado).
-- `pnpm test:coverage` pasa con threshold ≥ 70.
-- E2E en verde con `color-contrast` activo (o un issue documentando qué elemento falla y por qué se mantiene el disable).
+- [x] 5 specs de server routes en verde (4 + `hello.ts` eliminado).
+- [x] `pnpm test:coverage` pasa con los thresholds ajustados (75/60/75/75).
+- [x] E2E en verde con `color-contrast` documentado (no reactivado — sigue fallando, ver arriba).
+
+## Hallazgo no relacionado (arreglado en este mismo PR)
+
+`github-contributions.spec.ts` usaba `vi.resetModules()` para aislar la caché en memoria entre sus propios tests. Bajo poca concurrencia de CI (reproducido localmente fijando el proceso a 2 CPUs) esto corrompía el estado compartido del compilador JIT de Angular para **otros** archivos de spec que compartían el mismo worker, causando fallos masivos no relacionados (`TestBed.initTestEnvironment() first`, `Cannot read properties of null (reading 'ngModule')`). Arreglado reemplazándolo por un specifier de import con cache-busting, que da una instancia de módulo fresca sin tocar el registro de módulos compartido.
+
+**PR:** [#143](https://github.com/sandovaldavid/portfolio/pull/143)

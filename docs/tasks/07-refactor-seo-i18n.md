@@ -13,23 +13,25 @@ Mismo patrón en `hero.component.ts:35-40`: el typewriter toma las frases de `i1
 
 ## Checklist
 
-- [ ] Crear helper en `shared/lib/seo/` (p. ej. `page-seo.ts`):
-  ```ts
-  export function setupPageSeo(build: (t: TranslateFn) => SeoPageData): void {
-    const seo = inject(SeoService);
-    const i18n = inject(I18nService);
-    effect(() => seo.updatePage(build(i18n.t())));
-  }
-  ```
-  (ajustar a la firma real de `SeoService.updatePage` y del signal de i18n).
-- [ ] Migrar las 11 páginas (`index`, `about`, `experience`, `projects`, `projects/[slug]`, `skills`, `resume`, `research`, `notes/index`, `notes/[slug]`, `[...]`) a `setupPageSeo(...)` en el constructor/inicializador de campo; eliminar sus `ngOnInit` si quedan vacíos.
-- [ ] `hero.component.ts`: derivar `phrases` de un `computed()` sobre i18n y reiniciar el typewriter vía `effect()` al cambiar idioma.
-- [ ] Opcional (mismo PR): token compartido `IS_BROWSER` (`InjectionToken` con `isPlatformBrowser(inject(PLATFORM_ID))`) — hoy ~9 servicios duplican ese boilerplate. Migrarlos.
-- [ ] Opcional: `resume.component.ts:63,72,146` — usar el guard `isBrowser` en vez de try/catch para `localStorage` (consistencia con el resto del codebase).
-- [ ] Actualizar/añadir specs: el spec del helper debe cubrir "cambia el idioma → `updatePage` se re-ejecuta con los textos nuevos".
+- [x] Crear helper en `shared/lib/seo/` (`page-seo.ts`), con `build` pudiendo devolver `null` para saltar la actualización mientras un contenido async no resuelve.
+- [x] Migrar las 11 páginas (`index`, `about`, `experience`, `projects`, `projects/[slug]`, `skills`, `resume`, `research`, `notes/index`, `notes/[slug]`, `[...]`) a `setupPageSeo(...)`; eliminados todos los `ngOnInit`.
+- [x] `hero.component.ts`: `phrases` ahora es un `computed()` sobre i18n; un `effect()` reinicia el typewriter al cambiar idioma. Cleanup migrado de `OnDestroy` a `DestroyRef`.
+- [ ] Opcional: token compartido `IS_BROWSER` — no hecho, fuera de alcance de este PR.
+- [ ] Opcional: `resume.component.ts` guard de `localStorage` — no hecho, fuera de alcance de este PR.
+- [x] Specs: helper cubre "cambia el idioma → `updatePage` se re-ejecuta", más regresión del typewriter y de `projects/[slug]` (ver hallazgo abajo).
 
 ## Criterios de aceptación
 
-- Cambiar de idioma con el language-picker actualiza `<title>` y meta description sin recargar (verificable en DevTools).
-- `grep -rn "ngOnInit" src/app/pages` → 0 resultados (o solo casos justificados documentados).
-- Todas las specs de páginas siguen en verde.
+- [x] Cambiar de idioma con el toggle del panel de utilidades actualiza `<title>` y meta description sin recargar (verificado en navegador real, no solo specs).
+- [x] `grep -rn "ngOnInit" src/app/pages` → 0 resultados.
+- [x] Todas las specs de páginas en verde (168/168 en la rama).
+
+## Hallazgo no relacionado (arreglado en este mismo PR, no reportado aparte)
+
+Al migrar `projects/[slug].page.ts` se encontró el mismo bug que Task 09 arregló en `notes/[slug]`: `injectContent()` resuelve async y el `ngOnInit` original leía la signal sincrónicamente, dejando las páginas de case study (`/projects/auctions`, etc.) mostrando permanentemente "Case_Study_Not_Found" en vez del contenido real. Arreglado con el mismo patrón (`computed()` + `setupPageSeo`); test de regresión confirma que falla contra el código viejo.
+
+## Hallazgo no relacionado (reportado aparte, no arreglado en este PR)
+
+Las páginas de case study prerenderizadas (`dist/analog/public/projects/*/index.html`) mantienen el `<title>` estático de la página padre `/projects`, aunque el contenido del body sí resuelve correctamente. Confirmado que es preexistente en `develop` (reproducido con el código viejo antes de este PR) — parece un artefacto del crawler de prerender de Analog, no relacionado con la reactividad a nivel de componente. Pendiente de triage como tarea propia.
+
+**PR:** [#144](https://github.com/sandovaldavid/portfolio/pull/144)

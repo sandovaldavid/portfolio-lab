@@ -9,22 +9,23 @@ Las reglas de CLAUDE.md ("no `any`", "no `console.log`", fronteras FSD) se cumpl
 
 ## Checklist
 
-- [ ] Añadir a `eslint.config.js` (bloque `**/*.ts`):
+- [x] Añadir a `eslint.config.js` (bloque `**/*.ts`):
   ```js
   'no-console': ['error', { allow: ['warn', 'error'] }],
   '@typescript-eslint/no-explicit-any': 'error',
   ```
-- [ ] Excepción consciente para el easter egg: `// eslint-disable-next-line no-console` en las 5 llamadas de `keyboard-shortcuts.ts:65-75` (son intencionales), o permitir `console.log` solo en ese archivo vía override.
-- [ ] Fronteras FSD como lint (además del spec). Opción ligera con `no-restricted-imports` por capa (overrides por glob):
+- [x] Excepción consciente para el easter egg: override de `no-console` solo para `keyboard-shortcuts.ts` (más simple que 5 disables inline).
+- [x] Fronteras FSD como lint (además del spec), vía `no-restricted-imports` por capa (overrides por glob):
   - `src/app/shared/**` no puede importar `@entities/*`, `@features/*`, `@widgets/*`
   - `src/app/entities/**` no puede importar `@features/*`, `@widgets/*`
   - `src/app/features/**` no puede importar `@widgets/*`
-  (Alternativa más completa: `eslint-plugin-boundaries`.)
-- [ ] Ampliar el scope del lint: `package.json:19` `"lint": "eslint src"` → incluir `e2e`, `vite.config.ts`, `playwright.config.ts` (añadir tsconfig/parserOptions según haga falta).
-- [ ] `.husky/pre-commit`: cambiar `pnpm test` → `pnpm test -- --run` (hoy arranca vitest en watch mode dentro del hook; CLAUDE.md y `.release-it.json` ya asumen `--run`).
+- [x] Ampliar el scope del lint: `package.json:19` `"lint": "eslint src"` → `"eslint src e2e vite.config.ts playwright.config.ts"`. Esto sacó a la luz un `mode` sin usar en `vite.config.ts` (eliminado).
+- [x] `.husky/pre-commit`: cambiar `pnpm test` → `pnpm test -- --run`.
 
 ## Criterios de aceptación
 
-- `pnpm lint` en verde tras los ajustes (con las excepciones documentadas).
-- Prueba negativa: un `console.log` o un import de `@widgets` dentro de `shared/` hace fallar el lint.
-- `git commit` de prueba: el hook termina solo (sin quedarse en watch).
+- [x] `pnpm lint` en verde tras los ajustes (con las excepciones documentadas).
+- [x] Prueba negativa: un archivo de prueba con `console.log`, `any`, e import de `@widgets` dentro de `shared/` — las 3 reglas lo marcaron correctamente (verificado y eliminado después).
+- [x] `git commit` de prueba: el hook con `--run` corrió y terminó solo.
+
+**PR:** [#142](https://github.com/sandovaldavid/portfolio/pull/142)
