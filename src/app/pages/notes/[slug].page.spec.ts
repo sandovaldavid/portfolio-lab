@@ -10,7 +10,7 @@ import {
 	provideContent,
 	withMarkdownRenderer,
 } from '@analogjs/content';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 vi.mock('@analogjs/content', async () => {
 	const actual = await vi.importActual<Record<string, unknown>>('@analogjs/content');
@@ -95,6 +95,55 @@ describe('NoteDetailPage', () => {
 		expect(screen.getByText('404')).toBeTruthy();
 		expect(screen.getByText(/Note_Not_Found/)).toBeTruthy();
 		expect(screen.getByText(/return_to_vault/)).toBeTruthy();
+	});
+
+	it('should render the note once its content resolves asynchronously (regression: previously stuck on not-found)', async () => {
+		const mockLangSignal = signal<'en' | 'es'>('en');
+		const mockNote = {
+			attributes: {
+				title: 'Async Note',
+				description: 'Loaded after the initial render.',
+				date: '2026-06-17',
+				category: 'algorithms',
+				tags: [],
+			},
+			content: '# Async Content',
+			slug: 'async-note',
+		};
+
+		const content$ = new Subject<typeof mockNote>();
+		(injectContent as unknown as ReturnType<typeof vi.fn>).mockReturnValue(content$);
+		(injectContentFiles as unknown as ReturnType<typeof vi.fn>).mockReturnValue([]);
+
+		const { fixture } = await render(NoteDetailPage, {
+			providers: [
+				provideRouter([]),
+				provideContent(withMarkdownRenderer()),
+				{
+					provide: I18nService,
+					useValue: {
+						lang: mockLangSignal,
+						t: () => (key: string) => key,
+					},
+				},
+				{
+					provide: SeoService,
+					useValue: {
+						updatePage: vi.fn(),
+					},
+				},
+			],
+		});
+
+		// Content hasn't resolved yet: must not show the not-found state.
+		expect(screen.queryByText('404')).toBeNull();
+
+		content$.next(mockNote);
+		fixture.detectChanges();
+		await fixture.whenStable();
+
+		expect(screen.getByText('Async Note')).toBeTruthy();
+		expect(screen.queryByText('404')).toBeNull();
 	});
 
 	it('should render related notes when they share tags', async () => {
