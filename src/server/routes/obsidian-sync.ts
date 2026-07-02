@@ -13,11 +13,16 @@ export default defineEventHandler(async (event) => {
 		return { status: 'error', message: 'Method not allowed. Use POST.' };
 	}
 
-	const secret = process.env.OBSIDIAN_SYNC_SECRET || '';
+	const secret = process.env['OBSIDIAN_SYNC_SECRET'] || '';
 	const query = getQuery(event);
-	const token = (query.secret as string) || (event.node.req.headers['x-obsidian-secret'] as string);
+	const token = (query['secret'] as string) || (event.node.req.headers['x-obsidian-secret'] as string);
 
-	if (secret && token !== secret) {
+	if (!secret) {
+		event.node.res.statusCode = 503;
+		return { status: 'error', message: 'Sync disabled: secret not configured.' };
+	}
+
+	if (token !== secret) {
 		event.node.res.statusCode = 401;
 		return { status: 'error', message: 'Unauthorized. Invalid secret.' };
 	}

@@ -84,6 +84,7 @@
     "angular-eslint": "^22.0.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
+    "h3": "^1.15.5",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "katex": "^0.17.0",
