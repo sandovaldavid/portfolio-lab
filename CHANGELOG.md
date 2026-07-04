@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.8.5-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.4-beta.0...v1.8.5-beta.0) (2026-07-04)
+
+
+### Bug Fixes
+
+* **security:** replace unsafe-inline with per-page script hashes ([#151](https://github.com/sandovaldavid/portfolio/issues/151)) ([bb39e25](https://github.com/sandovaldavid/portfolio/commit/bb39e25cf2d3168bc200962329c15e09cee54144))
+
+
+### Refactoring
+
+* **seo:** make page seo and hero typewriter reactive to language ([#144](https://github.com/sandovaldavid/portfolio/issues/144)) ([10d95f6](https://github.com/sandovaldavid/portfolio/commit/10d95f656fb58eb498bdccfcc227722a54f565e9))
+
+
+### Documentation
+
+* **tasks:** close out tasks 04, 07, 08 checklists, note pr numbers ([#146](https://github.com/sandovaldavid/portfolio/issues/146)) ([5f3c2b1](https://github.com/sandovaldavid/portfolio/commit/5f3c2b142292a19cba8c51dcb460c8ee8734e80c))
+* **tasks:** plan tasks 10-13 from unaddressed p2 findings ([#147](https://github.com/sandovaldavid/portfolio/issues/147)) ([1f6dd85](https://github.com/sandovaldavid/portfolio/commit/1f6dd8564baba9c753f5978155b1bbc1d7fdd59e))
+
 ## [1.8.4-beta.0](https://github.com/sandovaldavid/portfolio/compare/v1.8.3-beta.0...v1.8.4-beta.0) (2026-07-02)
 
 
