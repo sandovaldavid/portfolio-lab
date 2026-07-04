@@ -44,3 +44,5 @@ Root cause: Nitro (el server de Analog) hornea un **manifest de archivos estáti
 - [x] Cargar `/`, `/about`, y una página con contenido async (`/notes/binary-search`) en un navegador real sin violaciones de CSP para los scripts legítimos.
 - [x] Un script inline no autorizado (inyectado manualmente) es bloqueado por el navegador — confirma que la política se aplica de verdad.
 - [x] Gap conocido y documentado: la página 404 catch-all no está cubierta (ver arriba).
+
+**PR:** [#151](https://github.com/sandovaldavid/portfolio/pull/151)
