@@ -46,7 +46,7 @@ jobs:
           BUILD_PRESET: vercel
 
       - name: Create deployment
-        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         id: deployment
         with:
           script: |
@@ -78,7 +78,7 @@ jobs:
 
       - name: Update deployment status (success)
         if: success()
-        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const isProd = ${{ steps.deployment.outputs.is_prod }};
@@ -94,7 +94,7 @@ jobs:
 
       - name: Update deployment status (failure)
         if: failure()
-        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             github.rest.repos.createDeploymentStatus({
@@ -107,7 +107,7 @@ jobs:
 
       - name: Comment preview URL on open PR
         if: success() && github.event.workflow_run.head_branch == 'develop'
-        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const deployUrl = '${{ steps.vercel.outputs.deploy_url }}';
