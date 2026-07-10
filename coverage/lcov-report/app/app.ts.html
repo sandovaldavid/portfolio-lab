@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.96% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/27</span>
+                <span class='fraction'>20/27</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64% </span>
+                <span class="strong">76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/25</span>
+                <span class='fraction'>19/25</span>
             </div>
         
             
@@ -151,39 +151,7 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,9 +232,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,17 +248,16 @@ import { FontScaleService } from '@shared/lib/font-scale/font-scale';
 import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboard-shortcuts';
 import { NavbarComponent } from '@widgets/navbar/navbar.component';
 import { FooterComponent } from '@widgets/footer/footer.component';
-import { UtilityPanelComponent } from '@features/utility-panel/utility-panel.component';
+import { UtilityPanel } from '@features/utility-panel/utility-panel';
 &nbsp;
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanelComponent],
+	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanel],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		&lt;a class="skip-link" href="#main"&gt;Skip to content&lt;/a&gt;
 		&lt;app-navbar /&gt;
-		&lt;main id="main" class="pt-16"&gt;
+		&lt;main class="pt-16"&gt;
 			&lt;router-outlet /&gt;
 		&lt;/main&gt;
 		&lt;app-footer /&gt;
@@ -304,21 +271,6 @@ import { UtilityPanelComponent } from '@features/utility-panel/utility-panel.com
 				min-height: 100vh;
 				background-color: var(--color-bg);
 				color: var(--color-text);
-			}
-			.skip-link {
-				position: absolute;
-				left: -9999px;
-				z-index: 9999;
-				padding: 0.75rem 1.5rem;
-				background: var(--color-primary);
-				color: var(--color-bg);
-				font-family: var(--font-pixel);
-				font-size: 0.875rem;
-				text-decoration: none;
-			}
-			.skip-link:focus {
-				left: 1rem;
-				top: 1rem;
 			}
 		`,
 	],
@@ -367,10 +319,10 @@ export class App {
 					}
 				});
 &nbsp;
-			setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >				this.modeService.apply();</span>
-<span class="cstat-no" title="statement not covered" >				this.fontScale.apply();</span>
-<span class="cstat-no" title="statement not covered" >				this.kbd.register();</span>
+			setTimeout(() =&gt; {
+				this.modeService.apply();
+				this.fontScale.apply();
+				this.kbd.register();
 			}, 0);
 		}
 	}
@@ -382,7 +334,7 @@ export class App {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-29T04:01:41.647Z
+                at 2026-07-10T21:08:42.033Z
             </div>
         <script src="../prettify.js"></script>
         <script>

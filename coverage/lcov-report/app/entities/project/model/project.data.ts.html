@@ -108,60 +108,12 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,16 +164,10 @@ export function getProjectsData(t: (key: TranslationKey) =&gt; string): ProjectI
 			description: t('projects.campus-map.description'),
 			link: 'https://mapa-unp.devsandoval.me',
 			github: 'https://github.com/dev-sandoval/unp-campus-map',
-			image: '/projects/project-08-campus-map.webp',
+			image: '/projects/project-08-campus-map.png',
 			tags: [TAGS.NEXTJS, TAGS.JAVASCRIPT, TAGS.TAILWIND, TAGS.CLOUDINARY, TAGS.MYSQL],
 			featured: true,
-			caseStudy: 'unp-campus-map',
 			category: t('projects.category.fullstack'),
-			metrics: [
-				{ labelKey: 'projects.metric.users', value: '1.2k' },
-				{ labelKey: 'projects.metric.stars', value: '12' },
-			],
-			lighthouse: { performance: 92, accessibility: 100, bestPractices: 100, seo: 100 },
 		},
 		{
 			title: t('projects.madai.title'),
@@ -230,13 +176,7 @@ export function getProjectsData(t: (key: TranslationKey) =&gt; string): ProjectI
 			image: '/projects/project-10-MAD-AI.webp',
 			tags: [TAGS.ANGULAR, TAGS.TYPESCRIPT, TAGS.TAILWIND, TAGS.RXJS, TAGS.DJANGO, TAGS.PYTHON],
 			featured: true,
-			caseStudy: 'mad-ai',
 			category: t('projects.category.fullstack'),
-			metrics: [
-				{ labelKey: 'projects.metric.users', value: '200' },
-				{ labelKey: 'projects.metric.stars', value: '8' },
-			],
-			lighthouse: { performance: 88, accessibility: 95, bestPractices: 100, seo: 90 },
 		},
 		{
 			title: t('projects.fluentreads.title'),
@@ -245,13 +185,7 @@ export function getProjectsData(t: (key: TranslationKey) =&gt; string): ProjectI
 			github: 'https://github.com/dev-sandoval/fluentreads',
 			image: '/projects/project-09-fluentreads.webp',
 			tags: [TAGS.ASTRO, TAGS.REACT, TAGS.TAILWIND, TAGS.TYPESCRIPT],
-			caseStudy: 'fluentreads',
 			category: t('projects.category.frontend'),
-			metrics: [
-				{ labelKey: 'projects.metric.users', value: '500' },
-				{ labelKey: 'projects.metric.stars', value: '15' },
-			],
-			lighthouse: { performance: 95, accessibility: 100, bestPractices: 100, seo: 100 },
 		},
 		{
 			title: t('projects.auctions.title'),
@@ -260,13 +194,7 @@ export function getProjectsData(t: (key: TranslationKey) =&gt; string): ProjectI
 			github: 'https://github.com/sandovaldavid/project-02-auctions',
 			image: '/projects/project-02-auctions.webp',
 			tags: [TAGS.DJANGO, TAGS.PYTHON, TAGS.BOOTSTRAP, TAGS.JAVASCRIPT, TAGS.POSTGRESQL],
-			caseStudy: 'auctions',
 			category: t('projects.category.fullstack'),
-			metrics: [
-				{ labelKey: 'projects.metric.users', value: '300' },
-				{ labelKey: 'projects.metric.stars', value: '6' },
-			],
-			lighthouse: { performance: 90, accessibility: 100, bestPractices: 100, seo: 95 },
 		},
 	];
 }
@@ -277,7 +205,7 @@ export function getProjectsData(t: (key: TranslationKey) =&gt; string): ProjectI
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-29T04:01:41.647Z
+                at 2026-07-10T21:08:42.033Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
