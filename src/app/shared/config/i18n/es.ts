@@ -5,14 +5,18 @@ export const es: Record<TranslationKey, string> = {
 	'hero.available': 'Disponible para trabajar',
 	'hero.intro': 'Hola, soy',
 	'hero.name': 'David Sandoval',
-	'hero.role': 'Ingeniero de Software en Atena',
+	'hero.role': 'Ingeniero de Software · Angular & .NET',
 	'hero.company-desc':
 		'Construyendo Angular + .NET 8 · Plataforma fintech de adelantos de sueldo · Abierto a nuevas oportunidades',
 	'hero.subtitle': 'Ingeniero de Software | B.S. Ingeniería Informática',
 	'hero.cta.projects': 'Ver Proyectos',
 	'hero.cta.contact': 'Contáctame',
+	'hero.cta.linkedin': 'LinkedIn',
 	'hero.cta.resume': 'resume.pdf',
-	'hero.typewriter.phrases': 'Construyendo Software,Resolviendo Problemas,Enviando Código',
+	'hero.typewriter.phrases': '-34% memoria heap,+60% throughput,-45% LCP,-28% bundle',
+	'hero.oss.title': 'Open Source',
+	'hero.oss.description': 'Contribuyente en ecosistemas Angular + .NET',
+	'hero.oss.link': 'Ver GitHub',
 
 	// ── Navigation ────────────────────────────────────────────────────
 	'nav.home': 'Inicio',
@@ -44,34 +48,38 @@ export const es: Record<TranslationKey, string> = {
 	'experience.atena.title': 'Ingeniero de Software',
 	'experience.atena.company': 'Atena',
 	'experience.atena.description':
-		'Liderando la migración del frontend de la plataforma de adelantos a Angular 21 con arquitectura moderna de componentes|Desarrollando servicios backend en .NET 8 y APIs REST para soportar la plataforma v2|Implementando patrones de diseño FSD y gestión de estado con signals para escalabilidad|Colaborando con equipos multidisciplinarios en un producto fintech utilizado por empresas peruanas',
+		'Lideré la migración frontend de Angular 21 en 18+ componentes a arquitectura de signals, reduciendo memoria heap en 34%|Construí capa de batch + caché en .NET 8 REST API, aumentando throughput de 420 a 675 req/min (+60%)|Implementé Feature-Sliced Design y bloques @defer, reduciendo bundle inicial en 28% (1.4 MB → 1.0 MB)|Colaboré con equipos multidisciplinarios en pipelines CI/CD con Azure DevOps en flujo Agile/Scrum',
 	'experience.atena.technologies': 'Angular,TypeScript,.NET 8,C#,SQL Server,Azure DevOps',
 
 	'experience.chirasoft.date': 'May 2025 – Jul 2025',
 	'experience.chirasoft.title': 'Desarrollador Fullstack Freelance',
 	'experience.chirasoft.company': 'Chirasoft',
 	'experience.chirasoft.description':
-		'Realicé la migración de un sitio institucional educativo de WordPress a Angular, mejorando rendimiento, mantenibilidad y experiencia de usuario|Contribuí al desarrollo integral de una plataforma de comercio electrónico, desde el frontend hasta la lógica de negocio en el backend|Implementé patrones de diseño responsivo y optimicé la arquitectura de componentes para escalabilidad',
+		'Migré sitio institucional educativo de WordPress a Angular, mejorando score Lighthouse de rendimiento y mantenibilidad|Desarrollé plataforma e-commerce fullstack desde REST API (Java Spring Boot) hasta frontend Angular|Implementé patrones de UI responsivo con Tailwind CSS y optimicé arquitectura de componentes para escalabilidad',
 	'experience.chirasoft.technologies':
 		'Angular,TypeScript,WordPress,E-commerce,Diseño Responsivo,Java,Spring Boot',
 
 	'experience.programador-ti.date': 'Jun 2024 – Oct 2024',
-	'experience.programador-ti.title': 'Desarrollador de Software y Especialista TI',
+	'experience.programador-ti.title': 'Ingeniero de Software — Modernización de Sistemas Legados',
 	'experience.programador-ti.company': 'Municipalidad Provincial de Piura',
 	'experience.programador-ti.description':
-		'Brindé soporte técnico para mantenimiento y configuración de infraestructura tecnológica|Realicé diagnóstico y resolución de incidentes, optimizando procesos tecnológicos en entorno institucional|Apoyé en la migración de plataformas institucionales de FoxPro a React (frontend), modernizando el stack tecnológico',
+		'Lideré la migración de sistemas FoxPro legados a React, modernizando el stack municipal y mejorando la mantenibilidad|Diseñé e implementé arquitectura frontend para sistemas institucionales, reduciendo deuda técnica|Apoyé operaciones críticas de infraestructura TI y resolví incidentes de software en equipos municipales',
 	'experience.programador-ti.technologies':
-		'React,FoxPro,Migración de Sistemas,Administración de Sistemas,Infraestructura',
+		'React,FoxPro,Migración de Sistemas,Arquitectura Frontend,Infraestructura',
 
 	// ── Projects ──────────────────────────────────────────────────────
 	'projects.code-button': 'Código',
 	'projects.preview-button': 'Vista previa',
 	'projects.view-all': 'Ver Todos los Proyectos',
 	'projects.filter-label': 'Filtrar por categoría',
+	'projects.metric.users': 'Usuarios',
+	'projects.metric.stars': 'Stars',
+	'projects.metric.lighthouse': 'Lighthouse',
 	'projects.category.machine-learning': 'Machine Learning · Tesis',
 	'projects.category.fullstack': 'Full-Stack',
 	'projects.category.enterprise': 'Empresarial',
 	'projects.category.frontend': 'Frontend',
+	'projects.read-case-study': 'Caso de Estudio',
 
 	'projects.campus-map.title': 'UNP Campus Map',
 	'projects.campus-map.description':
@@ -91,11 +99,11 @@ export const es: Record<TranslationKey, string> = {
 
 	// ── About ─────────────────────────────────────────────────────────
 	'about-me.paragraph1':
-		'Me llamo Juan David, aunque la mayoría me conoce como David. Soy Ingeniero Informático egresado de la Universidad Nacional de Piura con pasión por construir software de impacto.',
+		'Ingeniero de Software en Atena, startup fintech peruana, donde lidero la migración de plataforma Angular 21 + .NET 8 para un producto de adelantos de sueldo. B.S. Ingeniería Informática de la Universidad Nacional de Piura.',
 	'about-me.paragraph2':
-		'A lo largo de mi formación y carrera profesional, he construido proyectos que van desde aplicaciones web hasta plataformas empresariales. Actualmente trabajo en Atena, una startup fintech peruana donde lidero la migración de la plataforma a Angular + .NET 8.',
+		'Construyo aplicaciones enterprise fullstack con foco en rendimiento y arquitectura limpia. En el último año en Atena entregué mejoras medibles: −34% memoria heap, +60% throughput API, −28% bundle size y −45% LCP.',
 	'about-me.paragraph3':
-		'Mi enfoque está en aprovechar la tecnología para resolver problemas prácticos y mejorar procesos mediante la innovación. Aspiro a seguir aprendiendo y aportando al mundo del desarrollo de software.',
+		'Estoy abierto a roles fullstack, frontend y backend. Tengo experiencia en producción con Angular signals, .NET 8 CQRS/Clean Architecture y CI/CD en Azure DevOps.',
 	'about-me.currently-focused': 'Enfocado actualmente en:',
 	'about-me.focus1': 'Signals de Angular y arquitectura reactiva',
 	'about-me.focus2': '.NET 8 y Clean Architecture',
@@ -109,6 +117,30 @@ export const es: Record<TranslationKey, string> = {
 	'skills.category.backend': 'Backend',
 	'skills.category.databases': 'Bases de datos',
 	'skills.category.tools': 'Herramientas & DevOps',
+	'skills.page.subtitle': 'DOMINIOS DE COMPETENCIA',
+	'skills.page.title': 'Stack Técnico',
+	'skills.page.description':
+		'Dominios especializados con años de experiencia en producción y entornos de investigación.',
+	'skills.category.enterprise': 'Enterprise Engineering',
+	'skills.category.enterprise.desc':
+		'Arquitecturas empresariales escalables con patrones probados en producción.',
+	'skills.category.ai': 'AI & Deep Learning',
+	'skills.category.ai.desc':
+		'Investigación aplicada en redes neuronales recurrentes y modelos de secuencia.',
+	'skills.category.frontend-arch': 'Frontend Architecture',
+	'skills.category.frontend-arch.desc':
+		'Interfaces reactivas de alta performance con las últimas APIs del framework.',
+	'skills.category.devops': 'Systems & DevOps',
+	'skills.category.devops.desc': 'Infraestructura como código y despliegue continuo automatizado.',
+
+	// ── GitHub Contributions ──────────────────────────────────────────
+	'contributions.title': 'Actividad Open Source',
+	'contributions.total': 'contribuciones en el último año',
+	'contributions.less': 'Menos',
+	'contributions.more': 'Más',
+	'contributions.error': 'No se pudo cargar el gráfico de contribuciones.',
+	'contributions.view-profile': 'Ver perfil de GitHub',
+	'contributions.aria-label': 'Gráfico de contribuciones de GitHub del último año',
 
 	// ── Footer ────────────────────────────────────────────────────────
 	'footer.title': 'Construyamos algo juntos',
@@ -129,11 +161,47 @@ export const es: Record<TranslationKey, string> = {
 	'title.star-ledger': 'Impacto_de_Ingeniería',
 	'star.subtitle':
 		'Logros cuantificables de sistemas en producción en Atena — haz clic en cualquier fila para expandir.',
+	'star.hero.title': 'Impacto en Producción en Atena',
+	'star.hero.subtitle':
+		'Seis mejoras medibles enviadas a producción. Haz clic en cualquier entrada para ver la historia completa.',
+	'star.prompt': '$',
+	'star.header.path': 'atena://metricas/logros',
+	'star.header.badge': 'entradas',
+	'star.header.subtitle': 'Impacto de ingeniería cuantificable en Atena — medido, reproducible',
+	'star.filter.all': 'TODAS',
+	'star.filter.latency': 'LATENCIA',
+	'star.filter.throughput': 'RENDIMIENTO',
+	'star.filter.scalability': 'ESCALA',
+	'star.filter.memory': 'MEMORIA',
+	'star.filter.quality': 'CALIDAD',
+	'star.table.achievement': 'LOGRO',
+	'star.table.metric': 'MÉTRICA',
+	'star.table.pattern': 'PATRÓN',
+	'star.table.stack': 'STACK',
+	'star.table.type': 'TIPO',
+	'star.empty': '// ninguna entrada coincide con el filtro',
+	'star.detail.metric': 'métrica',
+	'star.detail.code-lang': 'typescript',
 
 	// ── Chaos Playground ─────────────────────────────────────────────
 	'title.chaos-playground': 'Simulador_Chaos_Engineering',
 	'chaos.subtitle':
 		'Demo interactiva de resiliencia — hover en los nodos para detalles, luego inyecta un fallo.',
+
+	// ── Research page ─────────────────────────────────────────────────
+	'title.lstm-playground': 'Simulación_Celda_LSTM',
+	'lstm.subtitle':
+		'Celda Long Short-Term Memory interactiva — ajusta las compuertas para ver cómo se mitigan los gradientes que desaparecen.',
+	'title.mext-proposal': 'Propuesta_Investigación_MEXT',
+	'research.eyebrow': 'track_académico',
+	'research.title': 'Investigación y Trabajo Académico',
+	'research.subtitle':
+		'Investigación en deep learning y la propuesta de beca MEXT — separada del portafolio de ingeniería.',
+	'nav.research': 'Investigación',
+	'footer.research': 'Track académico',
+	'seo.research.title': 'Investigación | David Sandoval',
+	'seo.research.description':
+		'Investigación académica de David Sandoval — modelado de secuencias con LSTM y la propuesta de beca MEXT.',
 
 	// ── SEO ───────────────────────────────────────────────────────────
 	'seo.home.title': 'David Sandoval | Ingeniero de Software',
@@ -152,6 +220,40 @@ export const es: Record<TranslationKey, string> = {
 	'seo.skills.description':
 		'Habilidades técnicas de David Sandoval — Angular, TypeScript, .NET 8, C#, PostgreSQL y más.',
 
+	// ── Resume Summary ────────────────────────────────────────────────
+	'resume.summary':
+		'Ingeniero de Software con 1+ año construyendo aplicaciones enterprise con Angular 21 + .NET 8 en fintech. Entregué Memory −34%, Throughput +60% y LCP −45% en producción en Atena. B.S. Ingeniería Informática, Universidad Nacional de Piura. Abierto a roles fullstack y backend.',
+
+	// ── Education ─────────────────────────────────────────────────────
+	'education.unp.degree': 'B.S. Ingeniería Informática',
+	'education.unp.institution': 'Universidad Nacional de Piura',
+	'education.unp.date': '2019 – 2024',
+	'education.unp.location': 'Piura, Perú',
+	'education.unp.description':
+		'Cursos relevantes: Estructuras de Datos, Algoritmos, Ingeniería de Software, Bases de Datos, Redes|Tesis final: Modelado de Secuencias Recurrentes para Series de Tiempo Financieras con LSTM Profundas',
+
+	// ── Resume page ───────────────────────────────────────────────────
+	'nav.resume-page': 'Currículum',
+	'resume.controls.title': 'Personalizar CV',
+	'resume.controls.style': 'Estilo Visual',
+	'resume.controls.sections': 'Secciones',
+	'resume.controls.reset': 'Restaurar Predeterminados',
+	'resume.controls.print': 'Imprimir / Guardar PDF',
+	'resume.style.ats': 'ATS Estándar',
+	'resume.style.harvard': 'Harvard Clásico',
+	'resume.style.modern': 'Moderno',
+	'resume.section.summary': 'Resumen',
+	'resume.section.experience': 'Experiencia',
+	'resume.section.education': 'Educación',
+	'resume.section.projects': 'Proyectos',
+	'resume.section.skills': 'Habilidades',
+	'resume.hint.bullet': 'Click en bullet para alternar',
+	'resume.hint.skill': 'Click en skill para alternar',
+	'resume.hint.project': 'Click en proyecto para alternar',
+	'seo.resume.title': 'Currículum | David Sandoval',
+	'seo.resume.description':
+		'Currículum interactivo de David Sandoval — Ingeniero de Software. Cambia entre estilos ATS, Harvard y Moderno. Personaliza e imprime.',
+
 	// ── MEXT Thesis ──────────────────────────────────────────────────
 	'mext.title': 'Propuesta de Investigación Beca MEXT',
 	'mext.headline':
@@ -166,4 +268,14 @@ export const es: Record<TranslationKey, string> = {
 		'Mitigar la degradación del gradiente en la retropropagación a través del tiempo (BPTT) mediante la normalización de compuertas personalizada.',
 	'mext.proposal.bullet3':
 		'Cerrar la brecha entre los patrones de transacciones empresariales empíricas y los métodos de aprendizaje profundo predictivo.',
+
+	// ── 404 Page ─────────────────────────────────────────────────────
+	'404.title': '404',
+	'404.heading': 'Página_No_Encontrada',
+	'404.description':
+		'La ruta solicitada no existe en este sistema. Puede que haya sido movida o nunca existió.',
+	'404.back-home': 'Volver al Inicio',
+	'404.view-projects': 'Ver Proyectos',
+	'seo.404.title': '404 — Página No Encontrada | David Sandoval',
+	'seo.404.description': 'La página que buscas no existe.',
 } as const;

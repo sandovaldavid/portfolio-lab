@@ -9,103 +9,131 @@ on:
         description: Run pnpm audit
 
 jobs:
-  lint:
+  static-analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm lint
-      - name: Comment PR on lint failure
+
+      - name: Check Format
+        run: pnpm format:check
+
+      - name: Lint Code
+        run: pnpm lint
+
+      - name: TypeScript Typecheck
+        run: npx tsc --noEmit -p tsconfig.app.json
+
+      - name: Comment PR on failure
         if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const marker = '<!-- static-analysis-report -->';
+            const body = `${marker}\n❌ **Static Analysis Failed!** Please run \`pnpm lint:fix\` and \`pnpm format\` locally to fix styles and check typescript errors.`;
+            const prNumber = context.issue.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '[error] ESLint check failed. Run `pnpm lint:fix` to fix issues.'
-            })
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
 
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "22"
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
-      - run: pnpm format:check
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "22"
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          HUSKY: 0
-      - run: npx tsc --noEmit -p tsconfig.app.json
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm test -- --run --reporter=verbose
-      - name: Upload coverage
-        if: always()
-        uses: codecov/codecov-action@v7
+      - name: Run unit tests with coverage
+        run: pnpm test:coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/coverage-final.json
           flags: unittests
           fail_ci_if_error: false
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
 
   security:
     runs-on: ubuntu-latest
     if: inputs.run-audit
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm audit --audit-level=critical
+      - run: pnpm audit --audit-level=high
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const marker = '<!-- security-audit-report -->';
+            const body = `${marker}\n[warning] Security audit found vulnerabilities. Run \`pnpm audit\` locally to review.`;
+            const prNumber = context.issue.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '[warning] Security audit found vulnerabilities. Run `pnpm audit` locally to review.'
-            })
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

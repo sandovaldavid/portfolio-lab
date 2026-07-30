@@ -30,7 +30,7 @@ Security updates are provided for the latest version only.
 [info] Dependencies are automatically scanned for vulnerabilities:
 
 - Weekly dependency updates via Dependabot
-- Automatic security audits in CI/CD (`pnpm audit --audit-level=moderate`)
+- Automatic security audits in CI/CD and locally, both at `pnpm audit --audit-level=high`
 - Lockfile integrity validation (`pnpm install --frozen-lockfile`)
 
 ### Code Quality
@@ -38,7 +38,7 @@ Security updates are provided for the latest version only.
 [info] Security-focused code quality checks:
 
 - TypeScript strict mode enabled
-- ESLint with security plugins
+- ESLint + angular-eslint (including template accessibility rules)
 - No hardcoded secrets (pre-commit hooks)
 - Code review required for all changes
 
@@ -47,9 +47,14 @@ Security updates are provided for the latest version only.
 [info] GitHub Actions security practices:
 
 - Minimal workflow permissions (least privilege principle)
+- Third-party Actions pinned to a commit SHA (not a mutable tag), with the tag kept as a comment for readability
 - Secrets encrypted and scoped to environments
 - No shell injection risks (proper input handling)
 - Build artifacts scanned before deployment
+
+### Static Analysis (CodeQL)
+
+[info] CodeQL was removed from CI (commit `c8fc00f5`) and is intentionally **not** restored. This is a private, single-maintainer repo with no third-party contributors and no secrets processed by the analyzed code paths — the CI-minutes cost of a full CodeQL scan on every push/PR outweighs its marginal benefit here. `pnpm audit`, ESLint, and TypeScript strict mode remain as the static-analysis layer. Revisit if the repo gains outside contributors or a larger attack surface.
 
 ### Best Practices for Contributors
 
@@ -84,10 +89,9 @@ The following tools are integrated:
 
 [warning] Production deployments:
 
-- Require all security checks to pass
-- Manual approval from maintainer
-- Health checks post-deployment
-- Automatic rollback on critical errors
+- Automated via GitHub Actions + Vercel on push to `main` (only `develop` → `main` PRs are allowed, so changes pass PR checks first)
+- Security headers (CSP, HSTS, Permissions-Policy) enforced via `vercel.json`
+- Deploy is gated on CI success (`deploy.yml` triggers on `workflow_run` of `CI`, not directly on push)
 
 ---
 

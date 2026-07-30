@@ -8,7 +8,7 @@ Personal portfolio of David Sandoval (sandovaldavid), Software Engineer.
 
 - **URL**: https://devsandoval.me
 - **Repo**: https://github.com/sandovaldavid/portfolio
-- **Framework**: Angular 21 + Analog (SSR/SSG meta-framework)
+- **Framework**: Angular 22 + Analog (SSR/SSG meta-framework)
 - **Build**: Vite 7
 - **Deployment**: Vercel (preview on develop, production on main)
 
@@ -34,11 +34,11 @@ Never import "upward" (e.g. shared must not import from features).
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Angular | 21 | Framework |
+| Angular | 22 | Framework |
 | Analog | 2.x | SSR/SSG + file-based routing |
 | Vite | 7 | Build tool |
 | Tailwind CSS | 4 | Styling |
-| TypeScript | ~5.9 | Language |
+| TypeScript | ~6.0 | Language |
 | Vitest | 4 | Unit tests |
 | Playwright | 1.x | E2E tests |
 | Lighthouse CI | 1.x | Performance audits |
@@ -59,21 +59,41 @@ Never import "upward" (e.g. shared must not import from features).
 
 ### Angular Components
 
-Always use standalone components with signals:
+Every component must live in its own directory with four separate files — never inline template or styles in the decorator:
+
+```
+widgets/my-widget/
+├── my-widget.component.ts      # Class + @Component metadata only
+├── my-widget.component.html    # Template
+├── my-widget.component.css     # Styles
+└── my-widget.component.spec.ts # Unit tests
+```
+
+Generate with Angular CLI (always from the project root):
+
+```bash
+ng generate component widgets/my-widget --standalone --change-detection OnPush
+# or the shorthand:
+ng g c widgets/my-widget --standalone --change-detection OnPush
+```
+
+The `.ts` file must use `templateUrl` and `styleUrl` — never `template` or `styles`:
 
 ```typescript
 @Component({
-  selector: 'app-example',
+  selector: 'app-my-widget',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `...`,
+  templateUrl: './my-widget.component.html',
+  styleUrl: './my-widget.component.css',
 })
-export class ExampleComponent {
+export class MyWidgetComponent {
   title = input.required<string>();
   clicked = output<void>();
 }
 ```
 
+Additional rules:
 - `input()` / `input.required()` over `@Input()`
 - `output()` over `@Output()`
 - `OnPush` change detection always
@@ -92,10 +112,19 @@ Example: `feat(hero): add animated typing effect`
 
 ### File Naming
 
-- Components: `name.component.ts`
-- Services: `name.service.ts`
-- Specs: `name.component.spec.ts`
+Every component produces exactly four files — no exceptions:
+
+| File | Purpose |
+|------|---------|
+| `name.component.ts` | Class declaration, `@Component` metadata (`templateUrl`, `styleUrl`) |
+| `name.component.html` | Template markup |
+| `name.component.css` | Component styles |
+| `name.component.spec.ts` | Unit tests |
+
+Other conventions:
+- Services: `name.service.ts` + `name.service.spec.ts`
 - Selectors: `app-name` (kebab-case with `app` prefix)
+- Inline `template:` or `styles:` in `@Component` are **not allowed**
 
 ## Testing Requirements
 
@@ -209,7 +238,7 @@ pnpm format       # Prettier
 1. `pnpm lint` — must pass
 2. `pnpm test -- --run` — all unit tests must pass
 
-### CI pipeline on PR to develop
+### CI pipeline on PR (develop and main)
 
 1. quality-checks (lint, format, typecheck, unit tests, security audit)
 2. build check + bundle size report
@@ -217,11 +246,9 @@ pnpm format       # Prettier
    - Navigation: all routes load without errors
    - Accessibility: axe-core WCAG 2AA on every page
    - Responsiveness: no horizontal overflow at 375/768/1280px
-
-### CI pipeline on PR to main (additional)
-
 4. Lighthouse audit (Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥ 85%)
-5. CodeQL security scan
+
+Note: the CodeQL workflow was removed (commit `c8fc00f5`); there is currently no static security scan in CI.
 
 ### Deploying
 
@@ -229,10 +256,29 @@ pnpm format       # Prettier
 - PR from `develop` → `main` only
 - Push to `main` → Vercel production (automated via deploy.yml)
 
+### Releases
+
+Versioning is 100% [release-please](https://github.com/googleapis/release-please) — there is no other release tool in this repo (`release-it` was removed, see `docs/tasks/05-chore-release-and-deps.md`). Never bump `version` in `package.json`, edit `CHANGELOG.md`, or create `v*` tags by hand.
+
+- `develop` → beta releases (`release-please-config.beta.json` / `.release-please-manifest.beta.json`)
+- `main` → stable releases (`release-please-config.stable.json` / `.release-please-manifest.stable.json`)
+- Conventional commits on push drive the changelog; release-please keeps an up-to-date release PR open per branch — merge it to cut the release (tag + GitHub release + `CHANGELOG.md`).
+
+## Documentation
+
+- `AGENTS.md` — equivalent agent-agnostic guide (agents.md standard) for other AI tools; **keep it in sync with this file when conventions change**.
+- `docs/README.md` — index of all docs and folder conventions.
+- `docs/arquitectura_actual.md` — **living reference** of the implemented system; update it in the same PR that adds/removes pages, widgets, or server routes.
+- `docs/review-2026-07/` — latest full review (findings per characteristic + feature feedback).
+- `docs/tasks/` — actionable task breakdown from the review: 1 file = 1 branch = 1 PR to develop; check off items and note the PR number when done.
+- Obsolete docs get deleted (git history is the archive), not kept with banners.
+
 ## Content & i18n
 
 Content lives in `src/content/` as markdown files.
 The site is bilingual (ES/EN). When adding text content, always add both language versions.
+
+Routes for `algorithms/`, `systems/`, and `case-studies/` markdown files are prerendered automatically: `vite.config.ts` reads `src/content/{dir}` at build time and generates the matching `/notes/*` or `/projects/*` prerender route, so a new note or case study lands in the static build and sitemap without touching `vite.config.ts`. Static routes (`/research`, `/resume`, etc.) still need to be added to `vite.config.ts`'s `prerender.routes` manually, plus `e2e/navigation.spec.ts` and `lighthouserc.json`.
 
 ## Performance Budgets
 
@@ -242,9 +288,9 @@ Lighthouse CI thresholds: Performance ≥ 80%, A11y ≥ 90%, SEO ≥ 90%, BP ≥
 
 ## Reports Dashboard
 
-Reports are stored as GitHub Actions artifacts (private repo — Pages not available on free plan).
+Reports (coverage, E2E, Lighthouse) are stored as GitHub Actions artifacts.
 Access: Actions tab → select any run → Artifacts → download `reports-<branch>-<run>`.
-If the repo is made public in the future, re-enable GitHub Pages in `publish-reports.yml`.
+(The old `publish-reports.yml` GitHub Pages workflow was removed in #120.)
 
 ## Secrets Required (GitHub)
 

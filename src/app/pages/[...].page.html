@@ -1,0 +1,61 @@
+<section class="not-found-container">
+	<div class="not-found-content">
+		<div class="glitch-wrapper">
+			<span class="glitch font-pixel" data-text="404">{{ i18n.t()('404.title') }}</span>
+		</div>
+
+		<h2 class="font-pixel text-xl md:text-2xl text-[--color-heading] mb-4 tracking-wider">
+			{{ i18n.t()('404.heading') }}
+		</h2>
+
+		<p
+			class="font-body text-base md:text-lg text-[--color-muted] max-w-md mx-auto mb-10 leading-relaxed"
+		>
+			{{ i18n.t()('404.description') }}
+		</p>
+
+		<div class="flex flex-wrap justify-center gap-4">
+			<a
+				routerLink="/"
+				class="inline-flex items-center gap-2.5 font-pixel text-sm md:text-base px-6 py-3 bg-[--color-primary] text-[--color-bg] hover:brightness-110 transition-all duration-150 active:scale-[0.98]"
+			>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 18 18"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M3 9l6-6 6 6" />
+					<path d="M9 3v12" />
+				</svg>
+				{{ i18n.t()('404.back-home') }}
+			</a>
+			<a
+				routerLink="/projects"
+				class="inline-flex items-center gap-2.5 font-pixel text-sm md:text-base px-6 py-3 text-[--color-primary] card-border hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-all duration-150 active:scale-[0.98]"
+			>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 18 18"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M2 5a2 2 0 012-2h3l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" />
+				</svg>
+				{{ i18n.t()('404.view-projects') }}
+			</a>
+		</div>
+	</div>
+
+	<div class="scanline" aria-hidden="true"></div>
+</section>

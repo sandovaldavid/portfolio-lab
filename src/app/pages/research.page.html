@@ -1,0 +1,41 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-28 space-y-28">
+	<!-- Header -->
+	<header class="text-center space-y-4 max-w-3xl mx-auto">
+		<p class="font-pixel text-xs text-[--color-muted] tracking-widest uppercase">
+			// {{ i18n.t()('research.eyebrow') }}
+		</p>
+		<h1 class="font-pixel text-3xl md:text-4xl text-[--color-primary]">
+			{{ i18n.t()('research.title') }}
+		</h1>
+		<p class="font-body text-base text-[--color-text] leading-relaxed">
+			{{ i18n.t()('research.subtitle') }}
+		</p>
+	</header>
+
+	<!-- LSTM Playground -->
+	<section id="lstm" class="scroll-mt-36" aria-labelledby="lstm-heading" appScrollObserver>
+		<app-section-title id="lstm-heading">
+			{{ i18n.t()('title.lstm-playground') }}
+		</app-section-title>
+		<p class="font-body text-sm text-[--color-muted] mb-6 -mt-4">{{ i18n.t()('lstm.subtitle') }}</p>
+		@defer (on viewport) {
+		<app-lstm-playground />
+		} @placeholder {
+		<div class="h-96 surface-card animate-pulse flex items-center justify-center">
+			<span class="font-pixel text-xs text-[--color-muted]">Loading LSTM simulation...</span>
+		</div>
+		}
+	</section>
+
+	<!-- MEXT Thesis Abstract -->
+	<section id="mext" class="scroll-mt-36" aria-labelledby="mext-heading" appScrollObserver>
+		<app-section-title id="mext-heading"> {{ i18n.t()('title.mext-proposal') }} </app-section-title>
+		@defer (on viewport) {
+		<app-mext-thesis-pitch />
+		} @placeholder {
+		<div class="h-64 surface-card animate-pulse flex items-center justify-center">
+			<span class="font-pixel text-xs text-[--color-muted]">Loading research proposal...</span>
+		</div>
+		}
+	</section>
+</div>

@@ -1,15 +1,9 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	OnInit,
-	computed,
-	inject,
-	signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { injectContentFiles } from '@analogjs/content';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
-import { SeoService } from '@shared/lib/seo/seo.service';
+import { setupPageSeo } from '@shared/lib/seo/page-seo';
+import { ogImageUrl } from '@shared/config/contact.config';
 import { DatePipe } from '@angular/common';
 
 export interface NoteAttributes {
@@ -28,9 +22,8 @@ export interface NoteAttributes {
 	styleUrl: './index.page.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class NotesListPage implements OnInit {
+export default class NotesListPage {
 	readonly i18n = inject(I18nService);
-	private readonly seo = inject(SeoService);
 
 	// Load all markdown files from src/content/
 	private readonly allNotes = injectContentFiles<NoteAttributes>();
@@ -58,13 +51,18 @@ export default class NotesListPage implements OnInit {
 			);
 	});
 
-	ngOnInit(): void {
-		this.seo.updatePage({
+	constructor() {
+		setupPageSeo(() => ({
 			title: 'TIL Vault | David Sandoval',
 			description:
 				'Today I Learned — atomic notes on Computer Science, algorithms, and distributed systems.',
+			ogImage: ogImageUrl(
+				'TIL Vault',
+				'Today I Learned — atomic notes on Computer Science, algorithms, and distributed systems.',
+				'notes'
+			),
 			canonical: 'https://devsandoval.me/notes',
-		});
+		}));
 	}
 
 	updateSearch(val: string): void {

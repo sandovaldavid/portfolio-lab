@@ -1,47 +1,40 @@
 ---
-description: Create a new release with changelog and version bump
+description: Review and merge the pending release-please PR
 ---
 
-Create a new release for the portfolio following the project's semantic versioning setup.
-
-## Pre-release checklist (verify before proceeding)
-
-1. Current branch is `main` — if not, stop and tell the user
-2. Working tree is clean (`git status`)
-3. All CI checks are passing (ask user to confirm or check `gh run list`)
+Releases in this repo are fully automated via [release-please](https://github.com/googleapis/release-please) — there is no manual release command. release-please watches conventional commits on `develop` (beta) and `main` (stable) and keeps an up-to-date release PR open per branch with the version bump and generated `CHANGELOG.md` entries. Merging that PR is what cuts the release (git tag + GitHub release + changelog).
 
 ## Steps
 
-1. Show recent commits since last tag:
+1. Confirm the current branch (`develop` for a beta release, `main` for a stable release) and that the working tree is clean.
+
+2. Find the open release-please PR targeting that branch:
    ```bash
-   git log $(git describe --tags --abbrev=0)..HEAD --oneline
+   gh pr list --base <develop-or-main> --search "in:title release" --state open
    ```
 
-2. Suggest version bump based on commit types:
-   - Has `feat` commits → minor bump (e.g. 1.0.0 → 1.1.0)
-   - Only `fix`/`perf` commits → patch bump (e.g. 1.0.0 → 1.0.1)
-   - Has `BREAKING CHANGE` → major bump (e.g. 1.0.0 → 2.0.0)
+3. Show the user the PR title (contains the version bump) and its diff (mainly `CHANGELOG.md` and the manifest file) so they can review what's being released.
 
-3. Show the user what CHANGELOG.md will contain and ask for confirmation
-
-4. Run dry-run first:
+4. Confirm all required CI checks pass on that PR:
    ```bash
-   pnpm release:dry
+   gh pr checks <number>
    ```
 
-5. If dry-run looks correct, run:
+5. Ask the user to confirm before merging — merging is the action that actually creates the tag and GitHub release.
+
+6. If confirmed, merge the PR (respect this repo's merge conventions, typically squash):
    ```bash
-   pnpm release
+   gh pr merge <number> --squash
    ```
-   This will: bump version in package.json, update CHANGELOG.md, create git tag, push, create GitHub release.
 
 ## Post-release
 
-- Report the new version and GitHub release URL
-- Confirm the deploy workflow triggered on `main`
+- Report the new version and GitHub release URL (`gh release view <tag>`)
+- Confirm the deploy workflow triggered on the target branch
 
 ## Notes
 
-- Release only runs from `main` branch (enforced by `.release-it.json`)
-- GitHub token needs `repo` scope for creating releases
-- Set `GITHUB_TOKEN` in environment or use `gh auth token`
+- release-please is the only release system here — never bump `version` in `package.json`, hand-edit `CHANGELOG.md`, or create `v*` tags manually (see `docs/tasks/05-chore-release-and-deps.md` for why `release-it` was removed).
+- Beta config: `release-please-config.beta.json` / `.release-please-manifest.beta.json` (branch `develop`).
+- Stable config: `release-please-config.stable.json` / `.release-please-manifest.stable.json` (branch `main`).
+- GitHub token needs `repo` scope; use `gh auth token` or ensure `gh` is already authenticated.

@@ -1,0 +1,138 @@
+<article class="card-root h-full" [class.card-featured]="project().featured">
+	<div class="card-inner h-full flex flex-col">
+		<!-- ── Header bar ──────────────────────────────── -->
+		<div class="card-header">
+			<div class="flex items-center gap-1.5" aria-hidden="true">
+				<span class="dot dot-red"></span>
+				<span class="dot dot-amber"></span>
+				<span class="dot dot-green"></span>
+			</div>
+
+			<span class="card-index" aria-hidden="true">{{ indexLabel() }}</span>
+
+			@if (project().featured) {
+				<span class="featured-chip">★ featured</span>
+			}
+
+			@if (project().category) {
+				<span class="category-chip">{{ project().category }}</span>
+			}
+		</div>
+
+		<!-- ── Image ───────────────────────────────────── -->
+		<div class="card-image-wrap">
+			<img
+				[src]="project().image"
+				[alt]="project().title + ' screenshot'"
+				class="card-image"
+				loading="lazy"
+				decoding="async"
+				width="800"
+				height="450"
+			/>
+			<div class="card-image-overlay" aria-hidden="true"></div>
+		</div>
+
+		<!-- ── Body ────────────────────────────────────── -->
+		<div class="card-body flex flex-col flex-1 gap-3">
+			<h3 class="card-title">{{ project().title }}</h3>
+
+			<p class="card-desc">{{ project().description }}</p>
+
+			<!-- Metrics -->
+			@if (hasMetrics()) {
+				<div class="flex flex-wrap items-center gap-3 py-2">
+					@for (metric of project().metrics; track metric.labelKey) {
+						<div class="metric-pill">
+							<span class="metric-value">{{ metric.value }}</span>
+							<span class="metric-label">{{ t()(metric.labelKey) }}</span>
+						</div>
+					}
+					@if (lighthouseAverage(); as avg) {
+						<div class="metric-pill">
+							<span class="metric-value">{{ avg }}</span>
+							<span class="metric-label">{{ t()('projects.metric.lighthouse') }}</span>
+						</div>
+					}
+				</div>
+			}
+
+			<!-- Tech pills -->
+			<div class="flex flex-wrap gap-1.5 mt-auto">
+				@for (tag of visibleTags(); track tag.name) {
+					<app-tech-pill [label]="tag.name" [iconPath]="tag.iconPath" />
+				}
+				@if (hiddenTagsCount() > 0) {
+					<span class="more-badge">+{{ hiddenTagsCount() }}</span>
+				}
+			</div>
+
+			<!-- CTAs -->
+			<div class="card-cta">
+				@if (hasCaseStudy()) {
+					<a
+						[routerLink]="['/projects', project().caseStudy]"
+						class="cta-btn cta-outline"
+						attr.aria-label="Read case study for {{ project().title }}"
+					>
+						<span
+							class="mask-icon w-[13px] h-[13px]"
+							style="
+								mask-image: url(/assets/icons/file-text.svg);
+								-webkit-mask-image: url(/assets/icons/file-text.svg);
+							"
+						></span>
+						{{ t()('projects.read-case-study') }}
+					</a>
+				}
+				@if (project().github) {
+					<a
+						[href]="project().github"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="cta-btn cta-outline"
+						aria-label="View source code on GitHub"
+					>
+						<span
+							class="mask-icon w-[13px] h-[13px]"
+							style="
+								mask-image: url(/assets/icons/github.svg);
+								-webkit-mask-image: url(/assets/icons/github.svg);
+							"
+						></span>
+						Code
+					</a>
+				}
+				@if (project().link) {
+					<a
+						[href]="project().link"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="cta-btn cta-primary"
+						aria-label="View live demo"
+					>
+						<span
+							class="mask-icon w-[13px] h-[13px]"
+							style="
+								mask-image: url(/assets/icons/external-link.svg);
+								-webkit-mask-image: url(/assets/icons/external-link.svg);
+							"
+						></span>
+						Live
+					</a>
+				}
+
+				<!-- Spacer + arrow hint -->
+				<span class="card-arrow ml-auto" aria-hidden="true">
+					<span
+						class="mask-icon w-4 h-4"
+						style="
+							mask-image: url(/assets/icons/arrow-right.svg);
+							-webkit-mask-image: url(/assets/icons/arrow-right.svg);
+						"
+					></span>
+				</span>
+			</div>
+		</div>
+	</div>
+</article>

@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - develop
 
 permissions:
   contents: read
@@ -15,9 +16,9 @@ jobs:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
@@ -27,23 +28,31 @@ jobs:
         env:
           HUSKY: 0
 
+      - name: Restore shared build from CI
+        id: dist-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
+
       - name: Build project
+        if: steps.dist-cache.outputs.cache-hit != 'true'
         run: pnpm build
 
       - name: Run Lighthouse CI
         run: pnpm lighthouse
 
       - name: Upload Lighthouse reports
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: always()
         with:
           name: lighthouse-reports
           path: lighthouse-results/
-          retention-days: 30
+          retention-days: 14
 
       - name: Comment PR with Lighthouse results
         if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const fs = require('fs');
@@ -54,28 +63,60 @@ jobs:
             const files = fs.readdirSync(resultsDir).filter(f => f.endsWith('.json') && !f.includes('manifest'));
             if (files.length === 0) return;
 
-            const report = JSON.parse(fs.readFileSync(path.join(resultsDir, files[0]), 'utf8'));
-            const cats = report.categories || {};
             const score = s => s ? `${(s.score * 100).toFixed(0)}%` : 'N/A';
             const mark = s => s && s.score >= 0.9 ? '[pass]' : s && s.score >= 0.8 ? '[warn]' : '[fail]';
 
-            const rows = [
-              '[info] Lighthouse Audit Results',
+            const marker = '<!-- lighthouse-report -->';
+            const rows = [marker, '### 🔦 Lighthouse Audit Results', ''];
+
+            for (const file of files) {
+              const report = JSON.parse(fs.readFileSync(path.join(resultsDir, file), 'utf8'));
+              const cats = report.categories || {};
+              const url = report.requestedUrl || report.finalUrl || file;
+              rows.push(
+                `#### ${url}`,
+                '',
+                '| Category | Score | Status |',
+                '|----------|-------|--------|',
+                '| Performance | ' + score(cats.performance) + ' | ' + mark(cats.performance) + ' |',
+                '| Accessibility | ' + score(cats.accessibility) + ' | ' + mark(cats.accessibility) + ' |',
+                '| Best Practices | ' + score(cats['best-practices']) + ' | ' + mark(cats['best-practices']) + ' |',
+                '| SEO | ' + score(cats.seo) + ' | ' + mark(cats.seo) + ' |',
+                '',
+              );
+            }
+
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            rows.push(
+              `📦 **Download Artifact:** Descarga los reportes desde [GitHub Actions Run](${runUrl}).`,
               '',
-              '| Category | Score | Status |',
-              '|----------|-------|--------|',
-              '| Performance | ' + score(cats.performance) + ' | ' + mark(cats.performance) + ' |',
-              '| Accessibility | ' + score(cats.accessibility) + ' | ' + mark(cats.accessibility) + ' |',
-              '| Best Practices | ' + score(cats['best-practices']) + ' | ' + mark(cats['best-practices']) + ' |',
-              '| SEO | ' + score(cats.seo) + ' | ' + mark(cats.seo) + ' |',
-              '',
-              'Full report available in [workflow artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
-            ];
+              '💻 **View Locally:** Para descargar y levantar este reporte en tu máquina local, ejecuta:',
+              '```bash',
+              `gh run download ${context.runId} -n lighthouse-reports && npx serve lighthouse-results`,
+              '```'
+            );
             const body = rows.join('\n');
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const prNumber = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: body
+              issue_number: prNumber,
             });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

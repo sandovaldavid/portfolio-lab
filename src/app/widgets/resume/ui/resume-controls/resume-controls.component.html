@@ -1,0 +1,64 @@
+<aside
+	class="resume-controls no-print"
+	role="region"
+	aria-label="Resume customization controls"
+	[class.controls-collapsed]="!open()"
+>
+	<button
+		class="controls-toggle"
+		(click)="open.set(!open())"
+		[attr.aria-expanded]="open()"
+		aria-label="Toggle controls"
+	>
+		@if (open()) {
+			✕
+		} @else {
+			⚙
+		}
+	</button>
+
+	@if (open()) {
+		<div class="controls-body">
+			<h3 class="controls-title">{{ i18n.t()('resume.controls.title') }}</h3>
+
+			<div class="control-group">
+				<p class="control-label">{{ i18n.t()('resume.controls.style') }}</p>
+				<div class="style-switcher">
+					@for (s of styles; track s.value) {
+						<button
+							class="style-btn"
+							[class.style-btn-active]="activeStyle() === s.value"
+							[attr.aria-label]="'Switch to ' + s.label + ' resume style'"
+							(click)="styleChange.emit(s.value)"
+						>
+							{{ s.label }}
+						</button>
+					}
+				</div>
+			</div>
+
+			<div class="control-group">
+				<p class="control-label">{{ i18n.t()('resume.controls.sections') }}</p>
+				@for (section of allSections; track section) {
+					<label class="section-toggle">
+						<input
+							type="checkbox"
+							[checked]="isSectionVisible(section)"
+							(change)="sectionToggle.emit(section)"
+						/>
+						<span>{{ sectionLabel(section) }}</span>
+					</label>
+				}
+			</div>
+
+			<div class="control-actions">
+				<button class="ctrl-btn ctrl-btn-reset" (click)="resetClick.emit()">
+					{{ i18n.t()('resume.controls.reset') }}
+				</button>
+				<button class="ctrl-btn ctrl-btn-print" (click)="printResume()">
+					{{ i18n.t()('resume.controls.print') }}
+				</button>
+			</div>
+		</div>
+	}
+</aside>

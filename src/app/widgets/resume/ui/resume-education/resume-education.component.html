@@ -1,0 +1,25 @@
+@if (visible()) {
+	<section class="resume-section">
+		<h2 class="resume-section-title">{{ i18n.t()('resume.section.education') }}</h2>
+		<hr class="section-rule" />
+		@for (item of education(); track item.institution) {
+			<div class="education-item">
+				<div class="edu-header">
+					<div>
+						<span class="edu-degree">{{ item.degree }}</span>
+						<span class="edu-institution"> · {{ item.institution }}</span>
+					</div>
+					<span class="edu-date">{{ item.date }}</span>
+				</div>
+				<p class="edu-location">{{ item.location }}</p>
+				@if (item.description) {
+					<ul class="edu-bullets">
+						@for (line of item.description; track $index) {
+							<li>{{ line }}</li>
+						}
+					</ul>
+				}
+			</div>
+		}
+	</section>
+}

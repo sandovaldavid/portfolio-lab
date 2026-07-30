@@ -8,6 +8,7 @@
 @import '@fontsource/fira-code/700.css';
 @import 'tailwindcss';
 @import 'prismjs/themes/prism-tomorrow.css';
+@import 'katex/dist/katex.min.css';
 
 /* ============================================================
    DESIGN TOKENS — Navy Blue palette (dark) + Research (light blue)
@@ -27,7 +28,7 @@ html.mode-architect {
 	--color-danger: #f87171;
 	--color-warning: #fbbf24;
 	--color-text: #e2f0ff;
-	--color-muted: #6b9fd4;
+	--color-muted: #7aa9da;
 	--color-muted-light: #93b8e8;
 	--color-heading: #ffffff;
 	--nav-bg: rgba(2, 13, 28, 0.92);
@@ -104,6 +105,22 @@ html.mode-research {
 			transform: translateX(-50%);
 		}
 	}
+
+	/* Shadow scales */
+	--shadow-sm: 0 2px 8px rgb(0 0 0 / 0.15);
+	--shadow-md: 0 4px 20px rgb(0 0 0 / 0.2);
+	--shadow-lg: 0 8px 30px rgb(0 0 0 / 0.35);
+
+	/* Border radius scales */
+	--radius-sm: 2px;
+	--radius-md: 6px;
+	--radius-lg: 12px;
+	--radius-full: 9999px;
+
+	/* Duration scales */
+	--duration-fast: 0.15s;
+	--duration-normal: 0.25s;
+	--duration-slow: 0.4s;
 }
 
 /* ============================================================
@@ -244,8 +261,20 @@ html.mode-research {
 	.pixel-glow-accent {
 		text-shadow: 0 0 12px var(--color-accent);
 	}
-	.scanlines {
-		/* removed — noop */
+
+	/* CRT scanline curtain during mode transition */
+	.crt-curtain {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 9999;
+		opacity: 0;
+		background:
+			linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+			linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+		background-size:
+			100% 2px,
+			3px 100%;
 	}
 
 	/* ── Typography ───────────────────────────────────────────── */
@@ -353,5 +382,74 @@ html.mode-research {
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
+	}
+
+	.mask-icon {
+		background-color: currentColor;
+		display: inline-block;
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		mask-position: center;
+		-webkit-mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+	}
+}
+
+/* ============================================================
+   MODE TRANSITION — CRT scanline curtain
+   ============================================================ */
+html.mode-transitioning::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9999;
+	background:
+		linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+		linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+	background-size:
+		100% 2px,
+		3px 100%;
+	animation: crt-curtain 0.4s ease-in-out;
+	mix-blend-mode: overlay;
+}
+
+@keyframes crt-curtain {
+	0%,
+	100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html.mode-transitioning::after {
+		animation: none;
+		opacity: 0;
+	}
+}
+
+/* ============================================================
+   PRINT STYLES — A4 page setup
+   ============================================================ */
+@page {
+	size: A4;
+	margin: 1.5cm;
+
+	/* PR4: Page numbers */
+	@bottom-center {
+		content: 'Página ' counter(page);
+		font-size: 9pt;
+		color: #666;
+	}
+}
+
+@media print {
+	body {
+		print-color-adjust: exact;
+		-webkit-print-color-adjust: exact;
 	}
 }

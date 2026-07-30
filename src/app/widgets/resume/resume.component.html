@@ -1,0 +1,35 @@
+<div class="resume-layout" [attr.data-style]="activeStyle()">
+	<app-resume-controls
+		[activeStyle]="activeStyle()"
+		[visibleSections]="visibleSections()"
+		(styleChange)="onStyleChange($event)"
+		(sectionToggle)="onSectionToggle($event)"
+		(resetClick)="resetState()"
+	/>
+
+	<div class="resume-document" [class]="'resume-document--' + activeStyle()">
+		<app-resume-header />
+
+		<app-resume-summary [visible]="isSectionVisible('summary')" />
+
+		<app-resume-experience
+			[visible]="isSectionVisible('experience')"
+			[visibleBullets]="visibleBullets()"
+			(toggleBullet)="onToggleBullet($event)"
+		/>
+
+		<app-resume-education [visible]="isSectionVisible('education')" />
+
+		<app-resume-projects
+			[visible]="isSectionVisible('projects')"
+			[visibleProjects]="visibleProjects()"
+			(toggleProject)="onToggleProject($event)"
+		/>
+
+		<app-resume-skills
+			[visible]="isSectionVisible('skills')"
+			[visibleSkills]="visibleSkills()"
+			(toggleSkill)="onToggleSkill($event)"
+		/>
+	</div>
+</div>

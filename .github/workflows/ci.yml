@@ -1,6 +1,10 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - main
+      - develop
   pull_request:
     branches:
       - main
@@ -15,7 +19,7 @@ jobs:
   quality-checks:
     uses: ./.github/workflows/quality-checks.yml
     with:
-      run-audit: false
+      run-audit: true
     secrets: inherit
 
   build:
@@ -24,9 +28,9 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: "22"
           cache: pnpm
@@ -34,10 +38,28 @@ jobs:
         env:
           HUSKY: 0
       - run: pnpm build
+      - name: Cache build output for e2e/lighthouse
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
       - name: Check bundle size
         run: |
-          BUILD_SIZE=$(du -sh dist | cut -f1)
-          echo "[info] Build size: $BUILD_SIZE"
-          if [ $(du -s dist | cut -f1) -gt 700 ]; then
-            echo "[warning] Bundle size warning: exceeds 700KB"
+          BUDGET_KB=500
+          CLIENT_DIR="dist/analog/public/assets"
+          TOTAL_KB=$(du -ck "$CLIENT_DIR"/*.js | tail -1 | cut -f1)
+          LARGEST=$(du -k "$CLIENT_DIR"/*.js | sort -rn | head -1)
+          LARGEST_KB=$(echo "$LARGEST" | cut -f1)
+          LARGEST_FILE=$(echo "$LARGEST" | cut -f2)
+          echo "[info] Total client JS: ${TOTAL_KB} KB"
+          echo "[info] Largest chunk: ${LARGEST_FILE} (${LARGEST_KB} KB, budget ${BUDGET_KB} KB)"
+          if [ "$LARGEST_KB" -gt "$BUDGET_KB" ]; then
+            echo "[error] A JS chunk exceeds the ${BUDGET_KB}KB budget (chunkSizeWarningLimit in vite.config.ts)"
+            exit 1
           fi
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: bundle-stats
+          path: dist/stats.html
+          retention-days: 14

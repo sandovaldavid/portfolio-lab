@@ -1,0 +1,114 @@
+<section class="star-ledger" [class.prominent]="prominent()">
+	<!-- Prominent hero header -->
+	@if (prominent()) {
+		<div class="prominent-header">
+			<p class="prominent-eyebrow">// {{ i18n.t()('title.star-ledger') }}</p>
+			<h2 class="prominent-title">{{ i18n.t()('star.hero.title') }}</h2>
+			<p class="prominent-subtitle">{{ i18n.t()('star.hero.subtitle') }}</p>
+
+			<div class="metrics-grid">
+				@for (m of metricCards(); track m.id) {
+					<div class="metric-card" [class]="'metric-card--' + m.category">
+						<span class="metric-card-value">{{ m.value }}</span>
+						<span class="metric-card-label">{{ m.label }}</span>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+	<!-- Header -->
+	<div class="ledger-header">
+		<div class="ledger-title">
+			<span class="ledger-prompt">{{ i18n.t()('star.prompt') }}</span>
+			<span>{{ i18n.t()('star.header.path') }}</span>
+			<span class="ledger-badge">{{ entries().length }} {{ i18n.t()('star.header.badge') }}</span>
+		</div>
+		<p class="ledger-subtitle">{{ i18n.t()('star.header.subtitle') }}</p>
+	</div>
+
+	<!-- Filter tabs -->
+	<div class="filter-row" role="group" aria-label="Filter achievements by category">
+		@for (f of filters; track f.key) {
+			<button
+				class="filter-btn"
+				[class.active]="activeFilter() === f.key"
+				(click)="activeFilter.set(f.key)"
+				[attr.aria-pressed]="activeFilter() === f.key"
+			>
+				[{{ i18n.t()(f.labelKey) }}]
+			</button>
+		}
+	</div>
+
+	<!-- Table header (desktop) -->
+	<div class="table-header" aria-hidden="true">
+		<div class="col-expand"></div>
+		<div class="col-title">{{ i18n.t()('star.table.achievement') }}</div>
+		<div class="col-metric">{{ i18n.t()('star.table.metric') }}</div>
+		<div class="col-pattern">{{ i18n.t()('star.table.pattern') }}</div>
+		<div class="col-stack">{{ i18n.t()('star.table.stack') }}</div>
+		<div class="col-cat">{{ i18n.t()('star.table.type') }}</div>
+	</div>
+
+	<!-- Entries -->
+	<div class="entry-list">
+		@for (entry of entries(); track entry.id) {
+			<div class="entry-row" [class.expanded]="expandedId() === entry.id">
+				<!-- Collapsed row -->
+				<button
+					class="row-summary"
+					(click)="toggleExpand(entry.id)"
+					[attr.aria-expanded]="expandedId() === entry.id"
+					[attr.aria-controls]="'detail-' + entry.id"
+				>
+					<span class="col-expand">{{ expandedId() === entry.id ? '▼' : '▶' }}</span>
+					<span class="col-title entry-title">{{ entry.title }}</span>
+					<span class="col-metric entry-metric">{{ entry.metric }}</span>
+					<span class="col-pattern entry-pattern">{{ entry.pattern }}</span>
+					<span class="col-stack entry-stack">
+						@for (s of entry.stack; track s) {
+							<span class="stack-pill">{{ s }}</span>
+						}
+					</span>
+					<span class="col-cat" [class]="categoryColor(entry.category)">
+						{{ entry.category.toUpperCase() }}
+					</span>
+				</button>
+
+				<!-- Expanded detail -->
+				@if (expandedId() === entry.id) {
+					<div class="row-detail" [id]="'detail-' + entry.id" role="region">
+						<div class="detail-grid">
+							<!-- Metric highlight -->
+							<div class="detail-metric-card">
+								<div class="metric-value">{{ entry.metricValue }}</div>
+								<div class="metric-label">{{ entry.metric }}</div>
+							</div>
+
+							<!-- Story -->
+							<div class="detail-story">
+								<p class="story-text">{{ entry.detail }}</p>
+							</div>
+						</div>
+
+						<!-- Code snippet -->
+						@if (entry.codeSnippet) {
+							<div class="code-block">
+								<div class="code-header">
+									<span class="code-lang">{{ i18n.t()('star.detail.code-lang') }}</span>
+									<span class="code-meta">// {{ entry.pattern }}</span>
+								</div>
+								<pre class="code-content">{{ entry.codeSnippet }}</pre>
+							</div>
+						}
+					</div>
+				}
+			</div>
+		} @empty {
+			<div class="empty-state">
+				<span class="font-mono text-[--color-muted] text-sm">{{ i18n.t()('star.empty') }}</span>
+			</div>
+		}
+	</div>
+</section>

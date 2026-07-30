@@ -9,6 +9,11 @@
       name="description"
       content="David Sandoval — Software Engineer specializing in Angular and .NET. Building impactful web applications."
     />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,6 +29,22 @@
         if (idx >= 0 && idx <= 3) document.documentElement.style.fontSize = scales[idx] + 'px';
       })();
     </script>
+
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/lora-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- Global styles -->
     <link rel="stylesheet" href="/src/styles.css" />

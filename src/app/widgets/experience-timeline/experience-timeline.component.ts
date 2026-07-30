@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { I18nService } from '@shared/lib/i18n/i18n.service';
-import { ExperienceItemComponent } from '@entities/experience/ui/experience-item.component';
+import { ExperienceItemComponent } from '@entities/experience/ui/experience-item/experience-item.component';
 import { getExperienceData } from '@entities/experience/model/experience.data';
 
 @Component({

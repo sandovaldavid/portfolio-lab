@@ -1,31 +1,36 @@
-import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, PLATFORM_ID, VERSION, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontScaleService } from '../font-scale/font-scale';
-
-const PAGE_ROUTES: Record<string, string> = {
-	'1': '/',
-	'2': '/projects',
-	'3': '/experience',
-	'4': '/skills',
-	'5': '/about',
-};
+import { NAV_ROUTES, PAGE_ROUTES } from '@shared/config/navigation.config';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardShortcutsService {
 	private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 	private readonly router = inject(Router);
 	private readonly fontScale = inject(FontScaleService);
+	private readonly _destroyRef = inject(DestroyRef);
 
 	readonly shortcutsVisible = signal(false);
 
 	private _lastKey = '';
 	private _lastKeyTime = 0;
+	private _handler: ((e: KeyboardEvent) => void) | null = null;
+
+	constructor() {
+		this._destroyRef.onDestroy(() => {
+			if (this._handler) {
+				document.removeEventListener('keydown', this._handler);
+			}
+		});
+	}
 
 	register(): void {
 		if (!this.isBrowser) return;
-		document.addEventListener('keydown', (e) => this._handle(e));
+		const handler = (e: KeyboardEvent) => this._handle(e);
+		document.addEventListener('keydown', handler);
 		this._registerDiagnostics();
+		this._handler = handler;
 	}
 
 	private _registerDiagnostics(): void {
@@ -35,14 +40,28 @@ export class KeyboardShortcutsService {
 			const timing = perf ? perf.timing : null;
 			const loadTime = timing ? timing.loadEventEnd - timing.navigationStart + 'ms' : 'unknown';
 
+			const nav = perf?.getEntriesByType('navigation')[0] as
+				PerformanceNavigationTiming | undefined;
+			const serverResponseTime = nav
+				? `${Math.round(nav.responseEnd - nav.requestStart)}ms`
+				: 'unknown';
+
+			const jsBytes = perf
+				?.getEntriesByType('resource')
+				.filter(
+					(r): r is PerformanceResourceTiming => r.name.endsWith('.js') && 'transferSize' in r
+				)
+				.reduce((sum, r) => sum + r.transferSize, 0);
+			const estimatedBundleSize = jsBytes ? `${(jsBytes / 1024).toFixed(1)} KB` : 'unknown';
+
 			const report = {
 				status: 'SYSTEM_OK',
 				davidSandovalKernel: 'active',
 				clientMetrics: {
 					url: window.location.href,
 					userAgent: navigator.userAgent,
-					estimatedBundleSize: '45.8 KB',
-					apiResponseTime: '14ms',
+					estimatedBundleSize,
+					serverResponseTime,
 					browserLoadTime: loadTime,
 					activeMode: document.documentElement.classList.contains('mode-research')
 						? 'RESEARCH_FELLOW'
@@ -50,7 +69,7 @@ export class KeyboardShortcutsService {
 					activeLanguage: document.documentElement.lang || 'es',
 				},
 				systemHealth: {
-					angularVersion: '19.0.0',
+					angularVersion: VERSION.full,
 					analogEngine: 'Nitro + Vite',
 					hydration: 'enabled',
 					eventReplay: 'active',
@@ -176,7 +195,7 @@ export class KeyboardShortcutsService {
 			return;
 		}
 
-		const routes = ['/', '/projects', '/experience', '/skills', '/about', '/notes'];
+		const routes = NAV_ROUTES as unknown as string[];
 		const current = this.router.url;
 		const currentIndex = routes.indexOf(current);
 

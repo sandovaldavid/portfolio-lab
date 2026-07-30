@@ -1,0 +1,32 @@
+<div class="terminal-switcher" role="group" aria-label="Portfolio mode selector">
+	<div class="terminal-header">
+		<span class="terminal-prompt" aria-hidden="true">
+			&gt;_<span class="terminal-cursor">_</span>
+		</span>
+		<span class="terminal-title">ENV_SELECT</span>
+	</div>
+	<div class="terminal-buttons">
+		<button
+			class="terminal-btn"
+			[class.active]="mode.isArchitect()"
+			(click)="switchMode('SYSTEM_ARCHITECT')"
+			[attr.aria-pressed]="mode.isArchitect()"
+			title="System Architect mode — Software engineering focus"
+		>
+			<span class="status-led" aria-hidden="true"></span>
+			<span class="btn-label">[SYS]</span>
+			<span class="btn-subtitle">ARCHITECT</span>
+		</button>
+		<button
+			class="terminal-btn"
+			[class.active]="mode.isAcademic()"
+			(click)="switchMode('RESEARCH_FELLOW')"
+			[attr.aria-pressed]="mode.isAcademic()"
+			title="Research Fellow mode — Academic / PhD focus"
+		>
+			<span class="status-led" aria-hidden="true"></span>
+			<span class="btn-label">[PHD]</span>
+			<span class="btn-subtitle">RESEARCH</span>
+		</button>
+	</div>
+</div>

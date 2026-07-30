@@ -1,12 +1,5 @@
 export default {
 	extends: ['@commitlint/config-conventional'],
-	parserPreset: {
-		parserOpts: {
-			// Emoji prefix is optional \u2014 required for release-please compatibility
-			headerPattern: /^(?:(?:\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)\s+)?(\w+)(?:\(([^)]+)\))?!?:\s*(.+)$/u,
-			headerCorrespondence: ['type', 'scope', 'subject']
-		}
-	},
 	rules: {
 		'type-enum': [
 			2,

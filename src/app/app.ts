@@ -7,16 +7,17 @@ import { FontScaleService } from '@shared/lib/font-scale/font-scale';
 import { KeyboardShortcutsService } from '@shared/lib/keyboard-shortcuts/keyboard-shortcuts';
 import { NavbarComponent } from '@widgets/navbar/navbar.component';
 import { FooterComponent } from '@widgets/footer/footer.component';
-import { UtilityPanel } from '@features/utility-panel/utility-panel';
+import { UtilityPanelComponent } from '@features/utility-panel/utility-panel.component';
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanel],
+	imports: [RouterOutlet, NavbarComponent, FooterComponent, UtilityPanelComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
+		<a class="skip-link" href="#main">Skip to content</a>
 		<app-navbar />
-		<main class="pt-16">
+		<main id="main" class="pt-16">
 			<router-outlet />
 		</main>
 		<app-footer />
@@ -30,6 +31,21 @@ import { UtilityPanel } from '@features/utility-panel/utility-panel';
 				min-height: 100vh;
 				background-color: var(--color-bg);
 				color: var(--color-text);
+			}
+			.skip-link {
+				position: absolute;
+				left: -9999px;
+				z-index: 9999;
+				padding: 0.75rem 1.5rem;
+				background: var(--color-primary);
+				color: var(--color-bg);
+				font-family: var(--font-pixel);
+				font-size: 0.875rem;
+				text-decoration: none;
+			}
+			.skip-link:focus {
+				left: 1rem;
+				top: 1rem;
 			}
 		`,
 	],

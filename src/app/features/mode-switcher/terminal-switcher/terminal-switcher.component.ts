@@ -6,43 +6,8 @@ import { ModeStateService } from '@shared/lib/mode/mode-state.service';
 	selector: 'app-terminal-switcher',
 	imports: [],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	templateUrl: './terminal-switcher.html',
-	styles: `
-		.switcher-group {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-		}
-		.switcher-btn {
-			font-family: var(--font-code);
-			font-size: 0.8rem;
-			padding: 5px 10px;
-			background: transparent;
-			border: 1px solid var(--color-border);
-			color: var(--color-muted);
-			cursor: pointer;
-			transition:
-				border-color 0.15s,
-				color 0.15s,
-				background 0.15s;
-			white-space: nowrap;
-		}
-		.switcher-btn:hover {
-			border-color: var(--color-primary);
-			color: var(--color-text);
-		}
-		.switcher-btn.active {
-			border-color: var(--color-primary);
-			color: var(--color-primary);
-			background: color-mix(in srgb, var(--color-primary) 8%, transparent);
-		}
-		.divider {
-			color: var(--color-muted);
-			font-family: var(--font-code);
-			font-size: 0.8rem;
-			user-select: none;
-		}
-	`,
+	templateUrl: './terminal-switcher.component.html',
+	styleUrl: './terminal-switcher.component.css',
 })
 export class TerminalSwitcherComponent {
 	readonly mode = inject(ModeStateService);
@@ -54,8 +19,10 @@ export class TerminalSwitcherComponent {
 			document.documentElement.classList.add('mode-transitioning');
 			setTimeout(() => {
 				this.mode.setMode(target);
-				document.documentElement.classList.remove('mode-transitioning');
 			}, 200);
+			setTimeout(() => {
+				document.documentElement.classList.remove('mode-transitioning');
+			}, 400);
 		} else {
 			this.mode.setMode(target);
 		}
