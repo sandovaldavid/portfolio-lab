@@ -41,8 +41,7 @@ export class KeyboardShortcutsService {
 			const loadTime = timing ? timing.loadEventEnd - timing.navigationStart + 'ms' : 'unknown';
 
 			const nav = perf?.getEntriesByType('navigation')[0] as
-				| PerformanceNavigationTiming
-				| undefined;
+				PerformanceNavigationTiming | undefined;
 			const serverResponseTime = nav
 				? `${Math.round(nav.responseEnd - nav.requestStart)}ms`
 				: 'unknown';

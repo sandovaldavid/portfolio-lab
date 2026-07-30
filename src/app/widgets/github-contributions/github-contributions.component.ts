@@ -20,9 +20,7 @@ interface ContributionData {
 }
 
 type RequestState =
-	| { status: 'loading' }
-	| { status: 'success'; data: ContributionData }
-	| { status: 'error' };
+	{ status: 'loading' } | { status: 'success'; data: ContributionData } | { status: 'error' };
 
 @Component({
 	selector: 'app-github-contributions',
