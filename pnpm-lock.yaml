@@ -108,8 +108,8 @@ importers:
         specifier: ^2.6.1
         version: 2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0))
       '@analogjs/vitest-angular':
-        specifier: ^2.6.1
-        version: 2.6.1(@analogjs/vite-plugin-angular@2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0)))(@angular-devkit/architect@0.2200.2(chokidar@5.0.0))(@angular-devkit/schematics@22.0.2(chokidar@5.0.0))(vitest@4.1.9)
+        specifier: ^2.6.4
+        version: 2.6.4(@analogjs/vite-plugin-angular@2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0)))(@angular-devkit/architect@0.2200.2(chokidar@5.0.0))(@angular-devkit/schematics@22.0.2(chokidar@5.0.0))(vitest@4.1.9)
       '@angular/build':
         specifier: ^22.0.2
         version: 22.0.2(f247b1ed85aca2627bf81ec7339839d8)
@@ -345,8 +345,8 @@ packages:
   '@analogjs/vite-plugin-nitro@2.6.1':
     resolution: {integrity: sha512-OWmPCeZUR34og42JDJPrxCc0y7CsUxL5FYtnh2xKxVQiWlnGe9odHXiWsOrMwvhW+C2sz0HfJ5+KC6DZjInzRA==}
 
-  '@analogjs/vitest-angular@2.6.1':
-    resolution: {integrity: sha512-Hi6LF+uPDH6scV4EpA7gYu/08Ox/SIKBUj8cxwLxxCpGxPhW1DiR8PlfeiquJyVHzci7OXEBI7aSHymQbkbXUg==}
+  '@analogjs/vitest-angular@2.6.4':
+    resolution: {integrity: sha512-Q58VipnfncenMBKM0EZIUBrcjvG2f6cVde+8eebF5gjwoYd6Eb/c7ffDZsjT6mq0GvDEoI7F1M2YHh2jamoSEQ==}
     peerDependencies:
       '@analogjs/vite-plugin-angular': '*'
       '@angular-devkit/architect': '>=0.1700.0 < 0.2300.0 || >=0.2200.0 < 0.2300.0'
@@ -2906,8 +2906,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  baseline-browser-mapping@2.11.6:
-    resolution: {integrity: sha512-69D/imtToCsIcAl8WBS2YaRwA4jO/j0HhU+hELqMEu9f54MoUtI6+XH5mrKU8rEFNEk/Ui1I2MK4/JkWacclGw==}
+  baseline-browser-mapping@2.11.7:
+    resolution: {integrity: sha512-APw5YuIQAg6L9w4sHDI6j26DGFJI6RpYOhnkMPdC9lWbkKvsyPHzDsve1yd73lk21yz7Y09Kci8B2Pp9FonzWA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -6806,7 +6806,7 @@ snapshots:
       - uploadthing
       - xml2js
 
-  '@analogjs/vitest-angular@2.6.1(@analogjs/vite-plugin-angular@2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0)))(@angular-devkit/architect@0.2200.2(chokidar@5.0.0))(@angular-devkit/schematics@22.0.2(chokidar@5.0.0))(vitest@4.1.9)':
+  '@analogjs/vitest-angular@2.6.4(@analogjs/vite-plugin-angular@2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0)))(@angular-devkit/architect@0.2200.2(chokidar@5.0.0))(@angular-devkit/schematics@22.0.2(chokidar@5.0.0))(vitest@4.1.9)':
     dependencies:
       '@analogjs/vite-plugin-angular': 2.6.1(@angular/build@22.0.2(f247b1ed85aca2627bf81ec7339839d8))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(vite@7.3.5(@types/node@25.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.99.0)(terser@5.46.0))
       '@angular-devkit/architect': 0.2200.2(chokidar@5.0.0)
@@ -9270,7 +9270,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  baseline-browser-mapping@2.11.6: {}
+  baseline-browser-mapping@2.11.7: {}
 
   baseline-browser-mapping@2.9.19: {}
 
@@ -9358,7 +9358,7 @@ snapshots:
 
   browserslist@4.28.7:
     dependencies:
-      baseline-browser-mapping: 2.11.6
+      baseline-browser-mapping: 2.11.7
       caniuse-lite: 1.0.30001806
       electron-to-chromium: 1.5.398
       node-releases: 2.0.51
