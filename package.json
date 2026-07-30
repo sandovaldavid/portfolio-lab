@@ -61,7 +61,7 @@
     "@analogjs/platform": "^2.6.1",
     "@analogjs/vite-plugin-angular": "^2.6.1",
     "@analogjs/vitest-angular": "^2.6.4",
-    "@angular/build": "^22.0.2",
+    "@angular/build": "^22.0.8",
     "@angular/cli": "^22.0.8",
     "@angular/compiler-cli": "^22.0.2",
     "@axe-core/playwright": "^4.10.0",
