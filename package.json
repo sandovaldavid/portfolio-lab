@@ -83,7 +83,7 @@
     "h3": "^1.15.11",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "ng-mocks": "^14.15.3",
+    "ng-mocks": "^14.16.1",
     "postcss": "^8.5.26",
     "prettier": "^3.9.6",
     "rollup-plugin-visualizer": "^5.14.0",
