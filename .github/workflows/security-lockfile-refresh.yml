@@ -4,12 +4,16 @@ on:
   push:
     branches:
       - chore/security-lockfile-refresh-20260810
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   refresh:
+    if: github.event_name == 'push' || github.head_ref == 'chore/security-lockfile-refresh-20260810'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
