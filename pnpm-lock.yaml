@@ -35,10 +35,10 @@ importers:
     dependencies:
       '@analogjs/content':
         specifier: ^2.6.4
-        version: 2.6.4(14ce0d1303777058dc68b986a480b426)
+        version: 2.6.4(81c43a3259803e66866277ef1f7ad703)
       '@analogjs/router':
         specifier: ^2.6.4
-        version: 2.6.4(@analogjs/content@2.6.4(14ce0d1303777058dc68b986a480b426))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/router@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/animations@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2))
+        version: 2.6.4(@analogjs/content@2.6.4(81c43a3259803e66866277ef1f7ad703))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/router@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/animations@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2))
       '@angular/animations':
         specifier: ^22.0.8
         version: 22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))
@@ -100,8 +100,8 @@ importers:
         specifier: ~7.8.2
         version: 7.8.2
       satori:
-        specifier: ^0.26.0
-        version: 0.26.0
+        specifier: ^0.29.0
+        version: 0.29.0
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -5316,8 +5316,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  satori@0.26.0:
-    resolution: {integrity: sha512-tkMFrfIs3l2mQ2JEcyW0ADTy3zGggFRFzi6Ef8YozQSFsFKEqaSO1Y8F9wJg4//PJGQauMalHGTUEkPrFwhVPA==}
+  satori@0.29.0:
+    resolution: {integrity: sha512-fPAfrwNaIQ7EsJLhY382STEqpczN6ZEH9NsKXDQgRcxUXNNPB73iAjSshzFwTaaScT68pxV0pmG6TBzDQ4sEGw==}
     engines: {node: '>=16'}
 
   saxes@6.0.0:
@@ -6370,7 +6370,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@analogjs/content@2.6.4(14ce0d1303777058dc68b986a480b426)':
+  '@analogjs/content@2.6.4(81c43a3259803e66866277ef1f7ad703)':
     dependencies:
       '@angular/common': 22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2)
       '@angular/core': 22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)
@@ -6385,7 +6385,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
     optionalDependencies:
-      satori: 0.26.0
+      satori: 0.29.0
 
   '@analogjs/platform@2.6.4(@angular/build@22.0.9(b893c8807276aa7f3b5fc51493267a32))(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@parcel/watcher@2.6.0)(marked-gfm-heading-id@4.1.4(marked@15.0.12))(marked-highlight@2.2.4(marked@15.0.12))(marked-mangle@1.1.13(marked@15.0.12))(marked@15.0.12)(oxc-parser@0.121.0(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3))(prismjs@1.30.0)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)(terser@5.49.0))':
     dependencies:
@@ -6444,9 +6444,9 @@ snapshots:
       - webpack
       - xml2js
 
-  '@analogjs/router@2.6.4(@analogjs/content@2.6.4(14ce0d1303777058dc68b986a480b426))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/router@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/animations@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2))':
+  '@analogjs/router@2.6.4(@analogjs/content@2.6.4(81c43a3259803e66866277ef1f7ad703))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/router@22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/animations@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2))':
     dependencies:
-      '@analogjs/content': 2.6.4(14ce0d1303777058dc68b986a480b426)
+      '@analogjs/content': 2.6.4(81c43a3259803e66866277ef1f7ad703)
       '@angular/core': 22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)
       '@angular/router': 22.0.8(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@angular/platform-browser@22.0.8(@angular/animations@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)))(rxjs@7.8.2)
       tslib: 2.8.1
@@ -11620,7 +11620,7 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.6.0
 
-  satori@0.26.0:
+  satori@0.29.0:
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
       css-background-parser: 0.1.0
