@@ -1,8 +1,24 @@
 {
-  "name": "Angular 21",
+  "name": "portfolio-lab",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": ".."
+    "context": "..",
+    "args": {
+      "PNPM_VERSION": "11.7.0"
+    }
+  },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2.5.9": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "upgradePackages": false,
+      "username": "node"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1.1.0": {}
   },
   "customizations": {
     "vscode": {
@@ -25,10 +41,28 @@
       ]
     }
   },
-  "remoteUser": "node",
-  "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {} // Instala GH CLI oficialmente
+  "workspaceFolder": "/workspaces/portfolio-lab",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Analog/Vite development server",
+      "protocol": "http",
+      "onAutoForward": "openBrowserOnce",
+      "requireLocalPort": true
+    }
   },
-  "forwardPorts": [4200, 9876], // 4200 (App), 9876 (Karma/Test)
-  "postCreateCommand": "starship preset catppuccin-powerline -o ~/.config/starship.toml && pnpm install && ng version || true && (gh extension install github/copilot-cli || true) && echo 'Comprueba: copilot --version, opencode --version, codex --version'"
+  "containerEnv": {
+    "DEVCONTAINER": "true",
+    "TERM": "xterm-256color"
+  },
+  "init": true,
+  "runArgs": ["--security-opt", "label=disable"],
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+  "postStartCommand": "bash .devcontainer/scripts/post-start.sh",
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "16gb"
+  },
+  "shutdownAction": "stopContainer"
 }
