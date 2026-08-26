@@ -105,7 +105,20 @@ jobs:
       - run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
-      - run: pnpm audit --audit-level=high
+      - name: Generate audit report
+        id: audit
+        continue-on-error: true
+        run: pnpm audit --audit-level=high --json > audit-report.json
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: pnpm-audit-report
+          path: audit-report.json
+          retention-days: 1
+      - name: Fail on audit findings
+        if: steps.audit.outcome == 'failure'
+        run: exit 1
       - name: Comment PR on audit failure
         if: failure() && github.event_name == 'pull_request'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
