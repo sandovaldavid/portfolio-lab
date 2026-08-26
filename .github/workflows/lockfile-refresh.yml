@@ -6,7 +6,7 @@ on:
       - fix/devcontainer-dotfiles-identity
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   refresh-lockfile:
@@ -19,27 +19,18 @@ jobs:
           node-version: "22"
           cache: pnpm
       - name: Refresh lockfile only
-        id: refresh
-        continue-on-error: true
-        shell: bash
-        run: |
-          pnpm install --lockfile-only --no-frozen-lockfile > lockfile-refresh.log 2>&1
+        run: pnpm install --lockfile-only --no-frozen-lockfile
         env:
           HUSKY: 0
-      - name: Upload refresh diagnostics
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: lockfile-refresh-log
-          path: lockfile-refresh.log
-          retention-days: 1
-      - name: Upload refreshed lockfile
-        if: steps.refresh.outcome == 'success'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: refreshed-pnpm-lock
-          path: pnpm-lock.yaml
-          retention-days: 1
-      - name: Fail on refresh error
-        if: steps.refresh.outcome == 'failure'
-        run: exit 1
+      - name: Commit generated lockfile
+        shell: bash
+        run: |
+          if git diff --quiet -- pnpm-lock.yaml; then
+            echo "Lockfile already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git commit -m "fix(deps): refresh pnpm lockfile"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
