@@ -2,15 +2,22 @@ overrides:
   hono: ">=4.12.25"
   node-forge: ">=1.4.0"
   piscina: ">=5.2.0"
-  undici: ">=7.28.0"
-  fast-uri: ">=3.1.2"
+  "undici@>=7.0.0 <8.0.0": ">=7.29.0 <8.0.0"
+  "fast-uri@>=3.0.0 <4.0.0": ">=3.1.5 <4.0.0"
   defu: ">=6.1.5"
   form-data: ">=4.0.6"
-  tar: ">=7.5.16"
+  "tar@>=7.0.0 <8.0.0": ">=7.5.21 <8.0.0"
   esbuild: ">=0.28.1"
-  ip-address: ">=10.1.1"
+  "ip-address@>=10.0.0 <11.0.0": ">=10.3.1 <11.0.0"
   lodash: ">=4.18.1"
-  "js-yaml@>=4.0.0 <5.0.0": "4.2.0"
+  "js-yaml@>=3.0.0 <4.0.0": "3.15.1"
+  "js-yaml@>=4.0.0 <5.0.0": "4.3.1"
+  "brace-expansion@>=1.0.0 <2.0.0": "1.1.18"
+  "brace-expansion@>=2.0.0 <3.0.0": "2.1.4"
+  "brace-expansion@>=5.0.0 <6.0.0": "5.0.9"
+  "postcss@>=8.0.0 <9.0.0": ">=8.5.18 <9.0.0"
+  "immutable@>=5.0.0 <6.0.0": ">=5.1.8 <6.0.0"
+  "nanoid@>=3.0.0 <4.0.0": ">=3.3.18 <4.0.0"
   "minimatch@>=3.0.0 <4.0.0": "3.1.4"
   "minimatch@>=5.0.0 <6.0.0": "5.1.8"
   "minimatch@>=9.0.0 <10.0.0": "9.0.7"
@@ -23,18 +30,26 @@ overrides:
   "vite@>=7.0.0 <=7.3.4": ">=7.3.5"
   "sigstore@<=4.1.0": ">=4.1.1"
 
+# Lighthouse CI 0.15.1 -> Lighthouse 12.6.1 -> Puppeteer still resolves
+# extract-zip 2.0.1. GHSA-jmr9-qjv8-65gv declares >=2.0.2 patched,
+# but npm has no 2.0.2 release. Keep the exception narrowly scoped and
+# remove it when upstream publishes a resolvable fix.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-jmr9-qjv8-65gv
+
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   lmdb: true
   msgpackr-extract: true
 minimumReleaseAgeExclude:
-  - '@angular/animations@22.0.2'
-  - '@angular/common@22.0.2'
-  - '@angular/compiler@22.0.2'
-  - '@angular/core@22.0.2'
-  - '@angular/forms@22.0.2'
-  - '@angular/platform-browser@22.0.2'
-  - '@angular/platform-server@22.0.2'
-  - '@angular/router@22.0.2'
-  - '@angular/compiler-cli@22.0.2'
+  - '@angular/animations@22.0.8'
+  - '@angular/common@22.0.8'
+  - '@angular/compiler@22.0.8'
+  - '@angular/core@22.0.8'
+  - '@angular/forms@22.0.8'
+  - '@angular/platform-browser@22.0.8'
+  - '@angular/platform-server@22.0.8'
+  - '@angular/router@22.0.8'
+  - '@angular/compiler-cli@22.0.8'
