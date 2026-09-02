@@ -100,14 +100,18 @@ export default defineConfig(() => ({
   build: {
     target: ['es2020'],
     chunkSizeWarningLimit: 500,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          vendor: ['@angular/core', '@angular/common', '@angular/router'],
-          fonts: [
-            '@fontsource/fira-code',
-            '@fontsource/jetbrains-mono',
-            '@fontsource/lora',
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor',
+              test: /node_modules[\\/]@angular[\\/](?:core|common|router)(?:[\\/]|$)/,
+            },
+            {
+              name: 'fonts',
+              test: /node_modules[\\/]@fontsource[\\/](?:fira-code|jetbrains-mono|lora)(?:[\\/]|$)/,
+            },
           ],
         },
       },
